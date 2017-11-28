@@ -1,0 +1,1234 @@
+<!-- views/home.handlebars -->
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+
+{{#if user}}
+    <div>
+        <!-- Content Header (Page header) -->
+        <section >
+            <h1>
+                Kubernetes Dashboard | Load Test
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- /.row -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- MAP & BOX PANE -->
+              <div class="box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Load Test</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+            <div class="col-md-4">
+              <!-- DIRECT CHAT PRIMARY -->
+              <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Basic-Load</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form action="/kubernetes/loadtest" method="post">
+                        <div class="form-group">
+                          <div class="form-group"  style="float:left;">
+                            <label class="col-sm-6 control-label">Load Test Name:</label>
+                            <div class="col-sm-6">
+                              <input name="testName" class="form-control" type="text" value="loadTest1" readonly="true">
+                            </div>
+                          </div>
+
+                          <div class="form-group"  style="float:left;">
+                            <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                            <div class="col-sm-6">
+                              <input name="numConcurrClients" class="form-control" type="text" value="10" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Maximum Requests:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequests" type="text" value="10" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequestsPerSecond" type="text" value="1" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTime" type="text" value="120" readonly="true">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-primary">Send</button>
+                              </span>
+                            </div>
+                        </div>
+                     </form>
+                </div>
+                <!-- /.box-footer-->
+              </div>
+              <!--/.direct-chat -->
+            </div>
+            <div class="col-md-4">
+              <!-- DIRECT CHAT SUCCESS -->
+              <div class="box box-success direct-chat direct-chat-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">2nd Load</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <form  action="/kubernetes/loadtest" method="post">
+                    <div class="form-group">
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Load Test Name:</label>
+                        <div class="col-sm-6">
+                          <input name="testName" class="form-control" type="text" value="loadTest2" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group"  style="float:left;">
+                        <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                        <div class="col-sm-6">
+                          <input name="numConcurrClients" class="form-control" type="text" value="20" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Maximum Requests:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxRequests" type="text" value="100" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxRequestsPerSecond" type="text" value="10" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxTime" type="text" value="120" readonly="true">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-footer">
+                      <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-success">Send</button>
+                              </span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.box-footer-->
+              </div>
+              <!--/.direct-chat -->
+            </div>
+            <div class="col-md-4">
+              <!-- DIRECT CHAT WARNING -->
+              <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">3rd LoadTest</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <form action="/kubernetes/loadtest" method="post">
+                    <div class="form-group">
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Load Test Name:</label>
+                        <div class="col-sm-6">
+                          <input name="testName" class="form-control" type="text" value="loadTest3" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group"  style="float:left;">
+                        <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                        <div class="col-sm-6">
+                          <input name="numConcurrClients" class="form-control" type="text" value="50" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Maximum Requests:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxRequests" type="text" value="1000" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxRequestsPerSecond" type="text" value="10" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxTime" type="text" value="120" readonly="true">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-footer">
+                      <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-warning">Send</button>
+                              </span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.box-footer-->
+              </div>
+              <!--/.direct-chat -->
+            </div>
+            <div class="col-md-4">
+              <!-- DIRECT CHAT DANGER -->
+              <div class="box box-danger direct-chat direct-chat-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">4th Load</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <form action="/kubernetes/loadtest" method="post">
+                    <div class="form-group">
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Load Test Name:</label>
+                        <div class="col-sm-6">
+                          <input name="testName" class="form-control" type="text" value="loadTest4" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group"  style="float:left;">
+                        <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                        <div class="col-sm-6">
+                          <input name="numConcurrClients" class="form-control" type="text" value="50" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Maximum Requests:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxRequests" type="text" value="10000" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxRequestsPerSecond" type="text" value="50" readonly="true">
+                        </div>
+                      </div>
+                      <div class="form-group" style="float:left;">
+                        <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" name="maxTime" type="text" value="300" readonly="true">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-footer">
+                      <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-danger">Send</button>
+                              </span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.box-footer-->
+              </div>
+              <!--/.direct-chat -->
+            </div>
+                <div class="col-md-4">
+                  <!-- DIRECT CHAT DANGER -->
+                  <div class="box box-danger direct-chat direct-chat-danger">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Linear Load Test</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <form action="/kubernetes/linearIncreaseLoadTest" method="post">
+                        <div class="form-group">
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Load Test Name:</label>
+                            <div class="col-sm-6">
+                              <input name="testName" class="form-control" type="text" value="linearLoadTest" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group"  style="float:left;">
+                            <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                            <div class="col-sm-6">
+                              <input name="numConcurrClients" class="form-control" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Maximum Requests:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequests" type="text" value="10000" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequestsPerSecond" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTime" type="text" value="300" readonly="true">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="box-footer">
+                          <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-danger">Send</button>
+                              </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.box-footer-->
+                  </div>
+                  <!--/.direct-chat -->
+                </div>
+                <div class="col-md-4">
+                  <!-- DIRECT CHAT DANGER -->
+                  <div class="box box-danger direct-chat direct-chat-danger">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Linear Constant Load Test</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <form action="/kubernetes/linearIncreaseConstantLoadTest" method="post">
+                        <div class="form-group">
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Load Test Name:</label>
+                            <div class="col-sm-6">
+                              <input name="testName" class="form-control" type="text" value="linearIncreaseConstantLoadTest" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group"  style="float:left;">
+                            <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                            <div class="col-sm-6">
+                              <input name="numConcurrClients" class="form-control" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Maximum Requests:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequests" type="text" value="10000" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequestsPerSecond" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTime" type="text" value="300" readonly="true">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="box-footer">
+                          <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-danger">Send</button>
+                              </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.box-footer-->
+                  </div>
+                  <!--/.direct-chat -->
+                </div>
+                <div class="col-md-4">
+                  <!-- DIRECT CHAT DANGER -->
+                  <div class="box box-danger direct-chat direct-chat-danger">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Triangle Load Test</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <form action="/kubernetes/triangleLoadTest" method="post">
+                        <div class="form-group">
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Load Test Name:</label>
+                            <div class="col-sm-6">
+                              <input name="testName" class="form-control" type="text" value="triangleLoadTest" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group"  style="float:left;">
+                            <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                            <div class="col-sm-6">
+                              <input name="numConcurrClients" class="form-control" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Maximum Requests:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequests" type="text" value="10000" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequestsPerSecond" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTime" type="text" value="300" readonly="true">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="box-footer">
+                          <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-danger">Send</button>
+                              </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.box-footer-->
+                  </div>
+                  <!--/.direct-chat -->
+                </div>
+                <div class="col-md-4">
+                  <!-- DIRECT CHAT DANGER -->
+                  <div class="box box-danger direct-chat direct-chat-danger">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Random Increase Decrease Load Test</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                      </div>
+                    </div>
+                    <div class="box-body">
+                      <form action="/kubernetes/upDownLoadTest" method="post">
+                        <div class="form-group">
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Load Test Name:</label>
+                            <div class="col-sm-6">
+                              <input name="testName" class="form-control" type="text" value="upDownLoadTest" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group"  style="float:left;">
+                            <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                            <div class="col-sm-6">
+                              <input name="numConcurrClients" class="form-control" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Maximum Requests:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequests" type="text" value="10000" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">TimeOut/Request:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Requests Per Sec:</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxRequestsPerSecond" type="text" value="50" readonly="true">
+                            </div>
+                          </div>
+                          <div class="form-group" style="float:left;">
+                            <label class="col-sm-6 control-label">Total Time (in sec):</label>
+                            <div class="col-sm-6">
+                              <input class="form-control" name="maxTime" type="text" value="300" readonly="true">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="box-footer">
+                          <div class="input-group">
+                              <span class="input-group-btn">
+                            <button type="submit" class="btn btn-block btn-danger">Send</button>
+                              </span>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.box-footer-->
+                  </div>
+                  <!--/.direct-chat -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <div class="col-md-12">
+              <!-- MAP & BOX PANE -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Graphs Based upon Past 1 Hour</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+
+
+                <div class="box-body no-padding">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            AutoScale Pods
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="autoscaleInstances" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayautoscaleInstances">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Avg Group CPU-Utilization
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="linecpuUtilization" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlaylinecpuUtilization">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Left col -->
+            <div class="col-md-12">
+              <!-- MAP & BOX PANE -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Graphs Based Upon Last Load-Test</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-sm-12">
+                      <select name="loadTestName" class="form-control" onchange="updateGraph(value)" >
+                        <option value="loadTest1" >loadTest1</option>
+                        <option value="loadTest2">loadTest2</option>
+                        <option  value="loadTest3" >loadTest3</option>
+                        <option value="loadTest4" >loadTest4</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-body no-padding">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Requests Elapsed Seconds
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="line" height="300" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayline">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Latency
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="lineLatency" height="300" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlaylineLatency">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Requests Per Second
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="barRPS" height="300" width="400"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlaybarRPS">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Total Latency Time(in Sec)
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="lineLatencyTotal" height="300" width="400"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlaylineLatencyTotal">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Total Errors
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="barErrors" height="300" width="400"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlaybarErrors">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Pods TimeLine Graph</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="box-body">
+                        <canvas id="podTime" height="300" width="400"></canvas>
+                      </div>
+                      <!-- /.chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- ./box-body -->
+
+                <!-- /.box-footer -->
+              </div>
+              <!-- /.box -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Pods TimeLine Data</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="box-body">
+                        <table id="podTimeLineData"class="table table-bordered table-striped">
+                        </table>
+                      </div>
+                      <div class="overlay" id = "overlaypodTimeLineDataid">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </div>
+                      <!-- /.chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- ./box-body -->
+
+                <!-- /.box-footer -->
+              </div>
+              <!-- /.box -->
+            </div>
+            <!-- /.col -->
+          </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- page script -->
+    <script>
+
+      $.post(
+        "/kubernetes/getLoadKubernetesData",{
+          testName: "upDownLoadTest"
+        },
+        function(data) {
+            console.log(data);
+          //data=JSON.parse(data);
+          var ctx = document.getElementById('autoscaleInstances').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: data.timestamp,
+              datasets: [{
+                label: 'Desired Replicas',
+                data: data.desiredReplicas,
+                borderColor: "red",
+                fill: false
+              },
+                {
+                  label: 'Current Replicas',
+                  data: data.currentReplicas,
+                  borderColor: "blue",
+                  fill: false
+                }]
+            }
+          });
+          $("#overlayautoscaleInstances").hide("slow");
+          var ctxLatency = document.getElementById('linecpuUtilization').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: data.timestamp,
+              datasets: [{
+                label: 'CPU-Utilization Current',
+                data: data.cpuPercentageCurrent,
+                borderColor: "blue",
+                fill: false
+              },
+                {
+                  label: 'CPU-Utilization Avg',
+                  data: data.cpuPercentageAvg,
+                  borderColor: "red",
+                  fill: false
+                }
+              ]
+            }
+          });
+          $("#overlaylinecpuUtilization").hide("slow");
+        });
+
+      $.post(
+        "/kubernetes/getLoadTestData",{
+          testName: "upDownLoadTest"
+        },
+        function(data) {
+          var allData = data;
+          console.log("All");
+          console.log(allData);
+
+
+          var ctx = document.getElementById('line').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Request Elapsed Sec',
+                data: allData.datarequestElapsed,
+                borderColor: "rgba(255,153,0,0.6)"
+              }]
+            }
+          });
+          $("#overlayline").hide("slow");
+          var ctxLatency = document.getElementById('lineLatency').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Max Latency',
+                data: allData.maxLatency,
+                borderColor: "rgba(255,153,0,0.6)",
+                fill: false,
+              }, {
+                label: 'Min Latency',
+                data: allData.minLatency,
+                borderColor: "red",
+                fill: false,
+              },{
+                label: 'Mean Latency',
+                data: allData.meanLatency,
+                borderColor: "#54D",
+                fill: false,
+              }
+              ]
+            }
+          });
+          $("#overlaylineLatency").hide("slow");
+          var ctxLatency = document.getElementById('barRPS').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'bar',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Requests Per Second',
+                data: allData.barRPS,
+                backgroundColor: "54D"
+              }
+              ]
+            }
+          });
+          $("#overlaybarRPS").hide("slow");
+          var ctxlatencyTotal = document.getElementById('lineLatencyTotal').getContext('2d');
+          var myChartLatencyTotal = new Chart(ctxlatencyTotal, {
+            type: 'line',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Total Latency Time (in Sec)',
+                data: allData.totalTimeSeconds,
+                backgroundColor: "#54F5B7"
+              }]
+            }
+          });
+          $("#overlaylineLatencyTotal").hide("slow");
+          var ctxErrors = document.getElementById('barErrors').getContext('2d');
+          var myChartErrors = new Chart(ctxErrors, {
+            type: 'bar',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Errors',
+                data: allData.errors,
+                backgroundColor: "#F5C454"
+              }
+              ]
+            }
+          });
+          $("#overlaybarErrors").hide("slow");
+        }
+      );
+      function updateGraph(loadTestName)
+      {
+        alert(loadTestName);
+        $.post(
+          "/kubernetes/getLoadTestData",{
+            testName: loadTestName
+          },
+          function(data) {
+            allData = data;
+
+            console.log(allData);
+            console.log(allData);
+            var ctx = document.getElementById('line').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Request Elapsed Sec',
+                  data: allData.datarequestElapsed,
+                  borderColor: "rgba(255,153,0,0.6)"
+                }]
+              }
+            });
+
+            var ctxLatency = document.getElementById('lineLatency').getContext('2d');
+
+            var myChartLatency = new Chart(ctxLatency, {
+              type: 'line',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Max Latency',
+                  data: allData.maxLatency,
+                  borderColor: "rgba(255,153,0,0.6)",
+                  fill: false,
+                }, {
+                  label: 'Min Latency',
+                  data: allData.minLatency,
+                  borderColor: "red",
+                  fill: false,
+                },{
+                  label: 'Mean Latency',
+                  data: allData.meanLatency,
+                  borderColor: "#54D",
+                  fill: false,
+                }
+                ]
+              }
+            });
+
+            var ctxLatency = document.getElementById('barRPS').getContext('2d');
+            var myChartLatency = new Chart(ctxLatency, {
+              type: 'bar',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Requests Per Second',
+                  data: allData.barRPS,
+                  backgroundColor: "54D"
+                }
+                ]
+              }
+            });
+            var ctxlatencyTotal = document.getElementById('lineLatencyTotal').getContext('2d');
+            var myChartLatencyTotal = new Chart(ctxlatencyTotal, {
+              type: 'line',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Total Latency Time (in Sec)',
+                  data: allData.totalTimeSeconds,
+                  backgroundColor: "#54F5B7"
+                }]
+              }
+            });
+            var ctxErrors = document.getElementById('barErrors').getContext('2d');
+            var myChartErrors = new Chart(ctxErrors, {
+              type: 'bar',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Errors',
+                  data: allData.errors,
+                  backgroundColor: "#F5C454"
+                }
+                ]
+              }
+            });
+          }
+        );
+      }
+      $.post(
+        "/kubernetes/getLoadTestTimelineData",{
+          testName: "upDownLoadTest"
+        },
+        function(data) {
+          console.log(data);
+          var result = $.map(data, function(val, key) {
+
+            if(val.kind == "Pod")
+            {
+              var obj ={
+                name: key
+              };
+
+              if(val.Scheduled)
+              {
+                obj.scheduled = val.Scheduled.firstTimestamp;
+              }
+              if(val.FailedScheduling)
+              {
+                obj.FailedScheduling = val.FailedScheduling.firstTimestamp;
+              }
+              if(val.SuccessfulMountVolume)
+              {
+                obj.SuccessfulMountVolume = val.SuccessfulMountVolume.firstTimestamp;
+              }
+              if(val.Pulling)
+              {
+                obj.Pulling = val.Pulling.firstTimestamp;
+              }
+              if(val.Pulled)
+              {
+                obj.Pulled = val.Pulled.firstTimestamp;
+              }
+              if(val.Created)
+              {
+                obj.Created = val.Created.firstTimestamp;
+              }
+              if(val.Started)
+              {
+                obj.Started = val.Started.firstTimestamp;
+              }
+              if(val.Killing)
+              {
+                obj.Killing = val.Killing.firstTimestamp;
+              }
+
+              return obj;
+            }
+          });
+          function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          }
+          var dataset=[];
+          var allData = [];
+          for(i=0;i<result.length;i++)
+          {
+            var row = [];
+            var row2 = [];
+            var set = {};
+            row.push(result[i].FailedScheduling);
+            row.push(result[i].scheduled);
+            row.push(result[i].SuccessfulMountVolume);
+            row.push(result[i].Pulling);
+            row.push(result[i].Pulled);
+            row.push(result[i].Created);
+            row.push(result[i].Started);
+            row.push(result[i].Killing);
+
+            row2.push(result[i].name);
+            if(result[i].FailedScheduling)
+              row2.push(result[i].FailedScheduling);
+            else
+              row2.push('none');
+            if(result[i].scheduled)
+              row2.push(result[i].scheduled);
+            else
+              row2.push('none');
+            if(result[i].SuccessfulMountVolume)
+              row2.push(result[i].SuccessfulMountVolume);
+            else
+              row2.push('none');
+            if(result[i].Pulling)
+              row2.push(result[i].Pulling);
+            else
+              row2.push('none');
+            if(result[i].Pulled)
+              row2.push(result[i].Pulled);
+            else
+              row2.push('none');
+            if(result[i].Created)
+              row2.push(result[i].Created);
+            else
+              row2.push('none');
+            if(result[i].Started)
+              row2.push(result[i].Started);
+            else
+              row2.push('none');
+            if(result[i].Killing)
+              row2.push(result[i].Killing);
+            else
+              row2.push('none');
+
+
+            set = {
+              label: result[i].name,
+              data: row,
+              borderColor: getRandomColor(),
+              fill: false
+            };
+
+            dataset.push(set);
+            allData.push(row2);
+          }
+
+          var podTime = document.getElementById('podTime').getContext('2d');
+          var myChartLatency = new Chart(podTime, {
+            type: 'line',
+            data: {
+              labels: ["Failed","scheduled","MountVol","Pulling","Pulled", "Created", "Started","Killing" ],
+              datasets: dataset
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: false,
+                    //scaleStepWidth:100
+                  }
+                }]
+              }
+            }
+          });
+          var titlesArr = [];
+
+          titlesArr.push({"title": "name"});
+          titlesArr.push({"title": "FailedScheduling"});
+          titlesArr.push({"title": "scheduled"});
+          titlesArr.push({"title": "SuccessfulMountVolume"});
+          titlesArr.push({"title": "Pulling"});
+          titlesArr.push({"title": "Pulled"});
+          titlesArr.push({"title": "Created"});
+          titlesArr.push({"title": "Started"});
+          titlesArr.push({"title": "Killing"});
+
+
+          console.log("Success Send Description");
+          var dataAll = {
+            "columns": titlesArr,
+            "data": allData
+          };
+          //data=JSON.parse(data);
+          $("#podTimeLineData").DataTable(dataAll);
+          $("#overlaypodTimeLineDataid").hide("slow");
+          console.log(result);
+        }
+      );
+    </script>
+
+{{else}}
+  <div style="height: 600px">
+      <h1>Welcome to Autoscaling Performance Measurement Tool</h1>
+    <p>Please Sign in and to continue!</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+{{/if}}

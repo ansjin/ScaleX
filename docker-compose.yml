@@ -1,0 +1,16 @@
+version: "2.0"
+services:
+  server-service:
+    build: server
+    ports:
+    - "8080:8080"
+    links:
+      - mongodbinst
+    restart: always
+  mongodbinst:
+    build: db-service
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=admin!User
+        - MONGO_INITDB_ROOT_PASSWORD=NotTobeKnown
+    ports:
+      - "27017:27017"

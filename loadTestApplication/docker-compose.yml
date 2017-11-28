@@ -1,0 +1,11 @@
+version: "2"
+services:
+  load-test:
+    build: .
+    ports:
+      - "3002:3002"
+    restart: always
+  mongodbinst:
+    build: mongod
+    ports:
+      - "27017:27017"

@@ -1,0 +1,44 @@
+{
+  "name": "autoscaling_performance_measurement_tool",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "",
+    "start": "node index.js",
+    "lint": "eslint . || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "authors": [
+    ","
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "express": "^4.13.4"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.77.0",
+    "bcryptjs": "^0.7.12",
+    "body-parser": "^1.17.1",
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.2",
+    "formidable": "^1.1.1",
+    "http": "0.0.0",
+    "loadtest": "^2.3.0",
+    "mongodb": "^2.2.11",
+    "passport": "^0.2.0",
+    "passport-facebook": "^1.0.3",
+    "passport-google": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.2",
+    "path": "^0.12.7",
+    "q": "^1.0.1",
+    "request": "^2.81.0"
+  }
+}

@@ -1,0 +1,79 @@
+<!-- views/home.handlebars -->
+{{#if user}}
+  <section class="content-header">
+    <h1>
+      Submit Information Page
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">SubmitInfo</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+            <div class="span12">
+                <div class="hero-unit center" style="margin-left: auto; margin-right: auto; margin-bottom: auto; margin-top: auto;">
+                    <h1>Submitted<small><font face="Tahoma" color="green">Successfully</font></small></h1>
+                    <br />
+                    <p>Followig Data is submitted to server : </p>
+                    <br>
+                    <pre>
+                    {{ toJSON dataClient}}<br>
+                        </pre>
+                    <a href="/" class="btn btn-large btn-info"><i class="icon-home icon-white"></i> Take Me Home</a>
+                </div>
+                <!-- By ConnerT HTML & CSS Enthusiast -->
+            </div>
+        </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br><br>
+    <br>
+
+  </section>
+
+{{else}}
+  <section class="content-header">
+    <h1>
+      Submit Information Page
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">UserInfo</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+            <div class="span12">
+                <div class="hero-unit center" style="text-align: center; margin-left: auto; margin-right: auto; margin-bottom: auto; margin-top: auto;">
+                    <h1>Page Not Found <small><font face="Tahoma" color="red">Error 404</font></small></h1>
+                    <br />
+                    <p>The page you requested could not be found, either contact your webmaster or try again. Use your browsers <b>Back</b> button to navigate to the page you have prevously come from</p>
+                    <p><b>Or you could just press this neat little button:</b></p>
+                    <a href="/" class="btn btn-large btn-info"><i class="icon-home icon-white"></i> Take Me Home</a>
+                </div>
+                <!-- By ConnerT HTML & CSS Enthusiast -->
+            </div>
+        </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br><br>
+    <br>
+  </section>
+
+{{/if}}
+

@@ -1,0 +1,24 @@
+language: node_js
+
+node_js:
+  - 'node'
+
+sudo: required
+
+git:
+  submodules: false
+
+services:
+  - docker
+
+before_install:
+  - git submodule update --init --recursive
+
+install:
+  - docker build -t ansjin/multi-layered-cloud-applications-auto-scaling-perormance-analysis .
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push ansjin/multi-layered-cloud-applications-auto-scaling-perormance-analysis;
+    fi

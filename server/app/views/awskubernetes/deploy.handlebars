@@ -1,0 +1,204 @@
+{{#if user}}
+  <div>
+    <section class="content-header">
+      <h1>
+       AWS-AutoScaler Deployment Configuration
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">AWS-AutoScaler</li>
+      </ol>
+    </section>
+  <section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <form role="form" action="/awskubernetes/deployawsautoscale" method="post">
+        <div class="box-body">
+          <table id="example2" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Field</th>
+              <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <th>Name</th>
+              <td><input type="text" class="form-control" name="name" value={{toJSONname info}}></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <th>AWS Token</th>
+              <td><input type="text" class="form-control" name="awstoken" value={{toJSONawstoken info}}></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <th>AWS Secret</th>
+              <td><input type="text" class="form-control" name="awssecret" value={{toJSONawssecret info}}></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <th>AWS Key Name</th>
+              <td><input type="text" class="form-control" name="awskeyname" value={{toJSONawskeyname info}}></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <th>AWS Region</th>
+              <td><input type="text" class="form-control" name="awsregion" value={{toJSONawsregion info}}></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <th>AWS Subnet Id</th>
+              <td><input type="text" class="form-control" name="awssubnetid" value={{toJSONawssubnetid info}}></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <th>AWS Subnet Id 2</th>
+              <td><input type="text" class="form-control" name="awssubnetid2" value={{toJSONawssubnetid2 info}}></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <th>AWS Security Id</th>
+              <td><input type="text" class="form-control" name="awssecurityid" value={{toJSONawssecurityid info}}></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <th>S3-Bucket Name</th>
+              <td><input type="text" class="form-control" name= "s3bucketname" value="passMasterIPtoMinions"></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <th>Instance Type</th>
+              <td> <select name="typeInst" class="form-control">
+                <option>t2.micro</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <th>Auto Scaling Parameter</th>
+              <td><select name="metricName" class="form-control">
+                <option value="CPUUtilization" >CPUUtilization</option>
+              </select></td>
+            </tr>
+            <tr>
+            <tr>
+              <td>9</td>
+              <th>Auto Scaling adjustmentType</th>
+              <td><select name="adjustmentType" class="form-control">
+                <option value="ChangeInCapacity" >ChangeInCapacity</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <th>Auto Scaling metricAggregationType</th>
+              <td><select name="metricAggregationType" class="form-control">
+                <option value="Average" >Average</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <th>Auto Scaling policyType</th>
+              <td><select name="policyType" class="form-control">
+                <option value="StepScaling" >StepScaling</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <th>scalingAdjustmentUp</th>
+              <td><input class="form-control" name= "scalingAdjustmentUp" type="number" min="1" max="5" step="1" value ="1"/></td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <th>scalingAdjustmentDown</th>
+              <td><input class="form-control" name= "scalingAdjustmentDown" type="number" min="1" max="5" step="1" value ="1"/></td>
+            </tr>
+
+            <tr>
+              <td>14</td>
+              <th>CPU Percentage To Scale After(VM)</th>
+              <td><input class="form-control" name= "threshold" type="number" min="10" max="100" step="5" value ="10"/></td>
+            </tr>
+
+            <tr>
+              <td>15</td>
+              <th>Minimum Instances:</th>
+              <td><input class="form-control" name= "minInst" type="number" min="1" max="5" step="1" value ="1"/></td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <th>Max Instances:</th>
+              <td><input class="form-control" name= "maxInst" type="number" min="2" max="10" step="1" value ="1"/></td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <th>CPU Percentage To Scale After for Pods</th>
+              <td><input class="form-control" name= "podCpuPercent" type="number" min="10" max="100" step="5" value ="10"/></td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <th>Minimum Pods:</th>
+              <td><input class="form-control" name= "numMinPods" type="number" min="1" max="3" step="1" value ="1"/></td>
+            </tr>
+            <tr>
+              <td>19</td>
+              <th>Max Pods:</th>
+              <td><input class="form-control" name= "numMaxPods" type="number" min="1" max="10" step="1" value ="1"/></td>
+            </tr>
+            <tr>
+              <td>20</td>
+              <th>AMI</th>
+              <td><input type="text" class="form-control" name= "imageid" value="ami-efd0428f"></td>
+            </tr>
+            <tr>
+              <td>21</td>
+              <th>Application Git URL</th>
+              <td><input type="text" class="form-control" name= "giturl" value="" ></td>
+            </tr>
+            <tr>
+              <td>22</td>
+              <th>Application exposed Port</th>
+              <td><input type="text" class="form-control" name= "appPort" value="80" ></td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+        <!-- /.box-body -->
+          <td><input type="submit" class="btn btn-block btn-primary" value="Deploy"></td>
+        </form>
+      </div>
+    </div>
+  </div>
+  </section>
+    <!-- /.col-lg-12 -->
+
+    <!-- Main content -->
+    <!-- /.content -->
+  </div>
+  <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <!-- Bootstrap 3.3.6 -->
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/dist/js/app.min.js"></script>
+  <script src="/plugins/sparkline/jquery.sparkline.min.js"></script>
+  <!-- jvectormap -->
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+{{else}}
+  <div style="height: 600px">
+    <h1>Welcome to Autoscaling Performance Measurement Tool</h1>
+    <p>Please Sign in and to continue!</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+{{/if}}
+
+

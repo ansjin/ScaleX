@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="shortcut icon" href="img/favicon.png">
+
+      <title>Tables | Load Tester Application</title>
+      <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+      <script>
+          var socket = io.connect("/");
+          var num=1;
+          //var Table = document.getElementById("streamContent");
+          //Table.innerHTML = "";
+          socket.on("message",function(message){
+              console.log("Message From the server arrived");
+
+              document.getElementById('streamContent').innerHTML+="<tr><td>"+ num+
+                  "<td>"+ message.requestIndexS+"</td>"+
+                  "</td><td>"+ message.latencyS.maxLatencyMs + "</td>"+
+                  "<td>" + message.latencyS.minLatencyMs + "</td>"+ "<td>" + message.latencyS.meanLatencyMs + "</td>" +
+                  "<td>"+ message.latencyS.rps+"</td>"+ "<td>"+ message.latencyS.totalErrors+"</td>"+
+                  "<td>"+ message.latencyS.totalRequests+"</td>"+"<td>"+ message.latencyS.totalTimeSeconds+"</td>"+
+                  "</tr>";
+
+              document.getElementById('streamContentResult').innerHTML+="<tr><td>"+ num+
+                  "<td>" + message.requestIndexS + "</td>"+
+                  "</td><td>"+ message.requestElapsedS + "</td>"+
+                  "<td>" + message.instanceIndexS + "</td>" +
+                  "<td>"+ message.latencyS.totalRequests+"</td>"+
+                  "</tr>";
+
+              document.getElementById('streamContentPercentile').innerHTML+="<tr><td>"+ num+
+                  "<td>" + message.requestIndexS + "</td>"+
+                  "</td><td>"+ message.latencyS.percentiles["50"] + "</td>"+
+                  "<td>" +message.latencyS.percentiles["90"] + "</td>" +
+                  "<td>"+ message.latencyS.percentiles["95"]+"</td>"+
+                  "<td>"+ message.latencyS.percentiles["99"]+"</td>"+
+                  "</tr>";
+
+
+              console.log(document.getElementById('streamContent').innerHTML);
+              console.log(message);
+              num=num+1;
+          });
+      </script>
+
+    <!-- Bootstrap CSS -->    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+  <!-- container section start -->
+  <section id="container" class="">
+      <!--header start-->
+
+      <header class="header dark-bg">
+          <div class="toggle-nav">
+              <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+          </div>
+
+          <!--logo start-->
+          <a href="index.html" class="logo">Load <span class="lite">Tester </span>Application</a>
+          <!--logo end-->
+
+          <div class="nav search-row" id="top_menu">
+              <!--  search form start -->
+              <ul class="nav top-menu">
+                  <li>
+                      <form class="navbar-form">
+                          <input class="form-control" placeholder="Search" type="text">
+                      </form>
+                  </li>
+              </ul>
+              <!--  search form end -->
+          </div>
+
+          <div class="top-nav notification-row">
+              <!-- notificatoin dropdown start-->
+              <ul class="nav pull-right top-menu">
+                  <!-- user login dropdown start-->
+                  <li class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <img alt="" src="img/avatar1_small.jpg">
+                            </span>
+                          <span class="username">Admin</span>
+                          <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu extended logout">
+                          <div class="log-arrow-up"></div>
+                          <li class="eborder-top">
+                              <a href="#"><i class="icon_profile"></i> My Profile</a>
+                          </li>
+                          <li>
+                              <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <!-- user login dropdown end -->
+              </ul>
+              <!-- notificatoin dropdown end-->
+          </div>
+      </header>
+      <!--header end-->
+
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">
+                  <li class="">
+                      <a class="" href="index.html">
+                          <i class="icon_house_alt"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_desktop"></i>
+                          <span> Load Test</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="basic_test.html">Basic Load Test</a></li>
+                          <li><a class="" href="custom_test.html">Custom Load Test</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_piechart"></i>
+                          <span>Statistics</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="chart-chartjs.html">Charts</a></li>
+                          <li><a class="" href="basic_table.html">Tables</a></li>
+                      </ul>
+                  </li>
+
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <h3 class="page-header"><i class="fa fa-table"></i> Tables</h3>
+                      <ol class="breadcrumb">
+                          <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                          <li><i class="fa fa-table"></i>Table</li>
+                          <li><i class="fa fa-th-list"></i>Basic Tables</li>
+                      </ol>
+                  </div>
+              </div>
+              <!-- page start-->
+              <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Latency table
+                          </header>
+                          <div class="table-responsive">
+
+                              <table class="table table-bordered">
+                                  <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Request Index</th>
+                                      <th> Max Latency</th>
+                                      <th> Min Latency</th>
+                                      <th> Mean Latency</th>
+                                      <th>RPS</th>
+                                      <th>Total Errors</th>
+                                      <th>Total Requests</th>
+                                      <th>Total Time Seconds</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody id="streamContent">
+
+                                  </tbody>
+                              </table>
+                          </div>
+
+                      </section>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <section class="panel">
+                          <header class="panel-heading no-border">
+                              Result Table
+                          </header>
+                          <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Request Index</th>
+                                  <th>Request Elapsed Secs</th>
+                                  <th>Instance Index</th>
+                                  <th>Total Requests</th>
+                              </tr>
+                              </thead>
+                              <tbody id="streamContentResult">
+
+                              </tbody>
+                          </table>
+                      </section>
+                  </div>
+                  <div class="col-sm-6">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Percentile Table
+                          </header>
+                          <table class="table table-bordered">
+                              <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Request Index</th>
+                                  <th>50</th>
+                                  <th>90</th>
+                                  <th>95</th>
+                                  <th>99</th>
+                              </tr>
+                              </thead>
+                              <tbody id="streamContentPercentile">
+
+                              </tbody>
+                          </table>
+                      </section>
+                  </div>
+              </div>
+              <!-- page end-->
+          </section>
+      </section>
+      <!--main content end-->
+      <div class="text-right">
+            <div class="credits">
+                <!-- 
+                    All the links in the footer should remain intact. 
+                    You can delete the links only if you purchased the pro version.
+                    Licensing information: https://bootstrapmade.com/license/
+                    Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+                -->
+                <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+  </section>
+  <!-- container section end -->
+    <!-- javascripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- nice scroll -->
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script><!--custome script for all page-->
+    <script src="js/scripts.js"></script>
+
+
+  </body>
+</html>

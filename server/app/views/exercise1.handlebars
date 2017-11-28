@@ -1,0 +1,115 @@
+<!-- views/home.handlebars -->
+{{#if user}}
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                    </div>
+                    <!-- /input-group -->
+                </li>
+                <li>
+                    <a href="/"><i class="fa fa-dashboard fa-fw"></i> Home</a>
+                </li>
+                <li>
+                    <a href="/userinfo"><i class="fa fa-table fa-fw"></i> User Infomation</a>
+                </li>
+                <li>
+                    <a href="/exercises/exercise1"><i class="fa fa-table fa-fw"></i> Exercise - 1</a>
+                </li>
+                <li>
+                    <a href="/exercises/exercise2"><i class="fa fa-table fa-fw"></i> Exercise - 2</a>
+                </li>
+                <li>
+                    <a href="/exercises/exercise3"><i class="fa fa-table fa-fw"></i> Exercise - 3</a>
+                </li>
+                <li>
+                    <a href="/exercises/exercise4"><i class="fa fa-table fa-fw"></i> Exercise - 4</a>
+                </li>
+              <li>
+                <a href="/exercises/exercise5"><i class="fa fa-table fa-fw"></i> Exercise - 5</a>
+              </li>
+              <li>
+                <a href="/exercises/exercise6"><i class="fa fa-table fa-fw"></i> Exercise - 6</a>
+              </li>
+
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <div id="wrapper">
+
+       <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header" style="text-align: center">Exercise 1 <br> (Cloud Access & Configuration)</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                  You already have done a lot of tasks, now it’s the time to get grade for those tasks. To submit your application results you need to follow this :
+                  <ol>
+
+                    <li>Provide your Name, Email and VM ip on which your application is running.</li>
+                  <li>Ip should be in this format:
+                    <b>http://IP_ADDRESS_VM:8080/exercises/exercise1</b> </li>
+                    <li>Then click submit.</li>
+                  </ol>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+
+                            <div class="login-panel panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Please Fill and Submit </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form" action="/exercises/exercise1" method="post">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="Full Name" name="name" type="text" autofocus>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="URL of Your VM" name="url" type="url" autofocus>
+                                            </div>
+                                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Submit the Values" />
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+  <div class="panel panel-default">
+
+  </div>
+
+{{else}}
+  <div class="jumbotron">
+      <h1>Welcome to Cloud Class Server</h1>
+    <p>Please Sign in  to continue!</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+{{/if}}
+

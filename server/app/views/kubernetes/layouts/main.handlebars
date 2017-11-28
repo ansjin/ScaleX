@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+
+  <title>Autoscaling PM Tool</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+
+
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect.
+  -->
+  <link rel="stylesheet" href="/dist/css/skins/skin-blue.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+
+</head>
+<style>
+
+  /*=========================
+    Icons
+   ================= */
+
+  /* footer social icons */
+  ul.social-network {
+    list-style: none;
+    display: inline;
+    margin-left:0 !important;
+    padding: 0;
+  }
+  ul.social-network li {
+    display: inline;
+    margin: 0 5px;
+  }
+
+
+  /* footer social icons */
+  .social-network a.icoRss:hover {
+    background-color: #F56505;
+  }
+  .social-network a.icoFacebook:hover {
+    background-color:#3B5998;
+  }
+  .social-network a.icoTwitter:hover {
+    background-color:#33ccff;
+  }
+  .social-network a.icoGoogle:hover {
+    background-color:#BD3518;
+  }
+  .social-network a.icoVimeo:hover {
+    background-color:#0590B8;
+  }
+  .social-network a.icoLinkedin:hover {
+    background-color:#007BB6;
+  }
+
+  .social-network a.icoInstagram:hover {
+    background-color:#3F729B;
+  }
+
+  .social-network a.icoYelp:hover {
+    background-color:#CB2027;
+  }
+
+  .social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+  .social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i,
+  .social-network a.icoInstagram:hover i, .social-network a.icoYelp:hover i {
+    color:#fff;
+  }
+  a.socialIcon:hover, .socialHoverClass {
+    color:#44BCDD;
+  }
+
+  .social-circle li a {
+    display:inline-block;
+    position:relative;
+    margin:0 auto 0 auto;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border-radius:50%;
+    text-align:center;
+    width: 50px;
+    height: 50px;
+    font-size:20px;
+  }
+  .social-circle li i {
+    margin:0;
+    line-height:50px;
+    text-align: center;
+  }
+
+  .social-circle li a:hover i, .triggeredHover {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+  .social-circle i {
+    color: #fff;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    transition: all 0.8s;
+  }
+  body { padding-bottom: 70px; }
+
+</style>
+<body class="hold-transition skin-blue layout-top-nav">
+<div class="wrapper" style="background-color: white">
+  <header class="main-header"  >
+
+
+    <nav class="navbar navbar-static-top">
+
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand"><b>Autoscaling Performance Meaurement Tool</b></a>
+      </div>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li><a href="#">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Autoscaling Solutions <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/kubernetes">Kubernetes</a></li>
+              <li class="divider"></li>
+              <li><a href="/awsautoscale">AWS-Autoscale</a></li>
+              <li class="divider"></li>
+              <li><a href="/awskubernetes">Kube-AWS-Autoscale</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Contact Us</a></li>
+          {{#if user}}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.username}} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/userinfo">Profile</a></li>
+                <li class="divider"></li>
+                <li><a href="/edituserinfo">Edit Information</a></li>
+                <li class="divider"></li>
+                <li><a href="/logout">Log-Out</a></li>
+              </ul>
+            </li>
+          {{else}}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign-In/Register <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/signin">Sign-In</a></li>
+                <li class="divider"></li>
+                <li><a href="/register">Register</a></li>
+              </ul>
+            </li>
+          {{/if}}
+        </ul>
+      </div>
+    </nav>
+
+  </header>
+  <div class="container" style="background-color: white">
+    {{#if error}}
+      <p class="alert alert-warning">{{error}}</p>
+    {{/if}}
+
+    {{#if success}}
+      <p class="alert alert-success">{{success}}</p>
+    {{/if}}
+
+    {{#if notice}}
+      <p class="alert alert-info">{{notice}}</p>
+    {{/if}}
+
+    <!--where our other templates will insert-->
+    {{{body}}}
+
+
+  </div> <!-- /container -->
+
+  <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+
+    <footer class="main-footer" class="text-center" style="margin-left: 0; bottom: 0px; color: white;  background-color: #297baa;">
+      <!-- To the right -->
+      <div class="pull-right" style=" margin-top: -15px;" >
+        <div class="text-center">
+          <div class="col-md-12">
+            <ul class="social-network social-circle"  >
+              <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+              <li><a href="#" class="icoInstagram" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+              <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <strong> &copy; 2017 <a href="/" style="color: white;">Autoscaling Perforance Meaurement Tool</a> </strong> All rights reserved.
+    </footer>
+  </nav>
+</div>
+</body>
+</html>
+

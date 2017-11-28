@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Basic Test | Load Tester Application</title>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script src="js/getData.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="js/lte-ie7.js"></script>
+
+    <![endif]-->
+</head>
+
+<body>
+<!-- container section start -->
+<section id="container" class="">
+    <!--header start-->
+
+    <header class="header dark-bg">
+        <div class="toggle-nav">
+            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+        </div>
+
+        <!--logo start-->
+        <a href="index.html" class="logo">Load <span class="lite">Tester </span>Application</a>
+        <!--logo end-->
+
+        <div class="nav search-row" id="top_menu">
+            <!--  search form start -->
+            <ul class="nav top-menu">
+                <li>
+                    <form class="navbar-form">
+                        <input class="form-control" placeholder="Search" type="text">
+                    </form>
+                </li>
+            </ul>
+            <!--  search form end -->
+        </div>
+
+        <div class="top-nav notification-row">
+            <!-- notificatoin dropdown start-->
+            <ul class="nav pull-right top-menu">
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <img alt="" src="img/avatar1_small.jpg">
+                            </span>
+                        <span class="username">Admin</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li class="eborder-top">
+                            <a href="#"><i class="icon_profile"></i> My Profile</a>
+                        </li>
+                        <li>
+                            <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+            <!-- notificatoin dropdown end-->
+        </div>
+    </header>
+    <!--header end-->
+
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu">
+                <li class="">
+                    <a class="" href="index.html">
+                        <i class="icon_house_alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_desktop"></i>
+                        <span> Load Test</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" href="basic_test.html">Basic Load Test</a></li>
+                        <li><a class="" href="custom_test.html">Custom Load Test</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="">
+                        <i class="icon_piechart"></i>
+                        <span>Statistics</span>
+                        <span class="menu-arrow arrow_carrot-right"></span>
+                    </a>
+                    <ul class="sub">
+                        <li><a class="" href="chart-chartjs.html">Charts</a></li>
+                        <li><a class="" href="basic_table.html">Tables</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+		  <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header"><i class="fa fa-files-o"></i> Basic Load Test</h3>
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+						<li><i class="icon_document_alt"></i>Load Tests</li>
+						<li><i class="fa fa-files-o"></i>Basic Load Test</li>
+					</ol>
+				</div>
+			</div>
+              <!-- Form validations -->              
+              <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Configurations
+                          </header>
+                          <div class="panel-body">
+                              <div class="form-group" style="text-align: center">
+                                  <div class="panel panel-warning">
+                                      <div class="panel-heading">Here, you can select from a pre-defined load test configurations</div>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <form class="form-validate form-horizontal" id="basicLoadTestForm">
+
+                                      <div class="col-lg-16">
+                                      <div class="form-group ">
+                                          <label class="control-label col-lg-2" style="margin-left: -100px;">URL: <span class="required">*</span></label>
+                                          <div class="col-lg-10">
+                                              <input class="form-control " type="text" name="testUrl" required />
+                                          </div>
+                                      </div>
+                                      <div class="row" style="align: center">
+
+                                          <div class="col-lg-5" style="text-align: center; font-size: 14px;margin: auto 1.5em; margin-left: 70px; display: inline-block;">
+                                              <div class="radio">
+                                                  <label>
+                                                      <input type="radio"  name="optionsRadios" value="1" checked>
+                                                      <div class="panel panel-primary">
+                                                          <div class="panel-heading">Option one</div>
+                                                      </div>
+
+                                              <div class="form-group" style="color: black;text-align: center; border: solid 1px lightgray;background-color:beige; margin-top: 20px; ">
+
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                                                      <div class="col-sm-6">
+                                                          <input name="numConcurrClients" class="form-control" type="text" value="10" readonly="true">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">Maximum Num. of Requsts:</label>
+                                                      <div class="col-sm-6">
+                                                          <input class="form-control" name="maxRequests" type="text" value="10" readonly="true">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">TimeOut for Each Request(ms):</label>
+                                                      <div class="col-sm-6">
+                                                          <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">Requests Per Second:</label>
+                                                      <div class="col-sm-6">
+                                                          <input class="form-control" name="maxRequestsPerSecond" type="text" value="10" readonly="true">
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                                  </label>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-5" style="text-align: center; font-size: 14px;margin: auto 1.5em; display: inline-block;">
+                                              <div class="radio">
+                                                  <label>
+                                                      <input type="radio" name="optionsRadios" value="2">
+                                                      <div class="panel panel-primary">
+                                                          <div class="panel-heading">Option Two</div>
+                                                      </div>
+
+                                              <div class="form-group" style="color: black;text-align: center; border: solid 1px lightgray;background-color:beige; margin-top: 20px; ">
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                                                      <div class="col-sm-6">
+                                                          <input name="numConcurrClients" class="form-control" type="text" value="20" readonly="true">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">Maximum Num. of Requsts:</label>
+                                                      <div class="col-sm-6">
+                                                          <input class="form-control" name="maxRequests" type="text" value="1000" readonly="true">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">TimeOut for Each Request(ms):</label>
+                                                      <div class="col-sm-6">
+                                                          <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-sm-6 control-label">Requests Per Second:</label>
+                                                      <div class="col-sm-6">
+                                                          <input class="form-control" name="maxRequestsPerSecond" type="text" value="20" readonly="true">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                                  </label>
+                                              </div>
+                                          </div>
+
+                                      </div>
+
+                                  </div>
+                                      <br><br><br>
+                                      <div class="col-lg-16">
+                                          <div class="row" style="align: center">
+
+                                              <div class="col-lg-5" style="text-align: center; font-size: 14px;margin: auto 1.5em; margin-left: 70px; display: inline-block;">
+                                                  <div class="radio">
+                                                      <label>
+                                                          <input type="radio" name="optionsRadios" value="3">
+                                                          <div class="panel panel-primary">
+                                                              <div class="panel-heading">Option Three</div>
+                                                          </div>
+
+                                                  <div class="form-group" style="color: black;text-align: center; border: solid 1px lightgray;background-color:beige; margin-top: 20px; ">
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                                                          <div class="col-sm-6">
+                                                              <input name="numConcurrClients" class="form-control" type="text" value="50" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">Maximum Num. of Requsts:</label>
+                                                          <div class="col-sm-6">
+                                                              <input class="form-control" name="maxRequests" type="text" value="10000" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">TimeOut for Each Request(ms):</label>
+                                                          <div class="col-sm-6">
+                                                              <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">Requests Per Second:</label>
+                                                          <div class="col-sm-6">
+                                                              <input class="form-control" name="maxRequestsPerSecond" type="text" value="50" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                      </label>
+                                                  </div>
+                                              </div>
+                                              <div class="col-lg-5" style="text-align: center; font-size: 14px;margin: auto 1.5em; display: inline-block;">
+                                                  <div class="radio">
+                                                      <label>
+                                                          <input type="radio" name="optionsRadios" value="4">
+                                                          <div class="panel panel-primary">
+                                                              <div class="panel-heading">Option Four</div>
+                                                          </div>
+
+                                                  <div class="form-group" style="color: black;text-align: center; border: solid 1px lightgray;background-color:beige; margin-top: 20px; ">
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">Concurrent Clients:</label>
+                                                          <div class="col-sm-6">
+                                                              <input name="numConcurrClients" class="form-control" type="text" value="100" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">Maximum Num. of Requsts:</label>
+                                                          <div class="col-sm-6">
+                                                              <input class="form-control" name="maxRequests" type="text" value="10000" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">TimeOut for Each Request(ms):</label>
+                                                          <div class="col-sm-6">
+                                                              <input class="form-control" name="maxTimeOut" type="text" value="2500" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label class="col-sm-6 control-label">Requests Per Second:</label>
+                                                          <div class="col-sm-6">
+                                                              <input class="form-control" name="maxRequestsPerSecond" type="text" value="100" readonly="true">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                      </label>
+                                                  </div>
+                                              </div>
+
+                                          </div>
+
+                                      </div>
+                                      <div class="form-group" style="text-align: center; margin-left: -220px; margin-top: 80px; ">
+                                          <div class="col-lg-offset-2 col-lg-10">
+                                              <button class="btn btn-default" type="button">Reset</button>
+                                              <button class="btn btn-primary" type="submit" onclick="performLoadTest('basic')">Submit</button>
+
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+
+                          </div>
+                      </section>
+                  </div>
+              </div>
+              <!-- page end-->
+          </section>
+      </section>
+      <!--main content end-->
+      <div class="text-right">
+        <div class="credits">
+            <!-- 
+                All the links in the footer should remain intact. 
+                You can delete the links only if you purchased the pro version.
+                Licensing information: https://bootstrapmade.com/license/
+                Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+            -->
+            <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+  </section>
+  <!-- container section end -->
+
+    <!-- javascripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- nice scroll -->
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!-- jquery validate js -->
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
+    <!-- custom form validation script for this page-->
+    <script src="js/form-validation-script.js"></script>
+    <!--custome script for all page-->
+    <script src="js/scripts.js"></script>    
+
+
+  </body>
+</html>

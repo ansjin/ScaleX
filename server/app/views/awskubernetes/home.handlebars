@@ -1,0 +1,455 @@
+<!-- views/home.handlebars -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+{{#if user}}
+    <div>
+        <!-- Content Header (Page header) -->
+        <section class="content-header" >
+            <h1>
+                AWS-Autoscale + Kubernetes  Dashboard
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Info boxes -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">AWS Instance States</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                  <div class="box-body">
+                                    <table id="instanceData"class="table table-bordered table-striped">
+                                    </table>
+                                  </div>
+                                  <div class="overlay" id = "overlayInstanceId">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                  </div>
+                                    <!-- /.chart-responsive -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-4">
+                                    <p class="text-center">
+                                        <strong>Options</strong>
+                                    </p>
+                                  <table class="table table-bordered text-center">
+                                  <tr>
+                                    <td>
+                                      <a href="/awskubernetes/getUserInfoForDeploy" class="btn btn-block btn-primary">Deploy</a>
+                                    </td>
+                                  </tr>
+                                    <tr>
+                                      <td>
+                                        <a href="/awskubernetes/tables" class="btn btn-block btn-info">Tables</a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a href="/awskubernetes/timelineKubernetes" class="btn btn-block btn-success" style="background-color: sandybrown">Timeline</a>
+                                      </td>
+                                    </tr>
+
+                                    <tr>
+                                      <td>
+                                        <a href="/awskubernetes/loadtesthome" class="btn btn-block btn-info">Load Test</a>
+                                      </td>
+                                    </tr>
+
+                                    <tr>
+                                      <td>
+                                        <a href="/awskubernetes/terminate" class="btn btn-block btn-success" style="background-color: darkred">Terminate</a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                    <tr>
+                                      <td>
+                                        <a href="/awskubernetes/startRecordingData" class="btn btn-block btn-success" >Start Recording Data</a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a href="/awskubernetes/stopRecordingData" class="btn btn-block btn-danger" >Stop Recording Data</a>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <!-- /.progress-group -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- ./box-body -->
+
+                        <!-- /.box-footer -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+              <!-- /.box -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">AWS Autoscaling Group States</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="box-body">
+                        <table id="autoscalegroupData"class="table table-bordered table-striped">
+                        </table>
+                      </div>
+                      <div class="overlay" id = "overlayAutoscaleId">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </div>
+                      <!-- /.chart-responsive -->
+                    </div>
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- ./box-body -->
+
+                <!-- /.box-footer -->
+              </div>
+              <!-- /.box -->
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">AWS Load Balancer</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="box-body">
+                        <table id="awsloadBalancer"class="table table-bordered table-striped">
+                        </table>
+                      </div>
+                      <div class="overlay" id = "overlayawsloadBalancer">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </div>
+                      <!-- /.chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- ./box-body -->
+
+                <!-- /.box-footer -->
+              </div>
+              <!-- /.box -->
+            </div>
+
+          </div>
+
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <div class="col-md-12">
+              <!-- MAP & BOX PANE -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Graphs Based upon Past 1 Hour</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body no-padding">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            AutoScale Instances
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="autoscaleInstances" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayautoscaleInstances">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            AutoScale Group CPU-Utilization
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="linecpuUtilization" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlaylinecpuUtilization">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- page script -->
+    <script>
+
+      function updateGraph(loadTestName)
+      {
+          alert(loadTestName);
+        $.post(
+          "/awskubernetes/getLoadTestData",{
+            testName: loadTestName
+          },
+          function(data) {
+            allData = data;
+
+            console.log(allData);
+            console.log(allData);
+            var ctx = document.getElementById('line').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Request Elapsed Sec',
+                  data: allData.datarequestElapsed,
+                  backgroundColor: "rgba(255,153,0,0.6)"
+                }]
+              }
+            });
+
+            var ctxLatency = document.getElementById('lineLatency').getContext('2d');
+
+            var myChartLatency = new Chart(ctxLatency, {
+              type: 'line',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Max Latency',
+                  data: allData.maxLatency,
+                  borderColor: "rgba(255,153,0,0.6)",
+                  fill: false,
+                }, {
+                  label: 'Min Latency',
+                  data: allData.minLatency,
+                  borderColor: "red",
+                  fill: false,
+                },{
+                  label: 'Mean Latency',
+                  data: allData.meanLatency,
+                  borderColor: "#54D",
+                  fill: false,
+                }
+                ]
+              }
+            });
+
+            var ctxLatency = document.getElementById('barRPS').getContext('2d');
+            var myChartLatency = new Chart(ctxLatency, {
+              type: 'bar',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Requests Per Second',
+                  data: allData.barRPS,
+                  backgroundColor: "54D"
+                }
+                ]
+              }
+            });
+            var ctxlatencyTotal = document.getElementById('lineLatencyTotal').getContext('2d');
+            var myChartLatencyTotal = new Chart(ctxlatencyTotal, {
+              type: 'line',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Total Latency Time (in Sec)',
+                  data: allData.totalTimeSeconds,
+                  backgroundColor: "#54F5B7"
+                }]
+              }
+            });
+            var ctxErrors = document.getElementById('barErrors').getContext('2d');
+            var myChartErrors = new Chart(ctxErrors, {
+              type: 'bar',
+              data: {
+                labels: allData.requestIndex,
+                datasets: [{
+                  label: 'Errors',
+                  data: allData.errors,
+                  backgroundColor: "#F5C454"
+                }
+                ]
+              }
+            });
+          }
+        );
+      }
+    $.get(
+      "/awskubernetes/describeEc2Instances",
+      function(data) {
+        //data=JSON.parse(data);
+        $("#instanceData").DataTable(data[0]);
+        $("#overlayInstanceId").hide("slow");
+
+      }
+    );
+      $.get(
+        "/awskubernetes/describeAwsAutoscaleGroups",
+        function(data) {
+          //data=JSON.parse(data);
+          $("#autoscalegroupData").DataTable(data[0]);
+          $("#overlayAutoscaleId").hide("slow");
+
+        }
+      );
+      $.get(
+        "/awskubernetes/describeAwsLoadBalancer",
+        function(data) {
+          //data=JSON.parse(data);
+          $("#awsloadBalancer").DataTable(data[0]);
+          $("#overlayawsloadBalancer").hide("slow");
+
+        }
+      );
+      $.get(
+        "/awskubernetes/getcurrentData",
+        function(data) {
+          //data=JSON.parse(data);
+          var instancesDataArr = data.instances.Datapoints;
+          instancesDataArr.sort(function(a, b) {
+            var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+            return (aD) - (bD);
+          });
+
+          var timestamparr = [];
+          var valuearr = [];
+          for(i=0;i<instancesDataArr.length; i++) {
+              timestamparr.push(instancesDataArr[i].Timestamp);
+              valuearr.push(instancesDataArr[i].Average);
+          }
+
+          var cpuUtilizationDataArr = data.cpuUtilization.Datapoints;
+          var timestamparrCPUUti = [];
+          var valuearrCPUUTI = [];
+          cpuUtilizationDataArr.sort(function(a, b) {
+            var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+            return (aD) - (bD);
+          });
+          for(i=0;i<cpuUtilizationDataArr.length; i++) {
+            timestamparrCPUUti.push(cpuUtilizationDataArr[i].Timestamp);
+            valuearrCPUUTI.push(cpuUtilizationDataArr[i].Average);
+          }
+          var ctx = document.getElementById('autoscaleInstances').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: timestamparr,
+              datasets: [{
+                label: 'Auto Scale Instances',
+                data: valuearr,
+                backgroundColor: "red",
+                fill: false
+              }]
+            }
+          });
+          $("#overlayautoscaleInstances").hide("slow");
+          var ctxLatency = document.getElementById('linecpuUtilization').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: timestamparrCPUUti,
+              datasets: [{
+                label: 'CPU-Utilization',
+                data: valuearrCPUUTI,
+                borderColor: "blue",
+                fill: false
+              }
+              ]
+            }
+          });
+          $("#overlaylinecpuUtilization").hide("slow");
+        });
+
+
+    </script>
+
+{{else}}
+  <div style="height: 600px">
+      <h1>Welcome to Autoscaling Performance Measurement Tool</h1>
+    <p>Please Sign in and to continue!</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+{{/if}}
+

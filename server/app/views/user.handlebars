@@ -1,0 +1,294 @@
+{{#if user}}
+  <div>
+    <section class="content-header">
+      <h1>
+        User Information
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">UserInfo</li>
+      </ol>
+    </section>
+  <section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+
+        <div class="box-body">
+          <table id="example2" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Field</th>
+              <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <td>Username</td>
+              <td>{{toJSONusername info}} </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Name</td>
+              <td>{{toJSONname info}}</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Email</td>
+              <td>{{toJSONemail info}}</td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>AWS Token</td>
+              <td>{{toJSONawstoken info}}</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>AWS Secret</td>
+              <td>{{toJSONawssecret info}}</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>AWS Key Name</td>
+              <td>{{toJSONawskeyname info}}</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>AWS Region</td>
+              <td>{{toJSONawsregion info}}</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>AWS Subnet Id</td>
+              <td>{{toJSONawssubnetid info}}</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>AWS Subnet Id 2</td>
+              <td>{{toJSONawssubnetid2 info}}</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>AWS Security Id</td>
+              <td>{{toJSONawssecurityid info}}</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>LRZ info</td>
+              <td>{{toJSONlrzinfo info}}</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Other</td>
+              <td>{{toJSONother info}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+              <th>#</th>
+              <th>Field</th>
+              <th>Value</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.box-body -->
+        <div>
+          <br>
+          <br>
+          <a href="/edituserInfo">
+            <table>
+            <tr>
+            <button type="button" class="btn btn-block btn-primary">Edit Information</button>
+            </tr>
+            </table>
+          </a>
+          <br>
+
+          <a href="/deleteAccount">
+            <table>
+              <tr>
+                <button type="button" class="btn btn-block btn-danger">Delete Account</button>
+              </tr>
+            </table>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+    <!-- /.col-lg-12 -->
+
+    <!-- Main content -->
+    <!-- /.content -->
+  </div>
+  <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <!-- Bootstrap 3.3.6 -->
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/app.min.js"></script>
+  <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
+  <!-- jvectormap -->
+
+{{else}}
+  <div style="height: 600px">
+    <h1>Welcome to Autoscaling Performance Measurement Tool</h1>
+    <p>Please Sign in and to continue!</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+{{/if}}
+
+
+<!-- views/home.handlebars -->
+{{#if user}}
+
+  <div id="wrapper">
+    <section class="content-header">
+      <h1>
+        User Information
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">UserInfo</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th width="150px">Field</th>
+                  <th>Value</th>
+                  <th width="150px">Exercise Correct Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td >Username</td>
+                  <td>{{toJSONusername info}} </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Group Name</td>
+                  <td>{{toJSONgroupName info}}</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Email</td>
+                  <td>{{toJSONemail info}}</td>
+                </tr>
+
+                <tr>
+                  <td>4</td>
+                  <td>Member1 Name</td>
+                  <td>{{toJSONmem1 info}}</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Member2 Name</td>
+                  <td>{{toJSONmem2 info}}</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Member3 Name</td>
+                  <td>{{toJSONmem3 info}}</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Exercise - 1</td>
+                  <td><pre>{{toJSONexercise1 info}}</pre></td>
+                  <td>{{toJSONexercise1Correct info}}</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Exercise - 2</td>
+                  <td><pre>{{toJSONexercise2 info}}</pre></td>
+                  <td>{{toJSONexercise2Correct info}}</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Exercise - 3</td>
+                  <td><pre>{{toJSONexercise3 info}}</pre></td>
+                  <td>{{toJSONexercise3Correct info}}</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Exercise - 4</td>
+                  <td><pre>{{toJSONexercise4 info}}</pre></td>
+                  <td>{{toJSONexercise4Correct info}}</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>Exercise - 5</td>
+                  <td><pre>{{toJSONexercise5 info}}</pre></td>
+                  <td>{{toJSONexercise5Correct info}}</td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>Exercise - 6</td>
+                  <td><pre>{{toJSONexercise6 info}}</pre></td>
+                  <td>{{toJSONexercise6Correct info}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>#</th>
+                  <th>Field</th>
+                  <th>Value</th>
+                  <th width="150px">Exercise Correct Status</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+            <div>
+              <br>
+              <br>
+              <a href="/edituserInfo">
+                <table>
+                  <tr>
+                    <button type="button" class="btn btn-block btn-primary">Edit Information</button>
+                  </tr>
+                </table>
+              </a>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <div class="panel panel-default">
+
+  </div>
+{{else}}
+  <div class="jumbotron">
+    <h1>Welcome to Cloud Class Server</h1>
+    <p>Please Sign in  to continue!</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+{{/if}}
+
+

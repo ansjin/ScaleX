@@ -1,0 +1,282 @@
+<!-- views/home.handlebars -->
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+{{#if user}}
+    <div>
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+              Kubernetes Data
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Tables</a></li>
+                <li class="active">Data</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+      <section class="content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Nodes Data</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="nodeData"class="table table-bordered table-striped">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayNodeId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Nodes Info</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="nodeInfoData" class="table table-bordered table-striped">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayNodeInfoId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Pod Data</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="podData" class="table table-bordered table-striped">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayPodId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Pod Phase Data</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="podPhase" class="table table-bordered table-hover">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayPodPhaseId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Pod Containers Data</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+
+                <table id="containers" class="table table-bordered table-hover">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayPodContainersId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Services Data</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="serviceData" class="table table-bordered table-striped">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayServiceId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Replication Controller List Data</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="rpcData" class="table table-bordered table-striped">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayRpcId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">AutoScaling List</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="hpaData" class="table table-bordered table-striped">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayAutoScalingListId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">AutoScaling Status States</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="hpaStatusData" class="table table-bordered table-hover">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayAutoScalingStatusId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">AutoScaling Current Status</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="hpaCurrentStatsData" class="table table-bordered table-striped">
+                </table>
+              </div>
+              <div class="overlay" id = "overlayAutoScalingId">
+                <i class="fa fa-refresh fa-spin"></i>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+        </div>
+
+      </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- page script -->
+    <script>
+
+      $.get(
+        "/kubernetes/getPodsList",
+        function(data) {
+          //data=JSON.parse(data);
+          $("#podData").DataTable(data[0]);
+          $('#podPhase').DataTable(data[1]);
+          $('#containers').DataTable(data[2]);
+          $("#overlayPodId").hide("slow");
+          $("#overlayPodPhaseId").hide("slow");
+          $("#overlayPodContainersId").hide("slow");
+
+        }
+      );
+
+      $.get(
+        "/kubernetes/getServicesList",
+        function(data) {
+          //data=JSON.parse(data);
+          $("#serviceData").DataTable( data[0] );
+          $("#overlayServiceId").hide("slow");
+        }
+      );
+      $.get(
+        "/kubernetes/getReplicationControllers",
+        function(data) {
+          //data=JSON.parse(data);
+          $("#rpcData").DataTable(data[0]);
+          $("#overlayRpcId").hide("slow");
+        }
+      );
+      $.get(
+        "/kubernetes/geNodesData",
+        function(data) {
+          //data=JSON.parse(data);
+          $("#nodeData").DataTable( data[0] );
+          $("#nodeInfoData").DataTable( data[1] );
+          $("#overlayNodeId").hide("slow");
+          $("#overlayNodeInfoId").hide("slow");
+        }
+      );
+      $.get(
+        "/kubernetes/getAutoScalingList",
+        function(data) {
+          //data=JSON.parse(data);
+          $("#hpaData").DataTable( data[0] );
+          $("#hpaStatusData").DataTable( data[1] );
+          $("#hpaCurrentStatsData").DataTable( data[2] );
+          $("#overlayAutoScalingListId").hide("slow");
+          $("#overlayAutoScalingStatusId").hide("slow");
+          $("#overlayAutoScalingId").hide("slow");
+
+        }
+      );
+    </script>
+{{else}}
+  <div style="height: 600px">
+      <h1>Welcome to Autoscaling Performance Measurement Tool</h1>
+    <p>Please Sign in and to continue!</p>
+    <p>
+      <a href="/signin" class="btn btn-primary btn-lg" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        Sign in!
+      </a>
+    </p>
+  </div>
+
+{{/if}}
+
