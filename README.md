@@ -43,3 +43,11 @@ This tool will automatically estimate and analyze the different configurations o
 ## Documentation
 
 All the documents (architecture and other reference documents) are part of documents folder.
+
+## Help and Contibution
+
+Please add issues if you have a question or found a problem. 
+
+Pull requests are welcome too!
+
+Contributions are most welcome. Please message me if you like the idea and want to contribute.
