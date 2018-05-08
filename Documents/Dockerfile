@@ -24,8 +24,6 @@ RUN cd /root/ && \
 	mkdir -p /usr/src/apmt && \
 	cp -a /root/APMT/server/. /usr/src/apmt/ && \
 	cd /usr/src/apmt && npm install
-	
-ENV MONGO_INITDB_ROOT_USERNAME=admin!User MONGO_INITDB_ROOT_PASSWORD=NotTobeKnown
 
 ENTRYPOINT node index.js & /usr/bin/mongod
 
