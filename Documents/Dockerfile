@@ -1,26 +1,32 @@
 FROM debian:stretch
 LABEL maintainer="walentinlamonos@gmail.com"
 
-RUN apt-get update && apt-get install -y \
-	apt-transport-https \
-	ca-certificates \
+RUN apt-get update && \ 
+	apt-get install -y \
 	curl \
-	gnupg2 \
-	software-properties-common \
-	git && \
-	curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
-	apt-get update && \
-	apt-get install -y docker-ce && \
+	git \
+	build-essential \
+	libssl-dev \
+	gnupg gnupg1 gnupg2 \
+	mongodb && \
+	curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
+	apt-get install -y nodejs && \
 	apt-get -y upgrade && \
 	apt-get clean autoclean && \
 	apt-get autoremove -y && \
 	rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-RUN curl -L https://github.com/docker/compose/releases/download/1.13.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && \
-	chmod +x /usr/local/bin/docker-compose && \
-	git clone https://github.com/ansjin/APMT
+WORKDIR /usr/src/apmt
 
-ENTRYPOINT cd /root/APMT && docker-compose up --build
+RUN cd /root/ && \
+	git clone https://github.com/CM2Walki/APMT && \
+	mkdir -p /data/db && \
+	mkdir -p /usr/src/apmt && \
+	cp -a /root/APMT/server/. /usr/src/apmt/ && \
+	cd /usr/src/apmt && npm install
+	
+ENV MONGO_INITDB_ROOT_USERNAME=admin!User MONGO_INITDB_ROOT_PASSWORD=NotTobeKnown
+
+ENTRYPOINT node index.js & /usr/bin/mongod
 
 EXPOSE 8080
