@@ -19,7 +19,7 @@ RUN apt-get update && \
 WORKDIR /usr/src/apmt
 
 RUN cd /root/ && \
-	git clone https://github.com/CM2Walki/APMT && \
+	git clone https://github.com/ansjin/APMT && \
 	mkdir -p /data/db && \
 	mkdir -p /usr/src/apmt && \
 	cp -a /root/APMT/server/. /usr/src/apmt/ && \
