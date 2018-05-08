@@ -16,3 +16,5 @@ RUN iptables -I INPUT -j ACCEPT && \
 	git clone https://github.com/ansjin/APMT
 
 ENTRYPOINT cd /root/APMT && docker-compose up --build
+
+EXPOSE 8080
