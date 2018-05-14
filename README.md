@@ -4,14 +4,19 @@ Multi-Layered Cloud Applications Auto-Scaling Performance Analysis
 This tool will automatically estimate and analyze the different configurations of existing cloud auto-scaling solutions in respect to performance and costs metrics, and presents the user with the best suited configuration for the deployment of application along with the pros and cons of other configurations
 
 ## Setup
+### Docker Compose
  ```
  1. Clone the Repository
  2. cd into scripts directory
- 3. Run the script using the command 
+ 3. Run the script using the commands
+    chmod +x deploy_app.sh
     sudo sh deploy_app.sh
  4. Then use the web browser to visit http://VM_IP:8080 
-
  ```
+ ### Docker
+ APMT unified into one container:
+ docker run -d -p 8080:8080 --name=apmt walki/apmt
+ 
  ## Usage
  Once it starts running then you need to create the account or login if it already exists.
  After login you need to first complete your profile which contains some required information like
