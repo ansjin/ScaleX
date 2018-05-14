@@ -15,7 +15,8 @@ This tool will automatically estimate and analyze the different configurations o
  ```
  ### Docker
  APMT unified into one container:
- docker run -d -p 8080:8080 --name=apmt walki/apmt
+ 
+ *docker run -d -p 8080:8080 --name=apmt walki/apmt*
  
  ## Usage
  Once it starts running then you need to create the account or login if it already exists.
