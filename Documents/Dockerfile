@@ -25,6 +25,8 @@ RUN cd /root/ && \
 	cp -a /root/APMT/server/. /usr/src/apmt/ && \
 	cd /usr/src/apmt && npm install
 
+VOLUME /data/db
+
 ENTRYPOINT node index.js & /usr/bin/mongod
 
 EXPOSE 8080
