@@ -1,6 +1,6 @@
 # ScaleX : Auto-scaling Performance Measurement Tool (Multilayered Level) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bca3146fb95f49f4866138b41c1de69b)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ansjin/Multi-Layered-Cloud-Applications-Auto-Scaling-Performance-Analysis&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.com/ansjin/Multi-Layered-Cloud-Applications-Auto-Scaling-Performance-Analysis.svg?token=Ro5JmNzXybzvxeXtg7cx&branch=master)](https://travis-ci.com/ansjin/Multi-Layered-Cloud-Applications-Auto-Scaling-Performance-Analysis) [![Docker Status](https://github.com/ansjin/Multi-Layered-Cloud-Applications-Auto-Scaling-Performance-Analysis/blob/master/Documents/docker-hub.jpg)](https://hub.docker.com/r/ansjin/multi-layered-cloud-applications-auto-scaling-perormance-analysis/)
 
-[![Scale-XYZ](https://github.com/ansjin/APMT/blob/master/Documents/ScaleXYZ.png)](https://github.com/ansjin/APMT)
+[![Scale-XYZ](https://github.com/ansjin/APMT/blob/master/Documents/ScaleXYZ1.png)](https://github.com/ansjin/APMT)
 
 Multi-Layered Cloud Applications Auto-Scaling Performance Analysis
 
