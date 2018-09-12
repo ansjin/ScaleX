@@ -699,7 +699,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                 var params = {
                   EndTime: new Date, /* required */
                   MetricName: 'GroupDesiredCapacity', /* required */
-                  Namespace: 'AWS/EC2', /* required */
+                  Namespace: 'AWS/AutoScaling', /* required */
                   Period: 60, /* required */
                   StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
                   Dimensions: [
