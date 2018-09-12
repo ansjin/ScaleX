@@ -527,7 +527,6 @@
             return (aD) - (bD);
           });
 
-
           var max = 2;
           for(i=0;i<desiredInstancesDataArr.length; i++) {
 
@@ -538,9 +537,11 @@
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
+              valueoverprovisioning.push(NaN);
             }
             else if (diff < 0) {
               valueoverprovisioning.push(desiredInstancesDataArr[i].Average + Math.abs(diff)); // Too many
+              valueunderprovisioning.push(NaN);
             }
             else {
               // Neither
