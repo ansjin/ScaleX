@@ -294,19 +294,6 @@
                         <i class="fa fa-refresh fa-spin"></i>
                       </div>
                     </div>
-                    <div class="col-lg-6">
-                      <section class="panel">
-                        <header class="panel-heading">
-                          Operating Expense
-                        </header>
-                        <div class="panel-body text-center">
-                          <canvas id="operatingexpense" height="400" width="500"></canvas>
-                        </div>
-                      </section>
-                      <div class="overlay" id = "overlayoperatingexpense">
-                        <i class="fa fa-refresh fa-spin"></i>
-                      </div>
-                    </div>
                   </div>
                   <!-- /.col -->
                 </div>
@@ -545,8 +532,8 @@
             data: {
               labels: timestamparr,
               datasets: [{
-                label: 'Boundary Scale',
-                data: valueresourcealloc,
+                label: 'Operating Expense',
+                data: valueoperatingexpense,
                 borderColor: "blue",
                 fill: false
               }
