@@ -536,10 +536,9 @@
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
-
             }
             else if (diff < 0) {
-              valueoverprovisioning.push(inServiceInstancesDataArr[i].Minimum - Math.abs(diff)); // Too many
+              valueoverprovisioning.push(desiredInstancesDataArr[i].Average + Math.abs(diff)); // Too many
             }
             else {
               // Neither
