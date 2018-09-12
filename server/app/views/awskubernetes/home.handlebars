@@ -510,10 +510,16 @@
             valuearrCPUUTI.push(cpuUtilizationDataArr[i].Average);
           }
 
+          var desiredInstancesDataArr = data.desiredInstances.Datapoints;
           var valueoverprovisioning = [];
           var valueunderprovisioning = [];
+
+          desiredInstancesDataArr.sort(function(a, b) {
+            var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+            return (aD) - (bD);
+          });
           for(i=0;i<instancesDataArr.length; i++) {
-              valueoverprovisioning.push(instancesDataArr[i].Average);
+              valueoverprovisioning.push(desiredInstancesDataArr[i].Average);
           }
 
           var valueresourcealloc = [];
