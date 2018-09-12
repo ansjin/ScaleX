@@ -662,7 +662,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
             ]
            // Unit: 'Count'
           };
-          console.log(params);
+          //console.log(params);
         cloudwatch.getMetricStatistics(params, function (err, data) {
           if (err) console.log(err, err.stack); // an error occurred
           else {
@@ -690,7 +690,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
               ]
               // Unit: 'Count'
             };
-            console.log(params);
+            //console.log(params);
             cloudwatch.getMetricStatistics(params, function (err, data) {
               if (err) console.log(err, err.stack); // an error occurred
               else {
@@ -715,7 +715,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                   ]
                   // Unit: 'Count'
                 };
-                console.log(params);
+                //console.log(params);
                 cloudwatch.getMetricStatistics(params, function (err, data) {
                   if (err) console.log(err, err.stack); // an error occurred
                   else {
@@ -724,6 +724,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                     awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
                     res.send(dataAll);
                     console.log("data sent for matrics_write");
+                    console.log(dataAll)
                   }
                 });
               }
