@@ -527,8 +527,10 @@
             return (aD) - (bD);
           });
 
+
           var max = 2;
           for(i=0;i<desiredInstancesDataArr.length; i++) {
+
             if (desiredInstancesDataArr[i].Average > max) {
               max = desiredInstancesDataArr[i].Average;
             }
@@ -548,6 +550,11 @@
             valueinService.push(inServiceInstancesDataArr[i].Minimum);
             valuedesired.push(desiredInstancesDataArr[i].Average);
           }
+
+          console.log(desiredInstancesDataArr.length)
+          console.log(inServiceInstancesDataArr.length)
+          console.log(valueunderprovisioning.length)
+          console.log(valueoverprovisioning.length)
 
           var valueresourcealloc = [];
           var valueoperatingexpense = [];
