@@ -603,7 +603,7 @@
               }, {
                 label: 'In-Service Instances',
                 data: valueinService,
-                borderColor: "black",
+                borderColor: "grey",
                 steppedLine: true,
                 lineTension: 0
               }
@@ -688,6 +688,15 @@
                 fill: origin
               }
               ]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero:true
+                  }
+                }]
+              }
             }
           });
           $("#overlayresponsecount").hide("slow");
