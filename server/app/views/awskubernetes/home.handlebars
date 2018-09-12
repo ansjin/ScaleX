@@ -245,13 +245,13 @@
                     </div>
                     <!-- /.col -->
                   </div>
-                  <!-- Performance measurement -->
+                  <!-- Wrong-Provisioning Timeshare -->
                   <div class="row">
                     <div class="col-md-12 col-sm-12">
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
-                            AutoScale Instances
+                            Over-provisioning periods
                           </header>
                           <div class="panel-body text-center">
                             <canvas id="overprovisioned" height="400" width="500"></canvas>
@@ -265,7 +265,7 @@
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
-                            AutoScale Group CPU-Utilization
+                            Under-provisioning periods
                           </header>
                           <div class="panel-body text-center">
                             <canvas id="underprovisioned" height="400" width="500"></canvas>
@@ -276,6 +276,37 @@
                         </div>
                       </div>
                     </div>
+                    <!-- Resource Allocation Bounds & Operating Expense -->
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
+                        <div class="col-lg-6">
+                          <section class="panel">
+                            <header class="panel-heading">
+                              Resource Scale
+                            </header>
+                            <div class="panel-body text-center">
+                              <canvas id="boundaryscale" height="400" width="500"></canvas>
+                            </div>
+                          </section>
+                          <div class="overlay" id = "overlayboundaryscale">
+                            <i class="fa fa-refresh fa-spin"></i>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <section class="panel">
+                            <header class="panel-heading">
+                              Operating Expense
+                            </header>
+                            <div class="panel-body text-center">
+                              <canvas id="operatingexpense" height="400" width="500"></canvas>
+                            </div>
+                          </section>
+                          <div class="overlay" id = "overlayoperatingexpense">
+                            <i class="fa fa-refresh fa-spin"></i>
+                          </div>
+                        </div>
+                      </div>
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
@@ -438,6 +469,12 @@
             timestamparrCPUUti.push(cpuUtilizationDataArr[i].Timestamp);
             valuearrCPUUTI.push(cpuUtilizationDataArr[i].Average);
           }
+
+          var valueoverprovisioning = [];
+          var valueunderprovisioning = [];
+          var valueresourcealloc = [];
+          var valueoperatingexpense = [];
+
           var ctx = document.getElementById('autoscaleInstances').getContext('2d');
           var myChart = new Chart(ctx, {
             type: 'line',
@@ -471,10 +508,10 @@
           var myChartLatency = new Chart(ctxLatency, {
             type: 'line',
             data: {
-              labels: timestamparrCPUUti,
+              labels: timestamparr,
               datasets: [{
                 label: 'Over-Provisioned',
-                data: valuearrCPUUTI,
+                data: valueoverprovisioning,
                 borderColor: "blue",
                 fill: true
               }
@@ -486,10 +523,10 @@
           var myChartLatency = new Chart(ctxLatency, {
             type: 'line',
             data: {
-              labels: timestamparrCPUUti,
+              labels: timestamparr,
               datasets: [{
                 label: 'Under-Provisioned',
-                data: valuearrCPUUTI,
+                data: valueunderprovisioning,
                 borderColor: "blue",
                 fill: true
               }
@@ -497,6 +534,36 @@
             }
           });
           $("#overlayunderprovisioned").hide("slow");
+          var ctxLatency = document.getElementById('boundaryscale').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: timestamparr,
+              datasets: [{
+                label: 'Boundary Scale',
+                data: valueresourcealloc,
+                borderColor: "blue",
+                fill: true
+              }
+              ]
+            }
+          });
+          $("#overlayboundaryscale").hide("slow");
+          var ctxLatency = document.getElementById('operatingexpense').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: timestamparr,
+              datasets: [{
+                label: 'Operating Expense ($)',
+                data: valueoperatingexpense,
+                borderColor: "blue",
+                fill: true
+              }
+              ]
+            }
+          });
+          $("#overlayoperatingexpense").hide("slow");
         });
 
 
