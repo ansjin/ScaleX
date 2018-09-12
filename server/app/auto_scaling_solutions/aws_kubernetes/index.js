@@ -648,7 +648,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
             EndTime: new Date, /* required */
             MetricName: 'GroupTotalInstances', /* required */
             Namespace: 'AWS/AutoScaling', /* required */
-            Period: 60, /* required */
+            Period: 10, /* required */
             StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
             Dimensions: [
               {
@@ -675,7 +675,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
               EndTime: new Date, /* required */
               MetricName: 'CPUUtilization', /* required */
               Namespace: 'AWS/EC2', /* required */
-              Period: 60, /* required */
+              Period: 10, /* required */
               StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
               Dimensions: [
                 {
@@ -700,7 +700,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                   EndTime: new Date, /* required */
                   MetricName: 'GroupDesiredCapacity', /* required */
                   Namespace: 'AWS/AutoScaling', /* required */
-                  Period: 60, /* required */
+                  Period: 10, /* required */
                   StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
                   Dimensions: [
                     {
