@@ -528,7 +528,7 @@
 
           for(i=0;i<instancesDataArr.length; i++) {
             // How many machines do we have vs how many do we need?
-            var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Average;
+            var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(diff)); // Too few
             }
@@ -540,7 +540,7 @@
               valueoverprovisioning.push(NaN);
               valueunderprovisioning.push(NaN);
             }
-            valueinService.push(inServiceInstancesDataArr[i].Average);
+            valueinService.push(inServiceInstancesDataArr[i].Minimum);
           }
 
           var valueresourcealloc = [];
@@ -605,9 +605,19 @@
                 data: valueinService,
                 borderColor: "grey",
                 steppedLine: true,
+                fill: false,
                 lineTension: 0
               }
               ]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero:true
+                  }
+                }]
+              }
             }
           });
           $("#overlayprovisioning").hide("slow");
@@ -688,15 +698,6 @@
                 fill: origin
               }
               ]
-            },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero:true
-                  }
-                }]
-              }
             }
           });
           $("#overlayresponsecount").hide("slow");

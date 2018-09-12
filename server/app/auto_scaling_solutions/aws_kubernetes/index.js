@@ -736,7 +736,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                         /* more items */
                       ],
                       Statistics: [
-                        "Average"
+                        "Minimum"
                         /* more items */
                       ]
                       // Unit: 'Count'
