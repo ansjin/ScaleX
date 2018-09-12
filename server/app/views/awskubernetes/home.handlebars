@@ -527,7 +527,12 @@
             else if (diff < 0) {
               valueoverprovisioning.push(Math.abs(diff)); // Too many
             }
-            // Neither
+            else {
+              // Neither
+              valueoverprovisioning.push(diff);
+              valueunderprovisioning.push(diff);
+            }
+
           }
 
           var valueresourcealloc = [];
