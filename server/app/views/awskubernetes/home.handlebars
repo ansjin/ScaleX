@@ -491,9 +491,13 @@
             return (aD) - (bD);
           });
 
+          var costs = 0;
+          var overprovisiongCosts = 0;
+
           var timestamparr = [];
           var valuearr = [];
           for(i=0;i<instancesDataArr.length; i++) {
+              costs = instancesDataArr[i].Average;
               timestamparr.push(instancesDataArr[i].Timestamp);
               valuearr.push(instancesDataArr[i].Average);
           }
@@ -541,6 +545,7 @@
             }
             else if (diff < 0) {
               valueoverprovisioning.push(desiredInstancesDataArr[i].Average + Math.abs(diff)); // Too many
+              overprovisiongCosts = overprovisiongCosts + 1;
               valueunderprovisioning.push(NaN);
             }
             else {
@@ -552,13 +557,8 @@
             valuedesired.push(desiredInstancesDataArr[i].Average);
           }
 
-          console.log(desiredInstancesDataArr.length)
-          console.log(inServiceInstancesDataArr.length)
-          console.log(valueunderprovisioning.length)
-          console.log(valueoverprovisioning.length)
-
-          var valueresourcealloc = [];
           var valueoperatingexpense = [];
+          var valueresourcealloc = [];
           var valueresponsetime = [];
           var valuelatency = [];
           var valuesuccessful = [];
@@ -574,7 +574,7 @@
                 data: valuearr,
                 backgroundColor: "red",
                 fill: false,
-                steppedLine: after,
+                steppedLine: true,
                 lineTension: 0
               }]
             }
@@ -618,14 +618,14 @@
                 label: 'In-Service Instances',
                 data: valueinService,
                 borderColor: "grey",
-                steppedLine: after,
+                steppedLine: true,
                 fill: false,
                 lineTension: 0
               }, {
                 label: 'Desired Instances',
                 data: valuedesired,
                 borderColor: "green",
-                steppedLine: after,
+                steppedLine: true,
                 fill: false,
                 lineTension: 0
               }
@@ -659,16 +659,17 @@
           $("#overlayboundaryscale").hide("slow");
           var ctxOperatingexpense = document.getElementById('operatingexpense').getContext('2d');
           var myChartOperatingexpense = new Chart(ctxOperatingexpense, {
-            type: 'line',
+            type: 'doughnut',
             data: {
-              labels: timestamparr,
+              labels: [
+                'Costs',
+                'Over-Provisioning Costs'
+              ],
               datasets: [{
-                label: 'Operating Expense',
-                data: valueoperatingexpense,
+                data: [costs/60, overprovisiongCosts/60],
                 borderColor: "blue",
                 fill: false
-              }
-              ]
+              }]
             }
           });
           $("#overlayoperatingexpense").hide("slow");
