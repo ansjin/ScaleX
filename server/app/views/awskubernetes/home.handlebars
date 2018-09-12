@@ -676,20 +676,20 @@
                 labels: ['Resource Allocation Bounds'],
                 datasets: [{
                   label: 'Minimum',
-                  backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-                  borderColor: window.chartColors.red,
+                  backgroundColor: "#36A2EB",
+                  borderColor: "#295deb",
                   borderWidth: 1,
                   data: [min]
                 }, {
                   label: 'Maximum',
-                  backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-                  borderColor: window.chartColors.blue,
+                  backgroundColor: "#06eba1",
+                  borderColor: "#00eb3d",
                   borderWidth: 1,
                   data: [max]
                 }, {
                   label: 'Boundary Scale',
-                  backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
-                  borderColor: window.chartColors.green,
+                  backgroundColor: "#FF6384",
+                  borderColor: "#ff0008",
                   borderWidth: 1,
                   data: [Math.abs(max-min)]
                 }]
