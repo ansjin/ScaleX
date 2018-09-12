@@ -514,6 +514,7 @@
           var inServiceInstancesDataArr = data.inserviceInstances.Datapoints;
           var valueoverprovisioning = [];
           var valueunderprovisioning = [];
+          var valueinService = [];
 
           desiredInstancesDataArr.sort(function(a, b) {
             var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -536,10 +537,10 @@
             }
             else {
               // Neither
-              valueoverprovisioning.push(diff);
-              valueunderprovisioning.push(diff);
+              valueoverprovisioning.push(NaN);
+              valueunderprovisioning.push(NaN);
             }
-
+            valueinService.push(inServiceInstancesDataArr[i].Average);
           }
 
           var valueresourcealloc = [];
@@ -559,7 +560,8 @@
                 data: valuearr,
                 backgroundColor: "red",
                 fill: false,
-                steppedLine: true
+                steppedLine: true,
+                lineTension: 0
               }]
             }
           });
@@ -573,7 +575,9 @@
                 label: 'CPU-Utilization',
                 data: valuearrCPUUTI,
                 borderColor: "blue",
-                fill: false
+                fill: false,
+                steppedLine: true,
+                lineTension: 0
               }
               ]
             }
@@ -588,12 +592,20 @@
                 label: 'Under-Provisioned',
                 data: valueunderprovisioning,
                 borderColor: "blue",
-                fill: origin
+                fill: origin,
+                spanGaps: true
               },{
                 label: 'Over-Provisioned',
                 data: valueoverprovisioning,
                 borderColor: "red",
-                fill: origin
+                fill: origin,
+                spanGaps: true
+              }, {
+                label: 'In-Service Instances',
+                data: valueinService,
+                borderColor: "black",
+                steppedLine: true,
+                lineTension: 0
               }
               ]
             }
