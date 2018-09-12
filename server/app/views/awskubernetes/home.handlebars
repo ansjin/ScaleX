@@ -527,11 +527,11 @@
               valueoverprovisioning.push(Math.abs(diff)); // Too few
             else
               if (valueunderprovisioning[valueunderprovisioning.length-1] !== 0)
-                valueunderprovisioning.push(valueunderprovisioning[i-1]);
+                valueunderprovisioning.push(valueunderprovisioning[valueunderprovisioning.length-1]);
               else
                 valueunderprovisioning.push(0);
               if (valueoverprovisioning[valueoverprovisioning.length-1] !== 0)
-                valueoverprovisioning.push(valueoverprovisioning[i-1]);
+                valueoverprovisioning.push(valueoverprovisioning[valueoverprovisioning.length-1]);
               else
                 valueoverprovisioning.push(0);
           }
