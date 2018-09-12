@@ -527,7 +527,11 @@
             return (aD) - (bD);
           });
 
+          var max = 2;
           for(i=0;i<instancesDataArr.length; i++) {
+            if (desiredInstancesDataArr[i].Average > max) {
+              max = desiredInstancesDataArr[i].Average;
+            }
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
@@ -621,7 +625,7 @@
               scales: {
                 yAxes: [{
                   ticks: {
-                    suggestedMax: (desiredInstancesDataArr.length + 2)
+                    suggestedMax: (max + 2)
                   }
                 }]
               }
