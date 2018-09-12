@@ -669,7 +669,8 @@ exports.getCurrentData = function(awsData,username,req,res) {
             var dataAll = {
               "instances": data,
               "cpuUtilization": '',
-              "desiredInstances": ''
+              "desiredInstances": '',
+              "inserviceInstances": ''
             };
             var params = {
               EndTime: new Date, /* required */
@@ -719,12 +720,38 @@ exports.getCurrentData = function(awsData,username,req,res) {
                 cloudwatch.getMetricStatistics(params, function (err, data) {
                   if (err) console.log(err, err.stack); // an error occurred
                   else {
-                    dataAll.desiredInstances = data;
                     // successful response
-                    awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
-                    res.send(dataAll);
-                    console.log("data sent for matrics_write");
-                    console.log(dataAll)
+                    dataAll.desiredInstances = data;
+                    var params = {
+                      EndTime: new Date, /* required */
+                      MetricName: 'GroupInServiceInstances', /* required */
+                      Namespace: 'AWS/AutoScaling', /* required */
+                      Period: 10, /* required */
+                      StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                      Dimensions: [
+                        {
+                          Name: 'AutoScalingGroupName', /* required */
+                          Value: awsDeployInfo.awsKubeAutoScaleConfig.scaling.AutoScalingGroupName/* required */
+                        },
+                        /* more items */
+                      ],
+                      Statistics: [
+                        "Average"
+                        /* more items */
+                      ]
+                      // Unit: 'Count'
+                    };
+                    cloudwatch.getMetricStatistics(params, function (err, data) {
+                      if (err) console.log(err, err.stack); // an error occurred
+                      else {
+                        dataAll.inserviceInstances = data;
+                        // successful response
+                        awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
+                        res.send(dataAll);
+                        console.log("data sent for matrics_write");
+                        console.log(dataAll)
+                      }
+                    });
                   }
                 });
               }
