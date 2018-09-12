@@ -673,17 +673,17 @@
           var myChartBoundaryscale = new Chart(ctxBoundaryscale, {
             type: 'bar',
             data: {
-              labels: [
-                'Minimum',
-                'Maximum',
-                'Boundary Scale'
-              ],
               datasets: [{
                 data: [min, max, Math.abs(max-min)],
                 backgroundColor: [
                   "#ebe300",
                   "#baff00",
                   "#FF6384"
+                ],
+                labels: [
+                  'Minimum',
+                  'Maximum',
+                  'Boundary Scale'
                 ],
                 borderColor: "grey",
                 fill: true
