@@ -538,7 +538,7 @@
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
               if (valueunderprovisioning[valueunderprovisioning.length-1] === desiredInstancesDataArr[valueunderprovisioning.length-1]
                 && valueunderprovisioning[valueunderprovisioning.length] !== desiredInstancesDataArr[valueunderprovisioning.length]) {
-                valueunderprovisioning[valueunderprovisioning.length-1] = NaN;
+                valueunderprovisioning.splice(valueunderprovisioning[valueunderprovisioning.length-1], 1);
               }
             }
             else if (diff < 0) {
