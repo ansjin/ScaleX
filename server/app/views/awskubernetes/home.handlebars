@@ -342,7 +342,7 @@
                             Successful & Error Response Count
                           </header>
                           <div class="panel-body text-center">
-                            <canvas id="responsecount" height="400" width="800"></canvas>
+                            <canvas id="responsecount" height="400" width="500"></canvas>
                           </div>
                         </section>
                         <div class="overlay" id = "overlayresponsecount">
@@ -673,22 +673,26 @@
           var myChartBoundaryscale = new Chart(ctxBoundaryscale, {
             type: 'bar',
             data: {
-              labels: ['Resource Allocation Bounds'],
-              datasets: [{
-                data: [min, max, Math.abs(max-min)],
-                backgroundColor: [
-                  "#ebe300",
-                  "#baff00",
-                  "#FF6384"
-                ],
-                labels: [
-                  'Minimum',
-                  'Maximum',
-                  'Boundary Scale'
-                ],
-                borderColor: "grey",
-                fill: true
-              }]
+                labels: ['Resource Allocation Bounds'],
+                datasets: [{
+                  label: 'Minimum',
+                  backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                  borderColor: window.chartColors.red,
+                  borderWidth: 1,
+                  data: [min]
+                }, {
+                  label: 'Maximum',
+                  backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                  borderColor: window.chartColors.blue,
+                  borderWidth: 1,
+                  data: [max]
+                }, {
+                  label: 'Boundary Scale',
+                  backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+                  borderColor: window.chartColors.green,
+                  borderWidth: 1,
+                  data: [Math.abs(max-min)]
+                }]
             }
           });
           $("#overlayboundaryscale").hide("slow");
