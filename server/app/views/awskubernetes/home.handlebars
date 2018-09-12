@@ -487,7 +487,7 @@
         "/awskubernetes/getcurrentData",
         function(data) {
           //data=JSON.parse(data);
-          console.log(data.instances);
+          console.log(data.instances.Datapoints);
           var instancesDataArr = data.instances.Datapoints;
           instancesDataArr.sort(function(a, b) {
             var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
