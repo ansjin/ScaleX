@@ -673,6 +673,7 @@
           var myChartBoundaryscale = new Chart(ctxBoundaryscale, {
             type: 'bar',
             data: {
+              labels: ['Resource Allocation Bounds'],
               datasets: [{
                 data: [min, max, Math.abs(max-min)],
                 backgroundColor: [
