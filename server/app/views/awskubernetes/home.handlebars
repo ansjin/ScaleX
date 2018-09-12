@@ -535,10 +535,10 @@
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
-              valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i] + diff)); // Too few
+              valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
             }
             else if (diff < 0) {
-              valueoverprovisioning.push(Math.abs(inServiceInstancesDataArr[i] + diff)); // Too many
+              valueoverprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too many
             }
             else {
               // Neither
