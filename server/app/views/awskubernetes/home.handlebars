@@ -536,21 +536,17 @@
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
-              if (isNaN(valueunderprovisioning[valueunderprovisioning.length-1])) {
-                valueunderprovisioning[valueunderprovisioning.length-1] = desiredInstancesDataArr[valueunderprovisioning.length-1].Average;
-              }
+              //if (isNaN(valueunderprovisioning[valueunderprovisioning.length-1])) {
+              //  valueunderprovisioning[valueunderprovisioning.length-1] = desiredInstancesDataArr[valueunderprovisioning.length-1].Average;
+              //}
             }
             else if (diff < 0) {
               valueoverprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too many
             }
             else {
               // Neither
-
-                valueunderprovisioning.push(NaN);
-
-
+              valueunderprovisioning.push(NaN);
               valueoverprovisioning.push(NaN);
-
             }
             valueinService.push(inServiceInstancesDataArr[i].Minimum);
             valuedesired.push(desiredInstancesDataArr[i].Average);
