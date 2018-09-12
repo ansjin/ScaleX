@@ -675,13 +675,13 @@
             data: {
                 labels: ['Resource Allocation Bounds'],
                 datasets: [{
-                  label: 'Minimum',
+                  label: 'Lower Bound',
                   backgroundColor: "#36A2EB",
                   borderColor: "#295deb",
                   borderWidth: 1,
                   data: [min]
                 }, {
-                  label: 'Maximum',
+                  label: 'Upper Bound',
                   backgroundColor: "#06eba1",
                   borderColor: "#00eb3d",
                   borderWidth: 1,
@@ -693,6 +693,16 @@
                   borderWidth: 1,
                   data: [Math.abs(max-min)]
                 }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMax: (max + 2),
+                    beginAtZero: true
+                  }
+                }]
+              }
             }
           });
           $("#overlayboundaryscale").hide("slow");
