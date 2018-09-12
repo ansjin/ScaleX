@@ -515,6 +515,7 @@
           var valueoverprovisioning = [];
           var valueunderprovisioning = [];
           var valueinService = [];
+          var valuedesired = [];
 
           desiredInstancesDataArr.sort(function(a, b) {
             var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -541,6 +542,7 @@
               valueunderprovisioning.push(diff);
             }
             valueinService.push(inServiceInstancesDataArr[i].Minimum);
+            valuedesired.push(desiredInstancesDataArr[i].Average);
           }
 
           var valueresourcealloc = [];
@@ -602,6 +604,13 @@
                 label: 'In-Service Instances',
                 data: valueinService,
                 borderColor: "grey",
+                steppedLine: true,
+                fill: false,
+                lineTension: 0
+              }, {
+                label: 'Desired Instances',
+                data: valuedesired,
+                borderColor: "green",
                 steppedLine: true,
                 fill: false,
                 lineTension: 0
