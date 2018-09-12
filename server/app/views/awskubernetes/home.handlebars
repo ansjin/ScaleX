@@ -522,17 +522,12 @@
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
             if (diff > 0) {
-              valueunderprovisioning.push(Math.abs(diff)); // Too many
-              valueoverprovisioning.push(0);
+              valueunderprovisioning.push(Math.abs(diff)); // Too few
             }
             else if (diff < 0) {
-              valueoverprovisioning.push(Math.abs(diff)); // Too few
-              valueunderprovisioning.push(0);
+              valueoverprovisioning.push(Math.abs(diff)); // Too many
             }
-            else {
-              valueoverprovisioning.push(0);
-              valueunderprovisioning.push(0);
-            }
+            // Neither
           }
 
           var valueresourcealloc = [];
