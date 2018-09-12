@@ -466,14 +466,14 @@
               ]
             }
           });
-          $("#linecpuUtilization").hide("slow");
+          $("#overlaylinecpuUtilization").hide("slow");
           var ctxLatency = document.getElementById('overprovisioned').getContext('2d');
           var myChartLatency = new Chart(ctxLatency, {
             type: 'line',
             data: {
               labels: timestamparrCPUUti,
               datasets: [{
-                label: 'OverProvisioned',
+                label: 'Over-Provisioned',
                 data: valuearrCPUUTI,
                 borderColor: "blue",
                 fill: true
