@@ -487,6 +487,7 @@
         "/awskubernetes/getcurrentData",
         function(data) {
           //data=JSON.parse(data);
+          console.log(data);
           var instancesDataArr = data.instances.Datapoints;
           instancesDataArr.sort(function(a, b) {
             var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -637,7 +638,7 @@
             data: {
               labels: timestamparr,
               datasets: [{
-                label: 'Successful Response (200)',
+                label: 'Successful Response (2XX)',
                 data: valuesuccessful,
                 borderColor: "green",
                 fill: origin
