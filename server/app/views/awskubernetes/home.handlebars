@@ -374,8 +374,6 @@
           function(data) {
             allData = data;
 
-            console.log(allData);
-            console.log(allData);
             var ctx = document.getElementById('line').getContext('2d');
             var myChart = new Chart(ctx, {
               type: 'line',
@@ -515,7 +513,7 @@
           var valueoverprovisioning = [];
           var valueunderprovisioning = [];
           for(i=0;i<instancesDataArr.length; i++) {
-              valueoverprovisioning.push(instancesDataArr[i].Sum);
+              valueoverprovisioning.push(instancesDataArr[i].Average);
           }
 
           var valueresourcealloc = [];

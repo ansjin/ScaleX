@@ -697,7 +697,6 @@ exports.getCurrentData = function(awsData,username,req,res) {
                 awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
                 res.send(dataAll);
                 console.log("data sent for matrics_write");
-                console.log(dataAll.instances.desiredInstances);
               }
 
             });
