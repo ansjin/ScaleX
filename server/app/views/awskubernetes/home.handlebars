@@ -522,9 +522,9 @@
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
             if (diff > 0)
-              valueunderprovisioning.push(abs(diff)); // Too many
+              valueunderprovisioning.push(Math.abs(diff)); // Too many
             else if (diff < 0)
-              valueoverprovisioning.push(abs(diff)); // Too few
+              valueoverprovisioning.push(Math.abs(diff)); // Too few
             else
               valueunderprovisioning.push(0); // Just right
               valueoverprovisioning.push(0); // Just right
