@@ -557,7 +557,10 @@
             valuedesired.push(desiredInstancesDataArr[i].Average);
           }
 
-          var valueoperatingexpense = [];
+          costs = costs - overprovisiongCosts;
+          costs = Math.max(costs, 0);
+          overprovisiongCosts = Math.max(overprovisiongCosts, 0);
+
           var valueresourcealloc = [];
           var valueresponsetime = [];
           var valuelatency = [];
@@ -576,7 +579,16 @@
                 fill: false,
                 steppedLine: true,
                 lineTension: 0
-              }]
+              }],
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: (max + 2)
+                    }
+                  }]
+                }
+              }
             }
           });
           $("#overlayautoscaleInstances").hide("slow");
@@ -592,8 +604,16 @@
                 fill: false,
                 steppedLine: true,
                 lineTension: 0
+              }],
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: 100
+                    }
+                  }]
+                }
               }
-              ]
             }
           });
           $("#overlaylinecpuUtilization").hide("slow");
