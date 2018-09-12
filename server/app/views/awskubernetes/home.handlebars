@@ -537,8 +537,8 @@
             }
             else {
               // Neither
-              valueoverprovisioning.push(NaN);
-              valueunderprovisioning.push(NaN);
+              valueoverprovisioning.push(diff);
+              valueunderprovisioning.push(diff);
             }
             valueinService.push(inServiceInstancesDataArr[i].Minimum);
           }
@@ -593,13 +593,11 @@
                 data: valueunderprovisioning,
                 borderColor: "blue",
                 fill: origin,
-                spanGaps: true
               },{
                 label: 'Over-Provisioned',
                 data: valueoverprovisioning,
                 borderColor: "red",
                 fill: origin,
-                spanGaps: true
               }, {
                 label: 'In-Service Instances',
                 data: valueinService,
