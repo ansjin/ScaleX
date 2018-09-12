@@ -528,7 +528,7 @@
           });
 
           var max = 2;
-          for(i=0;i<instancesDataArr.length; i++) {
+          for(i=0;i<desiredInstancesDataArr.length; i++) {
             if (desiredInstancesDataArr[i].Average > max) {
               max = desiredInstancesDataArr[i].Average;
             }
@@ -536,17 +536,15 @@
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
-              if (valueunderprovisioning[valueunderprovisioning.length-1]) {
-                valueunderprovisioning.splice(valueunderprovisioning[valueunderprovisioning.length-1], 0, desiredInstancesDataArr[valueunderprovisioning.length-1].Average)
-              }
+
             }
             else if (diff < 0) {
-              valueoverprovisioning.push(Math.abs(diff - inServiceInstancesDataArr[i].Minimum)); // Too many
+              valueoverprovisioning.push(inServiceInstancesDataArr[i].Minimum - Math.abs(diff)); // Too many
             }
             else {
               // Neither
-              valueunderprovisioning.push(NaN);
-              valueoverprovisioning.push(NaN);
+              valueunderprovisioning.push(desiredInstancesDataArr[i].Average);
+              valueoverprovisioning.push(inServiceInstancesDataArr[i].Minimum);
             }
             valueinService.push(inServiceInstancesDataArr[i].Minimum);
             valuedesired.push(desiredInstancesDataArr[i].Average);
