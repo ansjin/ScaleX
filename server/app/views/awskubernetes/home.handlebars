@@ -662,13 +662,17 @@
             type: 'doughnut',
             data: {
               labels: [
-                'Costs',
-                'Over-Provisioning Costs'
+                'Costs ($)',
+                'Over-Provisioning Costs ($)'
               ],
               datasets: [{
-                data: [costs/60, overprovisiongCosts/60],
-                borderColor: "blue",
-                fill: false
+                data: [(costs*0.0116)/60, (overprovisiongCosts*0.0116)/60],
+                backgroundColor: [
+                  "#FF6384",
+                  "#36A2EB"
+                ],
+                borderColor: "grey",
+                fill: true
               }]
             }
           });
