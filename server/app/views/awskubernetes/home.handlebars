@@ -525,7 +525,7 @@
             return (aD) - (bD);
           });
 
-          for(i=0;i<inServiceInstancesDataArr.length; i++) {
+          for(i=0;i<instancesDataArr.length; i++) {
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Average;
             if (diff > 0) {
