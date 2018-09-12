@@ -309,10 +309,10 @@
                             Average Response Time
                           </header>
                           <div class="panel-body text-center">
-                            <canvas id="provisioning" height="400" width="500"></canvas>
+                            <canvas id="averagerespond" height="400" width="500"></canvas>
                           </div>
                         </section>
-                        <div class="overlay" id = "overlayprovisioning">
+                        <div class="overlay" id = "overlayaveragerespond">
                           <i class="fa fa-refresh fa-spin"></i>
                         </div>
                       </div>
@@ -322,10 +322,10 @@
                             Average Latency
                           </header>
                           <div class="panel-body text-center">
-                            <canvas id="operatingexpense" height="400" width="500"></canvas>
+                            <canvas id="averagelatency" height="400" width="500"></canvas>
                           </div>
                         </section>
-                        <div class="overlay" id = "overlayoperatingexpense">
+                        <div class="overlay" id = "overlayaveragelatency">
                           <i class="fa fa-refresh fa-spin"></i>
                         </div>
                       </div>
@@ -342,10 +342,10 @@
                             Successful & Error Response Count
                           </header>
                           <div class="panel-body text-center">
-                            <canvas id="boundaryscale" height="400" width="500"></canvas>
+                            <canvas id="responsecount" height="400" width="500"></canvas>
                           </div>
                         </section>
-                        <div class="overlay" id = "overlayboundaryscale">
+                        <div class="overlay" id = "overlayresponsecount">
                           <i class="fa fa-refresh fa-spin"></i>
                         </div>
                       </div>
@@ -516,6 +516,10 @@
           var valueunderprovisioning = [];
           var valueresourcealloc = [];
           var valueoperatingexpense = [];
+          var valueresponsetime = [];
+          var valuelatency = [];
+          var valuesuccessful = [];
+          var valueerror = [];
 
           var ctx = document.getElementById('autoscaleInstances').getContext('2d');
           var myChart = new Chart(ctx, {
@@ -597,6 +601,56 @@
             }
           });
           $("#overlayoperatingexpense").hide("slow");
+          var ctxLatency = document.getElementById('averagerespond').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: timestamparr,
+              datasets: [{
+                label: 'Average Response Time',
+                data: valueresponsetime,
+                borderColor: "blue",
+                fill: false
+              }
+              ]
+            }
+          });
+          $("#overlayaveragerespond").hide("slow");
+          var ctxLatency = document.getElementById('averagelatency').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: timestamparr,
+              datasets: [{
+                label: 'Average Latency',
+                data: valuelatency,
+                borderColor: "blue",
+                fill: false
+              }
+              ]
+            }
+          });
+          $("#overlayaveragelatency").hide("slow");
+          var ctxLatency = document.getElementById('responsecount').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: timestamparr,
+              datasets: [{
+                label: 'Successful Response (200)',
+                data: valuesuccessful,
+                borderColor: "green",
+                fill: origin
+              },{
+                label: 'Error Response (4XX, 5XX)',
+                data: valueerror,
+                borderColor: "red",
+                fill: origin
+              }
+              ]
+            }
+          });
+          $("#overlayresponsecount").hide("slow");
         });
 
 
