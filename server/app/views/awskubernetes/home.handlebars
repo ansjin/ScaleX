@@ -521,19 +521,18 @@
           for(i=0;i<instancesDataArr.length; i++) {
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
-            if (diff > 0)
+            if (diff > 0) {
               valueunderprovisioning.push(Math.abs(diff)); // Too many
-            else if (diff < 0)
+              valueoverprovisioning.push(0);
+            }
+            else if (diff < 0) {
               valueoverprovisioning.push(Math.abs(diff)); // Too few
-            else
-              if (valueunderprovisioning[valueunderprovisioning.length-1] !== 0)
-                valueunderprovisioning.push(valueunderprovisioning[valueunderprovisioning.length-1]);
-              else
-                valueunderprovisioning.push(0);
-              if (valueoverprovisioning[valueoverprovisioning.length-1] !== 0)
-                valueoverprovisioning.push(valueoverprovisioning[valueoverprovisioning.length-1]);
-              else
-                valueoverprovisioning.push(0);
+              valueunderprovisioning.push(0);
+            }
+            else {
+              valueoverprovisioning.push(0);
+              valueunderprovisioning.push(0);
+            }
           }
 
           var valueresourcealloc = [];
