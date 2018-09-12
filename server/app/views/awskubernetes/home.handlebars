@@ -262,6 +262,21 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Wrong-Provisioning Timeshare
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="provisioning" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayprovisioning2">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                     <!-- Resource Allocation Bounds & Operating Expense -->
                     <div class="row">
@@ -499,6 +514,11 @@
               datasets: [{
                 label: 'Under-Provisioned',
                 data: valueunderprovisioning,
+                borderColor: "blue",
+                fill: origin
+              },{
+                label: 'Over-Provisioned',
+                data: valueoverprovisioning,
                 borderColor: "blue",
                 fill: origin
               }
