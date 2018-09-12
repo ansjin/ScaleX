@@ -244,6 +244,7 @@
                     </div>
                     <!-- /.col -->
                   </div>
+                  <!-- /.row -->
                   <!-- Wrong-Provisioning Timeshare -->
                   <div class="row">
                     <div class="col-md-12 col-sm-12">
@@ -274,46 +275,78 @@
                         </div>
                       </div>
                     </div>
+                    <!-- /.col -->
                   </div>
-                  <!-- Resource Allocation Bounds & Operating Expense -->
+                  <!-- /.row -->
                   <div class="row">
                     <div class="col-md-12 col-sm-12">
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
-                            Resource Scale
+                            AutoScale Instances
                           </header>
                           <div class="panel-body text-center">
-                            <canvas id="boundaryscale" height="400" width="500"></canvas>
+                            <canvas id="autoscaleInstances" height="400" width="500"></canvas>
                           </div>
                         </section>
-                        <div class="overlay" id = "overlayboundaryscale">
+                        <div class="overlay" id = "overlayautoscaleInstances">
                           <i class="fa fa-refresh fa-spin"></i>
                         </div>
                       </div>
-
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
-                            Operating Expense
+                            AutoScale Group CPU-Utilization
                           </header>
                           <div class="panel-body text-center">
-                            <canvas id="operatingexpense" height="400" width="500"></canvas>
+                            <canvas id="linecpuUtilization" height="400" width="500"></canvas>
                           </div>
                         </section>
-                        <div class="overlay" id = "overlayoperatingexpense">
+                        <div class="overlay" id = "overlaylinecpuUtilization">
                           <i class="fa fa-refresh fa-spin"></i>
                         </div>
                       </div>
-                    </div>
                     </div>
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
                 </div>
-                <!-- /.box-body -->
+                <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                    <div class="col-lg-6">
+                      <section class="panel">
+                        <header class="panel-heading">
+                          Resource Scale
+                        </header>
+                        <div class="panel-body text-center">
+                          <canvas id="boundaryscale" height="400" width="500"></canvas>
+                        </div>
+                      </section>
+                      <div class="overlay" id = "overlayboundaryscale">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <section class="panel">
+                        <header class="panel-heading">
+                          Operating Expense
+                        </header>
+                        <div class="panel-body text-center">
+                          <canvas id="operatingexpense" height="400" width="500"></canvas>
+                        </div>
+                      </section>
+                      <div class="overlay" id = "overlayoperatingexpense">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
               </div>
+              <!-- /.box-body -->
             </div>
+          </div>
         </section>
         <!-- /.content -->
     </div>
