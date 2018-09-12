@@ -491,15 +491,19 @@
             return (aD) - (bD);
           });
 
+          var max = 2;
           var costs = 0;
           var overprovisiongCosts = 0;
 
           var timestamparr = [];
           var valuearr = [];
           for(i=0;i<instancesDataArr.length; i++) {
-              costs = instancesDataArr[i].Average;
-              timestamparr.push(instancesDataArr[i].Timestamp);
-              valuearr.push(instancesDataArr[i].Average);
+            if (instancesDataArr[i].Average > max) {
+              max = instancesDataArr[i].Average;
+            }
+            costs = instancesDataArr[i].Average;
+            timestamparr.push(instancesDataArr[i].Timestamp);
+            valuearr.push(instancesDataArr[i].Average);
           }
 
           var cpuUtilizationDataArr = data.cpuUtilization.Datapoints;
@@ -531,12 +535,8 @@
             return (aD) - (bD);
           });
 
-          var max = 2;
-          for(i=0;i<desiredInstancesDataArr.length; i++) {
 
-            if (desiredInstancesDataArr[i].Average > max) {
-              max = desiredInstancesDataArr[i].Average;
-            }
+          for(i=0;i<desiredInstancesDataArr.length; i++) {
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
             if (diff > 0) {
@@ -584,7 +584,8 @@
                 scales: {
                   yAxes: [{
                     ticks: {
-                      suggestedMax: (max + 2)
+                      suggestedMax: (max + 2),
+                      beginAtZero: true
                     }
                   }]
                 }
@@ -609,7 +610,8 @@
                 scales: {
                   yAxes: [{
                     ticks: {
-                      suggestedMax: 100
+                      suggestedMax: 100,
+                      beginAtZero: true
                     }
                   }]
                 }
@@ -655,7 +657,8 @@
               scales: {
                 yAxes: [{
                   ticks: {
-                    suggestedMax: (max + 2)
+                    suggestedMax: (max + 2),
+                    beginAtZero: true
                   }
                 }]
               }
