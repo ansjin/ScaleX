@@ -459,6 +459,7 @@ router.post('/getautoScaleData', function(req,res){
   var desiredInstances = [];
   var currentInstances = [];
   var cpuPercentageAvg = [];
+  var valueoverprovisioning = [];
   var k= 0;
   awsAutoscaleKubernetesMongoFunctions.getAutoscaleData(req.user.username,loadTestName)
     .then(function (dataArr) {
@@ -468,6 +469,7 @@ router.post('/getautoScaleData', function(req,res){
           k = dataArr.length;
           for (i = 0; i < dataArr.length; i++) {
             timestamp.push(dataArr[i].time);
+            valueoverprovisioning.push(dataArr[i].data.desiredInstances);
             desiredInstances.push(dataArr[i].data.DesiredCapacity);
             currentInstances.push(dataArr[i].data.Instances);
             cpuPercentageAvg.push(dataArr[i].cpuUtilization.Datapoints[0].Average);

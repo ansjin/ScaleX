@@ -694,7 +694,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
               else {
                 // successful response
                 dataAll.cpuUtilization = data;
-                awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username,dataAll );
+                awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
                 res.send(dataAll);
                 console.log("data sent for matrics_write");
                 console.log(dataAll.instances.desiredInstances);
