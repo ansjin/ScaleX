@@ -526,14 +526,14 @@
             else if (diff < 0)
               valueoverprovisioning.push(Math.abs(diff)); // Too few
             else
-              if (valueunderprovisioning[i-1] !== 0)
+              if (valueunderprovisioning[valueunderprovisioning.length-1] !== 0)
                 valueunderprovisioning.push(valueunderprovisioning[i-1]);
               else
                 valueunderprovisioning.push(0);
-            if (valueoverprovisioning[i-1] !== 0)
-              valueoverprovisioning.push(valueoverprovisioning[i-1]);
-            else
-              valueoverprovisioning.push(0);
+              if (valueoverprovisioning[valueoverprovisioning.length-1] !== 0)
+                valueoverprovisioning.push(valueoverprovisioning[i-1]);
+              else
+                valueoverprovisioning.push(0);
           }
 
           var valueresourcealloc = [];
