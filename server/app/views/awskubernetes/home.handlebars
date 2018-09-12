@@ -519,7 +519,13 @@
             return (aD) - (bD);
           });
           for(i=0;i<instancesDataArr.length; i++) {
-              valueoverprovisioning.push(desiredInstancesDataArr[i].Average);
+            var diff = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
+            if (diff > 0)
+              valueoverprovisioning.push(diff);
+            else if (diff < 0)
+              valueunderprovisioning.push(diff);
+            else
+              valueunderprovisioning.push(0);
           }
 
           var valueresourcealloc = [];
