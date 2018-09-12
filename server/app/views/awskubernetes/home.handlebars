@@ -342,7 +342,7 @@
                             Successful & Error Response Count
                           </header>
                           <div class="panel-body text-center">
-                            <canvas id="responsecount" height="400" width="500"></canvas>
+                            <canvas id="responsecount" height="400" width="800"></canvas>
                           </div>
                         </section>
                         <div class="overlay" id = "overlayresponsecount">
@@ -492,6 +492,7 @@
           });
 
           var max = 2;
+          var min = 0;
           var costs = 0;
           var overprovisiongCosts = 0;
 
@@ -500,6 +501,9 @@
           for(i=0;i<instancesDataArr.length; i++) {
             if (instancesDataArr[i].Average > max) {
               max = instancesDataArr[i].Average;
+            }
+            if (instancesDataArr[i].Average < min) {
+              min = instancesDataArr[i].Average;
             }
             costs = instancesDataArr[i].Average;
             timestamparr.push(instancesDataArr[i].Timestamp);
@@ -667,16 +671,23 @@
           $("#overlayprovisioning").hide("slow");
           var ctxBoundaryscale = document.getElementById('boundaryscale').getContext('2d');
           var myChartBoundaryscale = new Chart(ctxBoundaryscale, {
-            type: 'line',
+            type: 'bar',
             data: {
-              labels: timestamparr,
+              labels: [
+                'Minimum',
+                'Maximum',
+                'Boundary Scale'
+              ],
               datasets: [{
-                label: 'Boundary Scale',
-                data: valueresourcealloc,
-                borderColor: "blue",
-                fill: false
-              }
-              ]
+                data: [min, max, abs(min-max)],
+                backgroundColor: [
+                  "#ebe300",
+                  "#baff00",
+                  "#FF6384"
+                ],
+                borderColor: "grey",
+                fill: true
+              }]
             }
           });
           $("#overlayboundaryscale").hide("slow");
