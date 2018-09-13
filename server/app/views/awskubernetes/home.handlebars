@@ -561,7 +561,8 @@
           costs = Math.max(costs, 0);
           overprovisiongCosts = Math.max(overprovisiongCosts, 0);
           var totalcosts = costs + overprovisiongCosts;
-          totalcosts = Math.max((totalcosts*0.0116)/60), 0.01);
+          totalcosts = ((totalcosts*0.0116)/60);
+          totalcosts = Math.max(totalcosts, 0.01);
           document.getElementById("lbloperatingexpense").textContent="Operating Expense (${totalcosts} \$)";
 
           var valueresourcealloc = [];
