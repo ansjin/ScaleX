@@ -556,12 +556,13 @@
           for(i=0;i<desiredInstancesDataArr.length; i++) {
             // How many machines do we have vs how many do we need?
             var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
+            var diff_over = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
               valueoverprovisioning.push(NaN);
             }
-            else if (diff < 0) {
-              valueoverprovisioning.push(desiredInstancesDataArr[i].Average + Math.abs(diff)); // Too many
+            else if (diff_over < 0) {
+              valueoverprovisioning.push(instancesDataArr[i].Average + Math.abs(diff)); // Too many
               overprovisiongCosts = overprovisiongCosts + 1;
               valueunderprovisioning.push(NaN);
             }
