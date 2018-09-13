@@ -516,6 +516,7 @@
             if (instancesDataArr[i].Average < min) {
               min = instancesDataArr[i].Average;
             }
+            costs = costs + instancesDataArr[i].Average;
             timestamparr.push(instancesDataArr[i].Timestamp);
             valuearr.push(instancesDataArr[i].Average);
           }
@@ -574,7 +575,6 @@
             valuedesired.push(desiredInstancesDataArr[i].Average);
           }
 
-          costs = max;
           costs = costs - overprovisiongCosts;
           var totalcosts = costs + overprovisiongCosts;
           totalcosts = ((totalcosts*instancecost)/60);
@@ -741,8 +741,8 @@
             type: 'doughnut',
             data: {
               labels: [
-                'CPU-Hours',
-                'Over-Provisioned CPU-Hours'
+                'CPU-Minutes',
+                'Over-Provisioned CPU-Minutes'
               ],
               datasets: [{
                 data: [costs/60, overprovisiongCosts/60],
