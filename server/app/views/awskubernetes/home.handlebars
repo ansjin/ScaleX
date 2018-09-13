@@ -506,6 +506,7 @@
           var min = 100;
           var costs = 0;
           var overprovisiongCosts = 0;
+          var underprovisiongCosts = 0;
 
           var timestamparr = [];
           var valuearr = [];
@@ -559,6 +560,7 @@
             var diff_over = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
+              underprovisiongCosts = underprovisiongCosts + 1
               valueoverprovisioning.push(NaN);
             }
             else if (diff_over < 0) {
@@ -742,13 +744,15 @@
             data: {
               labels: [
                 'CPU-Minutes',
-                'Over-Provisioned CPU-Minutes'
+                'Over-Provisioned CPU-Minutes',
+                'Under-Provisioned CPU-Minutes'
               ],
               datasets: [{
-                data: [costs/60, overprovisiongCosts/60],
+                data: [costs, overprovisiongCosts, underprovisiongCosts],
                 backgroundColor: [
                   "#36A2EB",
-                  "#FF6384"
+                  "#FF6384",
+                  "#cfff7d"
                 ],
                 borderColor: "grey",
                 fill: true
