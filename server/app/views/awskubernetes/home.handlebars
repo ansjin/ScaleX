@@ -563,9 +563,6 @@
               if (i > 0 && isNaN(valueunderprovisioning[i-1])) {
                 valueunderprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
               }
-              if (i > 0 && isNaN(valueunderprovisioning[i]) && (desiredInstancesDataArr[i-1].Average - inServiceInstancesDataArr[i-1].Minimum) > 0) {
-                valueunderprovisioning[i] = inServiceInstancesDataArr[i].Minimum;
-              }
               valueoverprovisioning.push(NaN);
             }
             else if (diff_over < 0) {
@@ -578,7 +575,12 @@
             }
             else {
               // Neither
-              valueunderprovisioning.push(NaN);
+              if (i > 0 && (desiredInstancesDataArr[i-1].Average - inServiceInstancesDataArr[i-1].Minimum) > 0) {
+                valueunderprovisioning[i] = inServiceInstancesDataArr[i].Minimum;
+              }
+              else {
+                valueunderprovisioning.push(NaN);
+              }
               valueoverprovisioning.push(NaN);
             }
             valueinService.push(inServiceInstancesDataArr[i].Minimum);
