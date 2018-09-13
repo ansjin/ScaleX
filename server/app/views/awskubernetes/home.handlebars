@@ -582,7 +582,7 @@
                 valueunderprovisioning.push(NaN);
               }
               if (i > 0 && (desiredInstancesDataArr[i-1].Average - instancesDataArr[i-1].Average) < 0) {
-                valueoverprovisioning[i] = instancesDataArr[i].Minimum;
+                valueoverprovisioning[i] = instancesDataArr[i].Average;
               }
               else {
                 valueoverprovisioning.push(NaN);
