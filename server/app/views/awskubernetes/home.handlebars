@@ -658,14 +658,6 @@
                 spanGaps: true,
                 lineTension: 0
               },{
-                label: 'Desired Instances',
-                data: valuedesired,
-                backgroundColor: "#00ff78",
-                borderColor: "green",
-                steppedLine: true,
-                fill: false,
-                lineTension: 0
-              },{
                 label: 'Over-Provisioned',
                 data: valueoverprovisioning,
                 borderColor: "red",
@@ -676,7 +668,7 @@
               }, {
                 label: 'In-Service Instances',
                 data: valueinService,
-                backgroundColor: "grey",
+                backgroundColor: "#00ff78",
                 borderColor: "green",
                 steppedLine: true,
                 fill: false,
@@ -685,12 +677,20 @@
               },{
                 label: 'AutoScale Instances',
                 data: valuearr,
-                backgroundColor: "grey",
+                backgroundColor: "#00ff78",
                 borderColor: "green",
                 steppedLine: true,
                 fill: false,
                 lineTension: 0,
                 borderDash: [5, 5]
+              }, {
+                label: 'Desired Instances',
+                data: valuedesired,
+                backgroundColor: "grey",
+                borderColor: "green",
+                steppedLine: true,
+                fill: false,
+                lineTension: 0
               }
               ]
             },
