@@ -563,7 +563,7 @@
           var totalcosts = costs + overprovisiongCosts;
           totalcosts = ((totalcosts*0.0116)/60);
           totalcosts = Math.max(totalcosts, 0.01);
-          document.getElementById("lbloperatingexpense").textContent="Operating Expense (${0} \$)".format(totalcosts);
+          document.getElementById("lbloperatingexpense").textContent=`Operating Expense (${totalcosts} \$)`;
 
           var valueresponsetime = [];
           var valuelatency = [];
