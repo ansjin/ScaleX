@@ -574,9 +574,6 @@
               if (i > 0 && isNaN(valueoverprovisioning[i-1])) {
                 valueoverprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
               }
-              if (i > 0 && isNaN(valueoverprovisioning[i]) && (desiredInstancesDataArr[i-1].Average - inServiceInstancesDataArr[i-1].Minimum) > 0) {
-                valueoverprovisioning[i] = inServiceInstancesDataArr[i].Minimum;
-              }
               valueunderprovisioning.push(NaN);
             }
             else {
