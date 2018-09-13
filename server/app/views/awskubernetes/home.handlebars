@@ -516,7 +516,6 @@
             if (instancesDataArr[i].Average < min) {
               min = instancesDataArr[i].Average;
             }
-            costs = costs + instancesDataArr[i].Average;
             timestamparr.push(instancesDataArr[i].Timestamp);
             valuearr.push(instancesDataArr[i].Average);
           }
@@ -575,6 +574,7 @@
             valuedesired.push(desiredInstancesDataArr[i].Average);
           }
 
+          costs = max;
           costs = costs - overprovisiongCosts;
           var totalcosts = costs + overprovisiongCosts;
           totalcosts = ((totalcosts*instancecost)/60);
@@ -671,7 +671,7 @@
                 fill: false,
                 lineTension: 0
               },{
-                label: 'Auto Scale Instances',
+                label: 'AutoScale Instances',
                 data: valuearr,
                 backgroundColor: "grey",
                 steppedLine: true,
