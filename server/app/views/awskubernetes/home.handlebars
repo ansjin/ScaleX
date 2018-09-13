@@ -668,7 +668,7 @@
               }, {
                 label: 'In-Service Instances',
                 data: valueinService,
-                backgroundColor: "#00ff78",
+                backgroundColor: "grey",
                 borderColor: "green",
                 steppedLine: true,
                 fill: false,
@@ -677,7 +677,7 @@
               },{
                 label: 'AutoScale Instances',
                 data: valuearr,
-                backgroundColor: "#00ff78",
+                backgroundColor: "grey",
                 borderColor: "green",
                 steppedLine: true,
                 fill: false,
@@ -686,7 +686,7 @@
               }, {
                 label: 'Desired Instances',
                 data: valuedesired,
-                backgroundColor: "grey",
+                backgroundColor: "#00ff78",
                 borderColor: "green",
                 steppedLine: true,
                 fill: false,
@@ -748,12 +748,12 @@
             type: 'doughnut',
             data: {
               labels: [
-                'CPU-Minutes',
-                'Over-Provisioned CPU-Minutes',
-                'Under-Provisioned CPU-Minutes'
+                'CPU-Hours',
+                'Over-Provisioned CPU-Hours',
+                'Under-Provisioned CPU-Hours'
               ],
               datasets: [{
-                data: [costs, overprovisiongCosts, underprovisiongCosts],
+                data: [max, overprovisiongCosts/60, underprovisiongCosts/60],
                 backgroundColor: [
                   "#36A2EB",
                   "#FF6384",
