@@ -579,7 +579,7 @@
 
           costs = costs - overprovisiongCosts;
           var totalcosts = costs + overprovisiongCosts;
-          totalcosts = ((totalcosts*instancecost)/60);
+          totalcosts = (totalcosts*instancecost).toFixed(2);
           totalcosts = Math.max(totalcosts, 0.01);
           document.getElementById("lbloperatingexpense").textContent=`Operating Expense (${totalcosts}\$)`;
 
