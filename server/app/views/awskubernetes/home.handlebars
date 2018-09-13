@@ -670,6 +670,13 @@
                 steppedLine: true,
                 fill: false,
                 lineTension: 0
+              },{
+                label: 'Auto Scale Instances',
+                data: valuearr,
+                backgroundColor: "grey",
+                steppedLine: true,
+                fill: false,
+                lineTension: 0
               }, {
                 label: 'Desired Instances',
                 data: valuedesired,
@@ -738,7 +745,7 @@
                 'Over-Provisioned CPU-Hours'
               ],
               datasets: [{
-                data: [costs, overprovisiongCosts],
+                data: [costs/60, overprovisiongCosts/60],
                 backgroundColor: [
                   "#36A2EB",
                   "#FF6384"
