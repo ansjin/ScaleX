@@ -560,16 +560,23 @@
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
               underprovisiongCosts = underprovisiongCosts + 1;
-              if (i > 0 && isNaN(valueunderprovisioning[i-1] && typeof inServiceInstancesDataArr[i-1].Minimum !== 'undefined')) {
+              if (i > 0 && isNaN(valueunderprovisioning[i-1])) {
                 valueunderprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
+              }
+
+              if (i < desiredInstancesDataArr.length && isNaN(valueunderprovisioning[i+1])) {
+                valueunderprovisioning[i+1] = inServiceInstancesDataArr[i+1].Minimum;
               }
               valueoverprovisioning.push(NaN);
             }
             else if (diff_over < 0) {
               valueoverprovisioning.push(instancesDataArr[i].Average + Math.abs(diff)); // Too many
               overprovisiongCosts = overprovisiongCosts + 1;
-              if (i > 0 && isNaN(valueoverprovisioning[i-1]) && typeof inServiceInstancesDataArr[i-1].Minimum !== 'undefined') {
+              if (i > 0 && isNaN(valueoverprovisioning[i-1])) {
                 valueoverprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
+              }
+              if (i < desiredInstancesDataArr.length && isNaN(valueoverprovisioning[i+1])) {
+                valueoverprovisioning[i+1] = inServiceInstancesDataArr[i+1].Minimum;
               }
               valueunderprovisioning.push(NaN);
             }
