@@ -517,7 +517,6 @@
             if (instancesDataArr[i].Average < min) {
               min = instancesDataArr[i].Average;
             }
-            costs = costs + instancesDataArr[i].Average;
             timestamparr.push(instancesDataArr[i].Timestamp);
             valuearr.push(instancesDataArr[i].Average);
           }
@@ -560,7 +559,10 @@
             var diff_over = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
             if (diff > 0) {
               valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
-              underprovisiongCosts = underprovisiongCosts + 1
+              underprovisiongCosts = underprovisiongCosts + 1;
+              if (isNaN(valueunderprovisioning[i-1])) {
+                valueunderprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
+              }
               valueoverprovisioning.push(NaN);
             }
             else if (diff_over < 0) {
@@ -577,9 +579,8 @@
             valuedesired.push(desiredInstancesDataArr[i].Average);
           }
 
-          costs = costs - overprovisiongCosts;
-          var totalcosts = costs + overprovisiongCosts;
-          totalcosts = (totalcosts*instancecost).toFixed(2);
+          costs = max;
+          var totalcosts = (costs*instancecost).toFixed(2);
           totalcosts = Math.max(totalcosts, 0.01);
           document.getElementById("lbloperatingexpense").textContent=`Operating Expense (${totalcosts}\$)`;
 
@@ -686,7 +687,7 @@
               }, {
                 label: 'Desired Instances',
                 data: valuedesired,
-                backgroundColor: "#00ff78",
+                backgroundColor: "grey",
                 borderColor: "green",
                 steppedLine: true,
                 fill: false,
@@ -753,7 +754,7 @@
                 'Under-Provisioned CPU-Hours'
               ],
               datasets: [{
-                data: [max, overprovisiongCosts/60, underprovisiongCosts/60],
+                data: [costs, overprovisiongCosts/60, underprovisiongCosts/60],
                 backgroundColor: [
                   "#36A2EB",
                   "#FF6384",
