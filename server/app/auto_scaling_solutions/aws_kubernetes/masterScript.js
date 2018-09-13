@@ -13,11 +13,11 @@ exports.getMasterScript= function(kubeData, awsData) {
     'apt-get install -y kubelet kubeadm kubernetes-cni \n' +
     'apt-get install -y s3cmd \n' +
     'echo -e "access_key=' + awsData.accessKeyId + '\nsecret_key=' + awsData.secretAccessKey + '" > /root/.s3cfg \n' +
-    'url="https://s3.amazonaws.com/' + awsData.s3BucketName + '/tokenawskube.txt" \n' +
+    'url="https://s3.'+ awsData.awsregion +'.amazonaws.com/' + awsData.s3BucketName + '/tokenawskube.txt" \n' +
     'if curl --output /dev/null --silent --head --fail "$url"; then \n' +
-    'wget -O tokenawskube.txt http://s3.amazonaws.com/' + awsData.s3BucketName + '/tokenawskube.txt \n' +
-    'wget -O ipawskube.txt http://s3.amazonaws.com/' + awsData.s3BucketName + '/ipawskube.txt \n' +
-    'wget -O discoverytoken.txt http://s3.amazonaws.com/' + awsData.s3BucketName + '/discoverytoken.txt \n' +
+    'wget -O tokenawskube.txt http://s3.' + awsData.awsregion + '.amazonaws.com/' + awsData.s3BucketName + '/tokenawskube.txt \n' +
+    'wget -O ipawskube.txt http://s3.' + awsData.awsregion + '.amazonaws.com/' + awsData.s3BucketName + '/ipawskube.txt \n' +
+    'wget -O discoverytoken.txt http://s3.'+ awsData.awsregion +'.amazonaws.com/' + awsData.s3BucketName + '/discoverytoken.txt \n' +
     'sudo rm -r /var/lib/kubelet \n' +
     'rm -r /var/lib/kubelet \n' +
     'kubeadm join --token "$(< tokenawskube.txt)" "$(< ipawskube.txt)":6443 --discovery-token-ca-cert-hash sha256:"$(< discoverytoken.txt)" --skip-preflight-checks \n' +
@@ -28,18 +28,18 @@ exports.getMasterScript= function(kubeData, awsData) {
     'else \n' +
     'kubeadm token generate  > tokenawskube.txt \n' +
     '/sbin/ifconfig eth0 | grep \'inet addr\' | cut -d: -f2 | awk \'{print $1}\' > ipawskube.txt \n' +
-    's3cmd rb s3://' + awsData.s3BucketName + ' \n' +
-    's3cmd mb s3://' + awsData.s3BucketName + ' \n' +
-    's3cmd -P put tokenawskube.txt  s3://' + awsData.s3BucketName + ' \n' +
-    's3cmd -P put ipawskube.txt  s3://' + awsData.s3BucketName + ' \n' +
-    'wget -O tokenawskube.txt http://s3.amazonaws.com/' + awsData.s3BucketName + '/tokenawskube.txt \n' +
-    'wget -O ipawskube.txt http://s3.amazonaws.com/' + awsData.s3BucketName + '/ipawskube.txt \n' +
+    's3cmd rb s3://' + awsData.s3BucketName + ' --region=' + awsData.awsregion + ' \n' +
+    's3cmd mb s3://' + awsData.s3BucketName + ' --region=' + awsData.awsregion + ' \n' +
+    's3cmd -P put tokenawskube.txt  s3://' + awsData.s3BucketName + ' --region=' + awsData.awsregion + ' \n' +
+    's3cmd -P put ipawskube.txt  s3://' + awsData.s3BucketName + ' --region=' + awsData.awsregion + ' \n' +
+    'wget -O tokenawskube.txt http://s3.'+ awsData.awsregion +'.amazonaws.com/' + awsData.s3BucketName + '/tokenawskube.txt \n' +
+    'wget -O ipawskube.txt http://s3.'+ awsData.awsregion +'.amazonaws.com/' + awsData.s3BucketName + '/ipawskube.txt \n' +
     'sudo rm -r /var/lib/kubelet \n' +
     'rm -r /var/lib/kubelet \n' +
     'kubeadm init --token "$(< tokenawskube.txt)"  --pod-network-cidr=10.244.0.0/16 \n' +
     'openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2> /dev/null | openssl dgst -sha256 -hex > discoverytoken.txt \n' +
     'sed -i \'s/(stdin)= //g\' discoverytoken.txt \n' +
-    's3cmd -P put discoverytoken.txt  s3://' + awsData.s3BucketName + ' \n' +
+    's3cmd -P put discoverytoken.txt  s3://' + awsData.s3BucketName + ' --region=' + awsData.awsregion + ' \n' +
     'su ubuntu \n' +
     'sudo cp /etc/kubernetes/admin.conf $HOME/ \n' +
     'sudo chown $(id -u):$(id -g) $HOME/admin.conf \n' +
