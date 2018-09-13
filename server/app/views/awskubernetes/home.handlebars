@@ -653,6 +653,7 @@
                 label: 'Under-Provisioned',
                 data: valueunderprovisioning,
                 borderColor: "blue",
+                backgroundColor: "#36A2EB",
                 fill: origin,
                 steppedLine: true,
                 spanGaps: true,
@@ -661,6 +662,7 @@
                 label: 'Over-Provisioned',
                 data: valueoverprovisioning,
                 borderColor: "red",
+                backgroundColor: "#FF6384",
                 fill: origin,
                 steppedLine: true,
                 spanGaps: true,
@@ -671,14 +673,16 @@
                 backgroundColor: "grey",
                 steppedLine: true,
                 fill: false,
-                lineTension: 0
+                lineTension: 0,
+                borderDash: [5, 5]
               },{
                 label: 'AutoScale Instances',
                 data: valuearr,
                 backgroundColor: "grey",
                 steppedLine: true,
                 fill: false,
-                lineTension: 0
+                lineTension: 0,
+                borderDash: [5, 5]
               }, {
                 label: 'Desired Instances',
                 data: valuedesired,
