@@ -293,6 +293,7 @@ exports.deployAutoscaler = function(username, awsDeployData,kubeData, awsData,re
                                 var retry = (function () {
                                   var count = 0;
                                   return function (next) {
+                                    console.log(urlService);
                                     request({
                                       url: urlService,
                                       method: "GET",
