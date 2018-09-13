@@ -516,7 +516,7 @@
             if (instancesDataArr[i].Average < min) {
               min = instancesDataArr[i].Average;
             }
-            costs = instancesDataArr[i].Average;
+            costs = costs + instancesDataArr[i].Average;
             timestamparr.push(instancesDataArr[i].Timestamp);
             valuearr.push(instancesDataArr[i].Average);
           }
@@ -735,7 +735,7 @@
             data: {
               labels: [
                 'CPU-Hours',
-                'Over-Provisioning CPU-Hours'
+                'Over-Provisioned CPU-Hours'
               ],
               datasets: [{
                 data: [costs, overprovisiongCosts],
