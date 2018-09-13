@@ -658,6 +658,14 @@
                 spanGaps: true,
                 lineTension: 0
               },{
+                label: 'Desired Instances',
+                data: valuedesired,
+                backgroundColor: "#00ff78",
+                borderColor: "green",
+                steppedLine: true,
+                fill: false,
+                lineTension: 0
+              },{
                 label: 'Over-Provisioned',
                 data: valueoverprovisioning,
                 borderColor: "red",
@@ -683,14 +691,6 @@
                 fill: false,
                 lineTension: 0,
                 borderDash: [5, 5]
-              }, {
-                label: 'Desired Instances',
-                data: valuedesired,
-                backgroundColor: "#00ff78",
-                borderColor: "green",
-                steppedLine: true,
-                fill: false,
-                lineTension: 0
               }
               ]
             },
