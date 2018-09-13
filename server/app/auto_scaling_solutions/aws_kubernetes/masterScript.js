@@ -55,10 +55,7 @@ exports.getMasterScript= function(kubeData, awsData) {
     'cd temp \n' +
     'kubectl create -f heapster.yaml \n' +
     'kubectl create -f influxdb.yaml \n' +
-    'kubectl create -f mongo-controller.yaml \n' +
-    'kubectl create -f mongo-service.yaml \n' +
     'kubectl create -f web-deployment.yaml \n' +
-    'kubectl expose rc movie-deployment --port=80 --target-port=80 --type=LoadBalancer \n' +
     'kubectl autoscale rc movie-deployment --min=' + kubeData.scalingParams.numMinPods + ' --max=' + kubeData.scalingParams.numMaxPods + ' --cpu-percent=' + kubeData.scalingParams.cpuPercent + ' \n' +
     'kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml \n' +
     'sudo fuser -n tcp -k 8001 \n' +
