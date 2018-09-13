@@ -333,17 +333,31 @@
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
-                  <!-- Successful & Error Response Count -->
+                  <!-- Successful Response Count -->
                   <div class="row">
                     <section class="panel">
                       <header class="panel-heading">
-                        Successful & Error Response Count
+                        Successful Response Count
                       </header>
                       <div class="panel-body text-center">
                         <canvas id="responsecount" height="400" width="1000"></canvas>
                       </div>
                     </section>
                     <div class="overlay" id = "overlayresponsecount">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <div class="row">
+                    <section class="panel">
+                      <header class="panel-heading">
+                        Error Response Count
+                      </header>
+                      <div class="panel-body text-center">
+                        <canvas id="errorresponsecount" height="400" width="1000"></canvas>
+                      </div>
+                    </section>
+                    <div class="overlay" id = "overlayerrorresponsecount">
                       <i class="fa fa-refresh fa-spin"></i>
                     </div>
                     <!-- /.col -->
@@ -487,7 +501,8 @@
             return (aD) - (bD);
           });
 
-          var max = 2;
+          var instancecost = 0.0116;
+          var max = 0;
           var min = 100;
           var costs = 0;
           var overprovisiongCosts = 0;
@@ -505,6 +520,8 @@
             timestamparr.push(instancesDataArr[i].Timestamp);
             valuearr.push(instancesDataArr[i].Average);
           }
+
+          min = Math.min(max, min)
 
           var cpuUtilizationDataArr = data.cpuUtilization.Datapoints;
           var timestamparrCPUUti = [];
@@ -561,14 +578,17 @@
           costs = Math.max(costs, 0);
           overprovisiongCosts = Math.max(overprovisiongCosts, 0);
           var totalcosts = costs + overprovisiongCosts;
-          totalcosts = ((totalcosts*0.0116)/60);
+          totalcosts = ((totalcosts*instancecost)/60);
           totalcosts = Math.max(totalcosts, 0.01);
-          document.getElementById("lbloperatingexpense").textContent=`Operating Expense (${totalcosts} \$)`;
+          document.getElementById("lbloperatingexpense").textContent=`Operating Expense (${totalcosts}\$)`;
 
           var valueresponsetime = [];
           var valuelatency = [];
+
           var valuesuccessful = [];
-          var valueerror = [];
+          var valueerror300 = [];
+          var valueerror400 = [];
+          var valueerror500 = [];
 
           var ctx = document.getElementById('autoscaleInstances').getContext('2d');
           var myChart = new Chart(ctx, {
@@ -714,7 +734,7 @@
                 'Over-Provisioning Costs ($)'
               ],
               datasets: [{
-                data: [(costs*0.0116)/60, (overprovisiongCosts*0.0116)/60],
+                data: [(costs*instancecost)/60, (overprovisiongCosts*instancecost)/60],
                 backgroundColor: [
                   "#36A2EB",
                   "#FF6384"
@@ -765,16 +785,34 @@
                 data: valuesuccessful,
                 borderColor: "green",
                 fill: origin
-              },{
-                label: 'Error Response (4XX, 5XX)',
-                data: valueerror,
-                borderColor: "red",
-                fill: origin
-              }
-              ]
+              }]
             }
           });
           $("#overlayresponsecount").hide("slow");
+          var ctxErrorResponsecount = document.getElementById('errorresponsecount').getContext('2d');
+          var myChartErrorResponsecount = new Chart(ctxErrorResponsecount, {
+            type: 'line',
+            data: {
+              labels: timestamparr,
+              datasets: [{
+                label: 'Error Response (3XX)',
+                data: valueerror300,
+                borderColor: "#ff9400",
+                fill: origin
+              },{
+                label: 'Error Response (4XX)',
+                data: valueerror400,
+                borderColor: "#fffa00",
+                fill: origin
+              },{
+                label: 'Error Response (5XX)',
+                data: valueerror500,
+                borderColor: "#ff0500",
+                fill: origin
+              }]
+            }
+          });
+          $("#overlayerrorresponsecount").hide("slow");
         });
 
 
