@@ -575,8 +575,6 @@
           }
 
           costs = costs - overprovisiongCosts;
-          costs = Math.max(costs, 0.01);
-          overprovisiongCosts = Math.max(overprovisiongCosts, 0.0001);
           var totalcosts = costs + overprovisiongCosts;
           totalcosts = ((totalcosts*instancecost)/60);
           totalcosts = Math.max(totalcosts, 0.01);
@@ -735,7 +733,7 @@
                 'Over-Provisioning Costs ($)'
               ],
               datasets: [{
-                data: [(costs*instancecost)/60, (overprovisiongCosts*instancecost)/60],
+                data: [Math.max(0.01,(costs*instancecost)/60), (overprovisiongCosts*instancecost)/60],
                 backgroundColor: [
                   "#36A2EB",
                   "#FF6384"
@@ -791,8 +789,17 @@
                 data: valuetotalresponses,
                 borderColor: "grey",
                 fill: origin
+              }],
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      //suggestedMax: 100,
+                      beginAtZero: true
+                    }
+                  }]
+                }
               }
-              ]
             }
           });
           $("#overlayresponsecount").hide("slow");
@@ -822,6 +829,16 @@
                 borderColor: "grey",
                 fill: origin
               }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    //suggestedMax: 100,
+                    beginAtZero: true
+                  }
+                }]
+              }
             }
           });
           $("#overlayerrorresponsecount").hide("slow");
