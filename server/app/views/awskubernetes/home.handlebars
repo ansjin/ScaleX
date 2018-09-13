@@ -265,7 +265,7 @@
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
-                            Operating Expense
+                            <span id='lbloperatingexpense'>Operating Expense</span>
                           </header>
                           <div class="panel-body text-center">
                             <canvas id="operatingexpense" height="400" width="500"></canvas>
@@ -285,7 +285,7 @@
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
-                            Resource Scale
+                            Resource Allocation Bounds
                           </header>
                           <div class="panel-body text-center">
                             <canvas id="boundaryscale" height="400" width="500"></canvas>
@@ -335,17 +335,17 @@
                   <!-- /.row -->
                   <!-- Successful & Error Response Count -->
                   <div class="row">
-                        <section class="panel">
-                          <header class="panel-heading">
-                            Successful & Error Response Count
-                          </header>
-                          <div class="panel-body text-center">
-                            <canvas id="responsecount" height="400" width="1000"></canvas>
-                          </div>
-                        </section>
-                        <div class="overlay" id = "overlayresponsecount">
-                          <i class="fa fa-refresh fa-spin"></i>
-                        </div>
+                    <section class="panel">
+                      <header class="panel-heading">
+                        Successful & Error Response Count
+                      </header>
+                      <div class="panel-body text-center">
+                        <canvas id="responsecount" height="400" width="1000"></canvas>
+                      </div>
+                    </section>
+                    <div class="overlay" id = "overlayresponsecount">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
@@ -560,6 +560,9 @@
           costs = costs - overprovisiongCosts;
           costs = Math.max(costs, 0);
           overprovisiongCosts = Math.max(overprovisiongCosts, 0);
+          var totalcosts = costs + overprovisiongCosts;
+          totalcosts = Math.max((totalcosts*0.0116)/60), 0.01);
+          document.getElementById("lbloperatingexpense").textContent="Operating Expense (${totalcosts} \$)";
 
           var valueresourcealloc = [];
           var valueresponsetime = [];
