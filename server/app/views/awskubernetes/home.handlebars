@@ -568,6 +568,9 @@
             else if (diff_over < 0) {
               valueoverprovisioning.push(instancesDataArr[i].Average + Math.abs(diff)); // Too many
               overprovisiongCosts = overprovisiongCosts + 1;
+              if (isNaN(valueoverprovisioning[i-1])) {
+                valueoverprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
+              }
               valueunderprovisioning.push(NaN);
             }
             else {
