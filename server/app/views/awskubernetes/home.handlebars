@@ -652,24 +652,28 @@
                 data: valueunderprovisioning,
                 borderColor: "blue",
                 fill: origin,
-                spanGaps: true
+                steppedLine: true,
+                spanGaps: true,
+                lineTension: 0
               },{
                 label: 'Over-Provisioned',
                 data: valueoverprovisioning,
                 borderColor: "red",
                 fill: origin,
-                spanGaps: true
+                steppedLine: true,
+                spanGaps: true,
+                lineTension: 0
               }, {
                 label: 'In-Service Instances',
                 data: valueinService,
-                borderColor: "grey",
+                backgroundColor: "grey",
                 steppedLine: true,
                 fill: false,
                 lineTension: 0
               }, {
                 label: 'Desired Instances',
                 data: valuedesired,
-                borderColor: "green",
+                backgroundColor: "green",
                 steppedLine: true,
                 fill: false,
                 lineTension: 0
@@ -730,11 +734,11 @@
             type: 'doughnut',
             data: {
               labels: [
-                'Costs ($)',
-                'Over-Provisioning Costs ($)'
+                'CPU-Hours',
+                'Over-Provisioning CPU-Hours'
               ],
               datasets: [{
-                data: [Math.max(0.01,(costs*instancecost)/60), (overprovisiongCosts*instancecost)/60],
+                data: [Math.max(0.01,costs, overprovisiongCosts],
                 backgroundColor: [
                   "#36A2EB",
                   "#FF6384"
