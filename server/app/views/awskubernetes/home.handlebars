@@ -575,8 +575,8 @@
           }
 
           costs = costs - overprovisiongCosts;
-          costs = Math.max(costs, 0.0001);
-          overprovisiongCosts = Math.max(overprovisiongCosts, 0.000000001);
+          costs = Math.max(costs, 0.01);
+          overprovisiongCosts = Math.max(overprovisiongCosts, 0.0001);
           var totalcosts = costs + overprovisiongCosts;
           totalcosts = ((totalcosts*instancecost)/60);
           totalcosts = Math.max(totalcosts, 0.01);
@@ -585,6 +585,7 @@
           var valueresponsetime = [];
           var valuelatency = [];
 
+          var valuetotalresponses = [];
           var valuesuccessful = [];
           var valueerror300 = [];
           var valueerror400 = [];
@@ -785,7 +786,13 @@
                 data: valuesuccessful,
                 borderColor: "green",
                 fill: origin
-              }]
+              },{
+                label: 'Total Responses',
+                data: valuetotalresponses,
+                borderColor: "grey",
+                fill: origin
+              }
+              ]
             }
           });
           $("#overlayresponsecount").hide("slow");
@@ -808,6 +815,11 @@
                 label: 'Error Response (5XX)',
                 data: valueerror500,
                 borderColor: "#ff0500",
+                fill: origin
+              },{
+                label: 'Total Responses',
+                data: valuetotalresponses,
+                borderColor: "grey",
                 fill: origin
               }]
             }
