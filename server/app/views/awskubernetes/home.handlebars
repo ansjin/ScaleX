@@ -575,8 +575,8 @@
           }
 
           costs = costs - overprovisiongCosts;
-          costs = Math.max(costs, 0);
-          overprovisiongCosts = Math.max(overprovisiongCosts, 0);
+          costs = Math.max(costs, 0.0001);
+          overprovisiongCosts = Math.max(overprovisiongCosts, 0.000000001);
           var totalcosts = costs + overprovisiongCosts;
           totalcosts = ((totalcosts*instancecost)/60);
           totalcosts = Math.max(totalcosts, 0.01);
