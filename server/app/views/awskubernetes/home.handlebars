@@ -595,6 +595,8 @@
 
           var totalcosts = (costs*(instancecost/60)).toFixed(2);
           totalcosts = Math.max(totalcosts, 0.01);
+          costs = Math.max(costs, 0);
+
           document.getElementById("lbloperatingexpense").textContent=`Operating Expense (${totalcosts}\$)`;
 
           var valueresponsetime = [];
