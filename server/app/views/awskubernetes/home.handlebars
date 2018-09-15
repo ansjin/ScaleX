@@ -494,7 +494,7 @@
       );
 
     $(function() {
-      function callAjax(){
+      function callUpdate(){
         $.get(
           "/awskubernetes/getcurrentData",
           function(data) {
@@ -887,7 +887,8 @@
             $("#overlayerrorresponsecount").hide("slow");
           });
       }
-      setInterval(callAjax, 5000);
+      callUpdate();
+      setInterval(callUpdate, 60000);
     });
     </script>
 
