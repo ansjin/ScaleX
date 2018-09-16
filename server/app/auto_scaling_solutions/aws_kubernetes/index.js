@@ -762,7 +762,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                           Dimensions: [
                             {
                               Name: 'LoadBalancer', /* required */
-                              Value: awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name/* required */
+                              Value: 'test'//awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name/* required */
                             },
                             /* more items */
                           ],
