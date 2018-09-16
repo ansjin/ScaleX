@@ -602,14 +602,22 @@
 
             document.getElementById("lbloperatingexpense").textContent=`Operating Expense (${totalcosts}\$)`;
 
-            var valueresponsetime = [];
-            var valuelatency = [];
+            var valuesuccessfulData = data.HTTPCode2XXCount.Datapoints;
+            var valuesuccessful = [];
+            valuesuccessfulData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+            for(i=0;i<valuesuccessfulData.length; i++) {
+              valuesuccessful.push(valuesuccessfulData[i].Sum);
+            }
 
             var valuetotalresponses = [];
-            var valuesuccessful = [];
             var valueerror300 = [];
             var valueerror400 = [];
             var valueerror500 = [];
+            var valueresponsetime = [];
+            var valuelatency = [];
 
             var ctx = document.getElementById('autoscaleInstances').getContext('2d');
             var myChart = new Chart(ctx, {

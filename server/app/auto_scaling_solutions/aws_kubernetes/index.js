@@ -671,7 +671,13 @@ exports.getCurrentData = function(awsData,username,req,res) {
               "instances": data,
               "cpuUtilization": '',
               "desiredInstances": '',
-              "inserviceInstances": ''
+              "inserviceInstances": '',
+              "HTTPCode5XXCountELB": '',
+              "HTTPCode4XXCountELB": '',
+              "HTTPCode2XXCount": '',
+              "HTTPCode3XXCount": '',
+              "HTTPCode4XXCount": '',
+              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.instanceType;
             };
             var params = {
               EndTime: new Date, /* required */
@@ -745,12 +751,39 @@ exports.getCurrentData = function(awsData,username,req,res) {
                     cloudwatch.getMetricStatistics(params, function (err, data) {
                       if (err) console.log(err, err.stack); // an error occurred
                       else {
-                        dataAll.inserviceInstances = data;
                         // successful response
-                        awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
-                        res.send(dataAll);
-                        console.log("data sent for matrics_write");
-                        console.log(dataAll)
+                        dataAll.inserviceInstances = data;
+                        var params = {
+                          EndTime: new Date, /* required */
+                          MetricName: 'HTTPCode_Target_2XX_Count', /* required */
+                          Namespace: 'AWS/ApplicationELB/', /* required */
+                          Period: 60, /* required */
+                          StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                          Dimensions: [
+                            {
+                              Name: 'LoadBalancer', /* required */
+                              Value: awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name/* required */
+                            },
+                            /* more items */
+                          ],
+                          Statistics: [
+                            "Sum"
+                            /* more items */
+                          ]
+                          // Unit: 'Count'
+                        };
+                        cloudwatch.getMetricStatistics(params, function (err, data) {
+                          if (err) console.log(err, err.stack); // an error occurred
+                          else {
+                            // successful response
+                            dataAll.HTTPCode2XXCount = data;
+                            // successful response
+                            awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
+                            res.send(dataAll);
+                            console.log("data sent for matrics_write");
+                            console.log(dataAll)
+                          }
+                        });
                       }
                     });
                   }
