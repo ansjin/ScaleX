@@ -677,7 +677,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
               "HTTPCode2XXCount": '',
               "HTTPCode3XXCount": '',
               "HTTPCode4XXCount": '',
-              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.instanceType;
+              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.instanceType
             };
             var params = {
               EndTime: new Date, /* required */
