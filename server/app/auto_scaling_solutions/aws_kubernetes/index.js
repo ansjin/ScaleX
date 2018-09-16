@@ -753,6 +753,9 @@ exports.getCurrentData = function(awsData,username,req,res) {
                       else {
                         // successful response
                         dataAll.inserviceInstances = data;
+                        if (awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name === undefined) {
+                          awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name = "";
+                        }
                         var params = {
                           EndTime: new Date, /* required */
                           MetricName: 'HTTPCode_Target_2XX_Count', /* required */
@@ -762,7 +765,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                           Dimensions: [
                             {
                               Name: 'LoadBalancer', /* required */
-                              Value: 'test'//awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name/* required */
+                              Value: awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name/* required */
                             },
                             /* more items */
                           ],
