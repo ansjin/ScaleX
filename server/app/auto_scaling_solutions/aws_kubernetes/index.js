@@ -753,7 +753,8 @@ exports.getCurrentData = function(awsData,username,req,res) {
                       else {
                         // successful response
                         dataAll.inserviceInstances = data;
-                        if (awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name === undefined) {
+                        console.log(awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name);
+                        if (awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name === 'undefined') {
                           awsDeployInfo.awsKubeAutoScaleConfig.loadBal.name = "";
                         }
                         var params = {
