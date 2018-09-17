@@ -694,13 +694,13 @@
               valueerror500Data.push(valueerror500Data.Sum);
             }
 
-            for (i=0; i<desiredInstancesDataArr.length; i++) {
+            for (i=0; i<instancesDataArr.length; i++) {
               for (j=0; j<valueerror500ELBData.length; j++) {
-                if (typeof valueerror500ELBData[j] !== 'undefined' && desiredInstancesDataArr[i].Timestamp === valueerror500ELBData[j].Timestamp) {
+                if (typeof valueerror500ELBData[j] !== 'undefined' && instancesDataArr[i].Timestamp === valueerror500ELBData[j].Timestamp) {
                   break;
                 }
                 else {
-                  valueerror500ELBData.push({"Timestamp": desiredInstancesDataArr[i].Timestamp, "Sum": 0, "Unit": "Count"})
+                  valueerror500ELBData.push({"Timestamp": instancesDataArr[i].Timestamp, "Sum": 0, "Unit": "Count"})
                 }
               }
             }
