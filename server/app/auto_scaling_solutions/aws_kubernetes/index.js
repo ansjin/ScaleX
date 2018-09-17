@@ -753,6 +753,8 @@ exports.getCurrentData = function(awsData,username,req,res) {
                       else {
                         // successful response
                         dataAll.inserviceInstances = data;
+                        lbarn = awsDeployInfo.awsKubeAutoScaleConfig.ipConfig.listener.LoadBalancerArn;
+                        lbname = lbarn.split("loadbalancer/").slice(1);
                         var params = {
                           EndTime: new Date, /* required */
                           MetricName: 'HTTPCode_ELB_5XX_Count', /* required */
@@ -762,7 +764,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                           Dimensions: [
                             {
                               Name: 'LoadBalancer', /* required */
-                              Value: 'app/awsloadbal/0f546c0424c9ffc5' //awsDeployInfo.awsKubeAutoScaleConfig.loadBal.Name/* required */
+                              Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
                             },
                             /* more items */
                           ],
