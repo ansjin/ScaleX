@@ -754,7 +754,8 @@ exports.getCurrentData = function(awsData,username,req,res) {
                         // successful response
                         dataAll.inserviceInstances = data;
                         lbarn = awsDeployInfo.awsKubeAutoScaleConfig.listener.LoadBalancerArn;
-                        lbname = lbarn.split("loadbalancer/").slice(1);
+                        lbtmp = lbarn.split("loadbalancer/").slice(1);
+                        lbname = lbtmp.join("loadbalancer/");
                         var params = {
                           EndTime: new Date, /* required */
                           MetricName: 'HTTPCode_ELB_5XX_Count', /* required */
