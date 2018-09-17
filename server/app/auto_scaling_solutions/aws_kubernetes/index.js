@@ -433,6 +433,7 @@ exports.deployAutoscaler = function(username, awsDeployData,kubeData, awsData,re
                                   "loadBal": paramsLoadBalancer,
                                   "listener": paramsListener,
                                   "scaling": paramsAutoScaler,
+                                  "instanceType" : awsDeployData.launchConfig.typeInst,
                                   "scalingPolicy":{
                                     "up":{
                                       "policy":paramsAutoScalingUpPolicy,
@@ -677,7 +678,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
               "HTTPCode2XXCount": '',
               "HTTPCode3XXCount": '',
               "HTTPCode4XXCount": '',
-              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.instanceTy
+              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.instanceType
             };
             var params = {
               EndTime: new Date, /* required */
