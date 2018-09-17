@@ -757,7 +757,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                         var params = {
                           EndTime: new Date, /* required */
                           MetricName: 'HTTPCode_ELB_5XX_Count', /* required */
-                          Namespace: 'AWS/ApplicationELB/', /* required */
+                          Namespace: 'AWS/ApplicationELB', /* required */
                           Period: 60, /* required */
                           StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
                           Dimensions: [
