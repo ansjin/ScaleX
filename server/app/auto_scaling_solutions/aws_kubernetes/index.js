@@ -644,7 +644,6 @@ exports.getCurrentData = function(awsData,username,req,res) {
   awsAutoscaleKubernetesMongoFunctions.getAwsAutoScaleInfo(username)
     .then(function (awsDeployInfo) {
       if (awsDeployInfo) {
-          console.log(awsDeployInfo);
           var d = new Date();
           var MS_PER_MINUTE = 60000;
           var params = {
