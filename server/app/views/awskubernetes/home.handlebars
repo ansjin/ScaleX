@@ -693,10 +693,11 @@
             for (i=0;i<desiredInstancesDataArr.length; i++) {
               valueerror500Data.push(valueerror500Data.Sum);
             }
+            var instancesDataArrStore = valueerror500ELBData;
 
             for (i=0; i<instancesDataArr.length; i++) {
               for (j=0; j<valueerror500ELBData.length; j++) {
-                if (typeof valueerror500ELBData[j] !== 'undefined' && instancesDataArr[i].Timestamp === valueerror500ELBData[j].Timestamp) {
+                if (typeof instancesDataArrStore[j] !== 'undefined' && instancesDataArr[i].Timestamp === valueerror500ELBData[j].Timestamp) {
                   break;
                 }
                 else {
