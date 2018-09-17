@@ -702,17 +702,17 @@
             });
 
             for(i=0;i<desiredInstancesDataArr.length; i++) {
-              if (typeof valueerror500ELBData[i] === 'undefined' && typeof valueerror500Data[i] === 'undefined') {
+              if ((typeof valueerror500ELBData[i] === 'undefined' || valueerror500ELBData[i] === 0) && (typeof valueerror500Data[i] === 'undefined' || valueerror500Data[i] === 0)) {
                 valueerror500.push(0);
               }
               else {
-                if (typeof valueerror500ELBData[i] !== 'undefined' && typeof valueerror500Data[i] !== 'undefined') {
+                if ((typeof valueerror500ELBData[i] !== 'undefined' || valueerror500ELBData[i] === 0) && (typeof valueerror500Data[i] !== 'undefined' || valueerror500Data[i] === 0)) {
                   valueerror500.push(valueerror500Data[i].Sum + valueerror500ELBData[i].Sum);
                 }
-                else if (typeof valueerror500ELBData[i] !== 'undefined') {
+                else if ((typeof valueerror500ELBData[i] !== 'undefined' || valueerror500ELBData[i] === 0)) {
                   valueerror500.push(valueerror500ELBData[i].Sum);
                 }
-                else if (typeof valueerror500Data[i] !== 'undefined') {
+                else if (typeof valueerror500Data[i] !== 'undefined' || valueerror500Data[i] === 0) {
                   valueerror500.push(valueerror500Data[i].Sum);
                 }
               }
