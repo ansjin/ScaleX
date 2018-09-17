@@ -615,7 +615,7 @@
               return (aD) - (bD);
             });
 
-            for(i=0;i<valuesuccessfulData.length; i++) {
+            for(i=0;i<desiredInstancesDataArr.length; i++) {
               valuesuccessful.push(valuesuccessfulData[i].Sum);
             }
 
@@ -627,7 +627,7 @@
               return (aD) - (bD);
             });
 
-            for(i=0;i<valuetotalData.length; i++) {
+            for(i=0;i<desiredInstancesDataArr.length; i++) {
               valuetotalresponses.push(valuetotalData[i].Sum);
             }
 
@@ -639,7 +639,7 @@
               return (aD) - (bD);
             });
 
-            for(i=0;i<valueerror300Data.length; i++) {
+            for(i=0;i<desiredInstancesDataArr.length; i++) {
               valueerror300.push(valueerror300Data[i].Sum);
             }
 
@@ -657,8 +657,19 @@
               return (aD) - (bD);
             });
 
-            for(i=0;i<valueerror400Data.length; i++) {
-              valueerror400.push((valueerror400Data[i].Sum || 0) + (valueerror400ELBData[i].Sum || 0));
+            for(i=0;i<desiredInstancesDataArr.length; i++) {
+              if (typeof valueerror400Data[i] === 'undefined') {
+                valueerror400.push(valueerror400ELBData[i].Sum);
+              }
+              else if (typeof valueerror400ELBData[i] === 'undefined') {
+                valueerror400.push(valueerror400Data[i].Sum);
+              }
+              else if (typeof valueerror400ELBData[i] === 'undefined' && typeof valueerror400Data[i] === 'undefined') {
+                valueerror400.push(0);
+              }
+              else {
+                valueerror400.push(valueerror400Data[i].Sum + valueerror400ELBData[i].Sum);
+              }
             }
 
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
@@ -675,12 +686,15 @@
               return (aD) - (bD);
             });
 
-            for(i=0;i<(valueerror500Data.length || valueerror500ELBData.length); i++) {
+            for(i=0;i<desiredInstancesDataArr.length; i++) {
               if (typeof valueerror500Data[i] === 'undefined') {
                 valueerror500.push(valueerror500ELBData[i].Sum);
               }
               else if (typeof valueerror500ELBData[i] === 'undefined') {
                 valueerror500.push(valueerror500Data[i].Sum);
+              }
+              else if (typeof valueerror500ELBData[i] === 'undefined' && typeof valueerror500Data[i] === 'undefined') {
+                valueerror500.push(0);
               }
               else {
                 valueerror500.push(valueerror500Data[i].Sum + valueerror500ELBData[i].Sum);
