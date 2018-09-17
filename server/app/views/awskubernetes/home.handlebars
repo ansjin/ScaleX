@@ -661,8 +661,8 @@
               valueerror400.push((valueerror400Data[i].Sum + valueerror400ELBData[i].Sum));
             }
 
-            var valueerror500Data = data.HTTPCode4XXCount.Datapoints;
-            var valueerror500ELBData = data.HTTPCode4XXCountELB.Datapoints;
+            var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
+            var valueerror500ELBData = data.HTTPCode5XXCountELB.Datapoints;
             var valueerror500 = [];
 
             valueerror500Data.sort(function(a, b) {
