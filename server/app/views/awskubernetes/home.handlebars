@@ -616,7 +616,12 @@
             });
 
             for(i=0;i<desiredInstancesDataArr.length; i++) {
-              valuesuccessful.push(valuesuccessfulData[i].Sum);
+              if (typeof valuesuccessful[i] === 'undefined') {
+                valuesuccessful.push(0);
+              }
+              else {
+                valuesuccessful.push(valuesuccessfulData[i].Sum);
+              }
             }
 
             var valuetotalData = data.totalRequestCount.Datapoints;
@@ -640,7 +645,12 @@
             });
 
             for(i=0;i<desiredInstancesDataArr.length; i++) {
-              valueerror300.push(valueerror300Data[i].Sum);
+              if (typeof valueerror300Data[i] === 'undefined') {
+                valuerror300.push(0);
+              }
+              else {
+                valueerror300.push(valueerror300Data[i].Sum);
+              }
             }
 
             var valueerror400Data = data.HTTPCode4XXCount.Datapoints;
