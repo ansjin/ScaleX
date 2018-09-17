@@ -702,17 +702,17 @@
             });
 
             for(i=0;i<desiredInstancesDataArr.length; i++) {
-              if (typeof valueerror500Data[i] !== 'undefined') {
-                valueerror500.push(valueerror500Data[i].Sum);
+              if (typeof valueerror500ELBData[i] !== 'undefined' && typeof valueerror500Data[i] !== 'undefined') {
+                valueerror500.push(valueerror500Data[i].Sum + valueerror500ELBData[i].Sum);
               }
               else if (typeof valueerror500ELBData[i] !== 'undefined') {
                 valueerror500.push(valueerror500ELBData[i].Sum);
               }
-              else if (typeof valueerror500ELBData[i] === 'undefined' && typeof valueerror500Data[i] === 'undefined') {
-                valueerror500.push(0);
+              else if (typeof valueerror500Data[i] !== 'undefined') {
+                valueerror500.push(valueerror500Data[i].Sum);
               }
               else {
-                valueerror500.push(valueerror500Data[i].Sum + valueerror500ELBData[i].Sum);
+                valueerror500.push(0);
               }
             }
 
