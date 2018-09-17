@@ -605,7 +605,7 @@
             totalcosts = Math.max(totalcosts, 0.01);
 
             document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
-            document.getElementById("operatingexpensetitle").textContent = `Operating Expense ${data.instanceType}`;
+            document.getElementById("operatingexpensetitle").textContent = `Operating Expense (${data.instanceType})`;
 
             var valuesuccessfulData = data.HTTPCode2XXCount.Datapoints;
             var valuesuccessful = [];
