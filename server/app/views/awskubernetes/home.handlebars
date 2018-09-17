@@ -633,7 +633,12 @@
             });
 
             for(i=0;i<desiredInstancesDataArr.length; i++) {
-              valuetotalresponses.push(valuetotalData[i].Sum);
+              if (typeof valuetotalData[i] === 'undefined') {
+                valuetotalresponses.push(0);
+              }
+              else {
+                valuetotalresponses.push(valuetotalData[i].Sum);
+              }
             }
 
             var valueerror300Data = data.HTTPCode3XXCount.Datapoints;
