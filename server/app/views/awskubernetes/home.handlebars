@@ -676,6 +676,7 @@
             });
 
             for(i=0;i<valueerror500Data.length; i++) {
+              console.log((valueerror500Data[i].Sum || 0) + (valueerror500ELBData[i].Sum || 0));
               valueerror500.push((valueerror500Data[i].Sum || 0) + (valueerror500ELBData[i].Sum || 0));
             }
 
