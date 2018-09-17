@@ -530,7 +530,7 @@
               costs = costs + instancesDataArr[i].Average;
             }
 
-            min = Math.min(max, min)
+            min = Math.min(max, min);
 
             var cpuUtilizationDataArr = data.cpuUtilization.Datapoints;
             var timestamparrCPUUti = [];
@@ -702,17 +702,19 @@
             });
 
             for(i=0;i<desiredInstancesDataArr.length; i++) {
-              if (typeof valueerror500ELBData[i] !== 'undefined' && typeof valueerror500Data[i] !== 'undefined') {
-                valueerror500.push(valueerror500Data[i].Sum + valueerror500ELBData[i].Sum);
-              }
-              else if (typeof valueerror500ELBData[i] !== 'undefined') {
-                valueerror500.push(valueerror500ELBData[i].Sum);
-              }
-              else if (typeof valueerror500Data[i] !== 'undefined') {
-                valueerror500.push(valueerror500Data[i].Sum);
-              }
-              else {
+              if (typeof valueerror500ELBData[i] === 'undefined' && typeof valueerror500Data[i] === 'undefined') {
                 valueerror500.push(0);
+                }
+                else {
+                  if (typeof valueerror500ELBData[i] !== 'undefined' && typeof valueerror500Data[i] !== 'undefined') {
+                    valueerror500.push(valueerror500Data[i].Sum + valueerror500ELBData[i].Sum);
+                  }
+                  else if (typeof valueerror500ELBData[i] !== 'undefined') {
+                    valueerror500.push(valueerror500ELBData[i].Sum);
+                  }
+                  else if (typeof valueerror500Data[i] !== 'undefined') {
+                    valueerror500.push(valueerror500Data[i].Sum);
+                  }
               }
             }
 
@@ -979,11 +981,7 @@
               options: {
                 scales: {
                   yAxes: [{
-                    stacked: true,
-                    scaleLabel: {
-                      display: true,
-                      labelString: 'Value'
-                    },
+                    stacked: false,
                     ticks: {
                       //suggestedMax: 100,
                       beginAtZero: true
