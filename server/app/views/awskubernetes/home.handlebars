@@ -696,7 +696,7 @@
 
             for (i=0; i<desiredInstancesDataArr.length; i++) {
               for (j=0; j<valueerror500ELBData.length; j++) {
-                if (desiredInstancesDataArr[i].Timestamp === valueerror500ELBData[j].Timestamp) {
+                if (typeof valueerror500ELBData[j] !== 'undefined' && desiredInstancesDataArr[i].Timestamp === valueerror500ELBData[j].Timestamp) {
                   break;
                 }
                 else {
