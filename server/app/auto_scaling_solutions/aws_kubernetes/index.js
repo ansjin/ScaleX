@@ -927,7 +927,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                                                     res.send(dataAll);
                                                     console.log("data sent for matrics_write");
                                                     console.log(dataAll);
-                                                    console.log(dataAll.HTTPCode5XXCountELB.datapoints[0]);
+                                                    console.log(dataAll.HTTPCode5XXCountELB.Datapoints[0]);
                                                   }
                                                 });
                                               }
