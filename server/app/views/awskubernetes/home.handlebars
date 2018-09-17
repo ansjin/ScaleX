@@ -658,7 +658,7 @@
             });
 
             for(i=0;i<valueerror400Data.length; i++) {
-              valueerror400.push((valueerror400Data[i].Sum + valueerror400ELBData[i].Sum));
+              valueerror400.push((valueerror400Data[i].Sum || 0) + (valueerror400ELBData[i].Sum || 0));
             }
 
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
@@ -676,7 +676,7 @@
             });
 
             for(i=0;i<valueerror500Data.length; i++) {
-              valueerror500.push((valueerror500Data[i].Sum + valueerror500ELBData[i].Sum));
+              valueerror500.push((valueerror500Data[i].Sum || 0) + (valueerror500ELBData[i].Sum || 0));
             }
 
             var valueresponsetime = [];
