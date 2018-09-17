@@ -608,11 +608,23 @@
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
               return (aD) - (bD);
             });
+
             for(i=0;i<valuesuccessfulData.length; i++) {
               valuesuccessful.push(valuesuccessfulData[i].Sum);
             }
 
+            var valuetotalData = data.totalRequestCount.Datapoints;
             var valuetotalresponses = [];
+
+            valuetotalData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<valuetotalData.length; i++) {
+              valuetotalresponses.push(valuetotalData[i].Sum);
+            }
+
             var valueerror300 = [];
             var valueerror400 = [];
             var valueerror500 = [];

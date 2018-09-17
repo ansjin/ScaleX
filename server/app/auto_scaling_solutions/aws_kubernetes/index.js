@@ -672,6 +672,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
               "cpuUtilization": '',
               "desiredInstances": '',
               "inserviceInstances": '',
+              "totalRequestCount": '',
               "HTTPCode5XXCountELB": '',
               "HTTPCode4XXCountELB": '',
               "HTTPCode2XXCount": '',
@@ -753,12 +754,13 @@ exports.getCurrentData = function(awsData,username,req,res) {
                       else {
                         // successful response
                         dataAll.inserviceInstances = data;
+                        // Isolate load balancer name from ARN
                         lbarn = awsDeployInfo.awsKubeAutoScaleConfig.listener.LoadBalancerArn;
                         lbtmp = lbarn.split("loadbalancer/").slice(1);
                         lbname = lbtmp.join("loadbalancer/");
                         var params = {
                           EndTime: new Date, /* required */
-                          MetricName: 'HTTPCode_ELB_5XX_Count', /* required */
+                          MetricName: 'HTTPCode_Target_2XX_Count', /* required */
                           Namespace: 'AWS/ApplicationELB', /* required */
                           Period: 60, /* required */
                           StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
@@ -780,11 +782,37 @@ exports.getCurrentData = function(awsData,username,req,res) {
                           else {
                             // successful response
                             dataAll.HTTPCode2XXCount = data;
-                            // successful response
-                            awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
-                            res.send(dataAll);
-                            console.log("data sent for matrics_write");
-                            console.log(dataAll)
+                            var params = {
+                              EndTime: new Date, /* required */
+                              MetricName: 'RequestCount', /* required */
+                              Namespace: 'AWS/ApplicationELB', /* required */
+                              Period: 60, /* required */
+                              StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                              Dimensions: [
+                                {
+                                  Name: 'LoadBalancer', /* required */
+                                  Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                                },
+                                /* more items */
+                              ],
+                              Statistics: [
+                                "Sum"
+                                /* more items */
+                              ]
+                              // Unit: 'Count'
+                            };
+                            cloudwatch.getMetricStatistics(params, function (err, data) {
+                              if (err) console.log(err, err.stack); // an error occurred
+                              else {
+                                // successful response
+                                dataAll.totalRequestCount = data;
+                                // successful response
+                                awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
+                                res.send(dataAll);
+                                console.log("data sent for matrics_write");
+                                console.log(dataAll)
+                              }
+                            });
                           }
                         });
                       }
