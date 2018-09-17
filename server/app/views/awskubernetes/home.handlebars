@@ -686,9 +686,25 @@
                 valueerror400.push(valueerror400Data[i].Sum + valueerror400ELBData[i].Sum);
               }
             }
-
+            //{ Timestamp: 2018-09-17T14:34:00.000Z, Sum: 1, Unit: 'Count' }
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
             var valueerror500ELBData = data.HTTPCode5XXCountELB.Datapoints;
+
+            for (i=0;i<desiredInstancesDataArr.length; i++) {
+              valueerror500Data.push(valueerror500Data.Sum);
+            }
+
+            for (var datapoints in desiredInstancesDataArr) {
+              for (var datapoints_500 in valueerror500Data) {
+                if (datapoints.Timestamp === valueerror500ELBData.Timestamp) {
+                  break;
+                }
+                else {
+                  valueerror500Data.push({"Timestamp": datapoints.Timestamp, "Sum": 0, "Unit": "Count"})
+                }
+              }
+            }
+
             var valueerror500 = [];
 
             valueerror500Data.sort(function(a, b) {
@@ -702,6 +718,7 @@
             });
 
             for(i=0;i<desiredInstancesDataArr.length; i++) {
+              valueerror500.push(valueerror500ELBData[i].Sum);
               /*if (valueerror500ELBData[i].Timestamp === desiredInstancesDataArr[i].Timestamp) {
                 valueerror500.push(valueerror500ELBData[i].Sum);
               }
