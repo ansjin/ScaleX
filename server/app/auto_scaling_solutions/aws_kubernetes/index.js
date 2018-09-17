@@ -433,7 +433,6 @@ exports.deployAutoscaler = function(username, awsDeployData,kubeData, awsData,re
                                   "loadBal": paramsLoadBalancer,
                                   "listener": paramsListener,
                                   "scaling": paramsAutoScaler,
-                                  "instanceType" : awsDeployData.launchConfig.typeInst,
                                   "scalingPolicy":{
                                     "up":{
                                       "policy":paramsAutoScalingUpPolicy,
@@ -763,7 +762,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                           Dimensions: [
                             {
                               Name: 'LoadBalancer', /* required */
-                              Value: 'awsloadbal' //awsDeployInfo.awsKubeAutoScaleConfig.loadBal.Name/* required */
+                              Value: 'app/awsloadbal/0f546c0424c9ffc5' //awsDeployInfo.awsKubeAutoScaleConfig.loadBal.Name/* required */
                             },
                             /* more items */
                           ],
