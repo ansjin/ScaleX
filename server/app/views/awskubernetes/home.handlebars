@@ -265,7 +265,7 @@
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
-                            <span id='operatingexpensetitle'>Operating Expense</span>
+                            <span id='operatingexpensetitle'>Instance Operating Expenses</span>
                           </header>
                           <div class="panel-body text-center">
                             <div style="width: 400px; height: 400px; float: left; position: relative;">
@@ -605,10 +605,11 @@
             totalcosts = Math.max(totalcosts, 0.01);
 
             document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
-            document.getElementById("operatingexpensetitle").textContent = `Operating Expense (${data.instanceType})`;
+            document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType})`;
 
             var valuesuccessfulData = data.HTTPCode2XXCount.Datapoints;
             var valuesuccessful = [];
+
             valuesuccessfulData.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
               return (aD) - (bD);
@@ -630,9 +631,54 @@
               valuetotalresponses.push(valuetotalData[i].Sum);
             }
 
+            var valueerror300Data = data.HTTPCode3XXCount.Datapoints;
             var valueerror300 = [];
+
+            valueerror300Data.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<valueerror300Data.length; i++) {
+              valueerror300.push(valueerror300Data[i].Sum);
+            }
+
+            var valueerror400Data = data.HTTPCode4XXCount.Datapoints;
+            var valueerror400ELBData = data.HTTPCode4XXCountELB.Datapoints;
             var valueerror400 = [];
+
+            valueerror400Data.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valueerror400ELBData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<valueerror400Data.length; i++) {
+              valueerror400.push((valueerror400Data[i].Sum + valueerror400ELBData[i].Sum));
+            }
+
+            var valueerror500Data = data.HTTPCode4XXCount.Datapoints;
+            var valueerror500ELBData = data.HTTPCode4XXCountELB.Datapoints;
             var valueerror500 = [];
+
+            valueerror500Data.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valueerror500ELBData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<valueerror500Data.length; i++) {
+              valueerror500.push((valueerror500Data[i].Sum + valueerror500ELBData[i].Sum));
+            }
+
             var valueresponsetime = [];
             var valuelatency = [];
 
