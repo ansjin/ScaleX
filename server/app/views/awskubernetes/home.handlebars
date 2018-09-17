@@ -695,12 +695,12 @@
             }
 
             for (var datapoints in desiredInstancesDataArr) {
-              for (var datapoints_500 in valueerror500Data) {
+              for (var datapoints_500 in valueerror500ELBData) {
                 if (datapoints.Timestamp === valueerror500ELBData.Timestamp) {
                   break;
                 }
                 else {
-                  valueerror500Data.push({"Timestamp": datapoints.Timestamp, "Sum": 0, "Unit": "Count"})
+                  valueerror500ELBData.push({"Timestamp": datapoints.Timestamp, "Sum": 0, "Unit": "Count"})
                 }
               }
             }
