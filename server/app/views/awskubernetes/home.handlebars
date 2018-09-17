@@ -696,12 +696,12 @@
             var instancesDataArrStore = valueerror500ELBData;
 
             for (i=0; i<instancesDataArr.length; i++) {
-              for (j=0; j<valueerror500ELBData.length; j++) {
-                if (typeof instancesDataArrStore[j] !== 'undefined' && instancesDataArr[i].Timestamp === valueerror500ELBData[j].Timestamp) {
+              for (j=0; j<valueerror500ELBData.Datapoints.length; j++) {
+                if (typeof instancesDataArrStore[j] !== 'undefined' && instancesDataArr[i].Timestamp === valueerror500ELBData.Datapoints[j].Timestamp) {
                   break;
                 }
                 else {
-                  valueerror500ELBData.push({"Timestamp": instancesDataArr[i].Timestamp, "Sum": 0, "Unit": "Count"})
+                  valueerror500ELBData.Datapoints.push({"Timestamp": instancesDataArr[i].Timestamp, "Sum": 0, "Unit": "Count"})
                 }
               }
             }
