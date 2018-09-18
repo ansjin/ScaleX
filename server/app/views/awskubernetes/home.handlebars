@@ -645,12 +645,11 @@
               }
               else {
                 valuetotalresponses.push(valuetotalData[i].Sum);
-              }
-
-              for(j=0;j<valueerror500DataELB.length; j++) {
-                if (valuetotalData[i].Timestamp === valueerror500DataELB[j].Timestamp)
-                {
-                  valueerror500.push(valueerror500DataELB[j].Sum);
+                for(j=0;j<valueerror500DataELB.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror500DataELB[j].Timestamp)
+                  {
+                    valueerror500.push(valueerror500DataELB[j].Sum);
+                  }
                 }
               }
             }
