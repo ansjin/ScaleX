@@ -642,6 +642,7 @@
             for(i=0;i<desiredInstancesDataArr.length; i++) {
               if (typeof valuetotalData[i] === 'undefined') {
                 valuetotalresponses.push(0);
+                valueerror500.push(0);
               }
               else {
                 valuetotalresponses.push(valuetotalData[i].Sum);
