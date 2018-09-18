@@ -509,7 +509,18 @@
               return (aD) - (bD);
             });
 
-            var instancecost = 0.0134;
+            var instancecost = 0.0116;
+
+            if (data.instanceType === "t2.micro") {
+              instancecost = 0.0116;
+            }
+            else if (data.instanceType === "t2.small") {
+              instancecost = 0.0232;
+            }
+            else if (data.instanceType === "t2.medium") {
+              instancecost = 0.0464;
+            }
+
             var max = 0;
             var min = 100;
             var costs = 0;
@@ -607,14 +618,6 @@
             document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
             document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType})`;
 
-            var valuesuccessfulData = data.HTTPCode2XXCount.Datapoints;
-            var valuesuccessful = [];
-
-            valuesuccessfulData.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
-
             for(i=0;i<desiredInstancesDataArr.length; i++) {
               if (typeof valuesuccessful[i] === 'undefined') {
                 valuesuccessful.push(0);
@@ -627,13 +630,25 @@
             var valuetotalData = data.totalRequestCount.Datapoints;
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
             var valueerror500DataELB = data.HTTPCode5XXCountELB.Datapoints;
+            var valuesuccessfulData = data.HTTPCode2XXCount.Datapoints;
             var valueerror300Data = data.HTTPCode3XXCount.Datapoints;
             var valueerror400Data = data.HTTPCode4XXCount.Datapoints;
             var valueerror400DataELB = data.HTTPCode4XXCountELB.Datapoints;
+            var valuesuccessful = [];
             var valueerror300 = [];
             var valueerror400 = [];
             var valueerror500 = [];
             var valuetotalresponses = [];
+
+            valuesuccessfulData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valuetotalData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
 
             valueerror300Data.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -641,11 +656,6 @@
             });
 
             valueerror500DataELB.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
-
-            valuetotalData.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
               return (aD) - (bD);
             });
@@ -666,6 +676,7 @@
                 valueerror500.push(0);
                 valueerror400.push(0);
                 valueerror300.push(0);
+                valuesuccessful.push(0);
               }
               else {
                 var inside = false;
@@ -712,6 +723,20 @@
                 }
                 if (!inside) {
                   valueerror300.push(0);
+                }
+                inside = false;
+                for(j=0;j<valuesuccessfulData.length; j++) {
+                  if (valuetotalData[i].Timestamp === valuesuccessfulData[j].Timestamp)
+                  {
+                    if (typeof valuesuccessful[i] === 'undefined') {
+                      valuesuccessful.push(valuesuccessfulData[j].Sum);
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                if (!inside) {
+                  valuesuccessful.push(0);
                 }
                 inside = false;
                 for(j=0;j<valueerror400DataELB.length; j++) {
