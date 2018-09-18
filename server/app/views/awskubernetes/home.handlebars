@@ -705,6 +705,37 @@
                 for(j=0;j<valueerror300Data.length; j++) {
                   if (valuetotalData[i].Timestamp === valueerror300Data[j].Timestamp)
                   {
+                    if (typeof valuesuccessful[i] === 'undefined') {
+                      valuesuccessful.push(valueerror300Data[j].Sum);
+                    }
+                    else {
+                      valuesuccessful[i] = valuesuccessful[i] + valueerror300Data[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                for(j=0;j<valuesuccessfulData.length; j++) {
+                  if (valuetotalData[i].Timestamp === valuesuccessfulData[j].Timestamp)
+                  {
+                    if (typeof valuesuccessful[i] === 'undefined') {
+                      valuesuccessful.push(valuesuccessfulData[j].Sum);
+                    }
+                    else {
+                      valuesuccessful[i] = valuesuccessful[i] + valuesuccessfulData[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                if (!inside) {
+                  valuesuccessful.push(0);
+                }
+                /////////////////////////////////////////////////////////////////
+                /*inside = false;
+                for(j=0;j<valueerror300Data.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror300Data[j].Timestamp)
+                  {
                     if (typeof valueerror300[i] === 'undefined') {
                       valueerror300.push(valueerror300Data[j].Sum);
                     }
@@ -728,7 +759,8 @@
                 }
                 if (!inside) {
                   valuesuccessful.push(0);
-                }
+                }*/
+                /////////////////////////////////////////////////////
                 inside = false;
                 for(j=0;j<valueerror400DataELB.length; j++) {
                   if (valuetotalData[i].Timestamp === valueerror400DataELB[j].Timestamp)
