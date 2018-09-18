@@ -765,17 +765,6 @@
             var valueresponsetime = [];
             var valuelatency = [];
 
-            myChart.destroy();
-            myChartLatency.destroy();
-            myChartProvisioning.destroy();
-            myChartBoundaryscale.destroy();
-            myChartOperatingexpense.destroy();
-            myChartAveragerespond.destroy();
-            myChartOperatingexpense.destroy();
-            myChartAveragelatency.destroy();
-            myChartResponsecount.destroy();
-            myChartErrorResponsecount.destroy();
-
             var ctx = document.getElementById('autoscaleInstances').getContext('2d');
             var myChart = new Chart(ctx, {
               type: 'line',
