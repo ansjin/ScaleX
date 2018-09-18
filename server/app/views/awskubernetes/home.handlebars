@@ -959,12 +959,12 @@
                   label: 'Successful Response (2XX)',
                   data: valuesuccessful,
                   borderColor: "green",
-                  fill: origin
+                  fill: false
                 },{
                   label: 'Total Responses',
                   data: valuetotalresponses,
                   borderColor: "grey",
-                  fill: origin
+                  fill: false
                 }],
                 options: {
                   scales: {
@@ -988,28 +988,28 @@
                   label: 'Error Response (3XX)',
                   data: valueerror300,
                   borderColor: "#ff9400",
-                  fill: origin
+                  fill: false
                 },{
                   label: 'Error Response (4XX)',
                   data: valueerror400,
                   borderColor: "#fffa00",
-                  fill: origin
+                  fill: false
                 },{
                   label: 'Error Response (5XX)',
                   data: valueerror500,
                   borderColor: "#ff0500",
-                  fill: origin
+                  fill: false
                 },{
                   label: 'Total Responses',
                   data: valuetotalresponses,
                   borderColor: "grey",
-                  fill: origin
+                  fill: false
                 }]
               },
               options: {
                 scales: {
                   yAxes: [{
-                    stacked: false,
+                    stacked: true,
                     ticks: {
                       //suggestedMax: 100,
                       beginAtZero: true
