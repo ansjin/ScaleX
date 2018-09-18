@@ -618,15 +618,6 @@
             document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
             document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType})`;
 
-            for(i=0;i<desiredInstancesDataArr.length; i++) {
-              if (typeof valuesuccessful[i] === 'undefined') {
-                valuesuccessful.push(0);
-              }
-              else {
-                valuesuccessful.push(valuesuccessfulData[i].Sum);
-              }
-            }
-
             var valuetotalData = data.totalRequestCount.Datapoints;
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
             var valueerror500DataELB = data.HTTPCode5XXCountELB.Datapoints;
