@@ -626,7 +626,6 @@
 
             var valuetotalData = data.totalRequestCount.Datapoints;
             var valueerror500DataELB = data.HTTPCode5XXCountELB.Datapoints;
-            var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
             var valuetotalresponses = [];
             var valueerror500 = [];
 
@@ -649,22 +648,27 @@
                 var inside = false;
                 valuetotalresponses.push(valuetotalData[i].Sum);
                 for(j=0;j<valueerror500DataELB.length; j++) {
-                  if (valuetotalData[i].Timestamp === valueerror500DataELB[j].Timestamp
-                    && typeof valueerror500Data[i] !== 'undefined' && valuetotalData[i].Timestamp !== valueerror500Data[j].Timestamp)
+                  if (valuetotalData[i].Timestamp === valueerror500DataELB[j].Timestamp)
                   {
-                    valueerror500.push(valueerror500DataELB[j].Sum);
+                    if (typeof valueerror500[i] === 'undefined') {
+                      valueerror500.push(valueerror500DataELB[j].Sum);
+                    }
+                    else {
+                      valueerror500[i] = valueerror500[i] + valueerror500DataELB[j].Sum;
+                    }
                     inside = true;
                     break;
                   }
-                  else if (typeof valueerror500Data[i] !== 'undefined' && valuetotalData[i].Timestamp === valueerror500Data[j].Timestamp
-                    && valuetotalData[i].Timestamp !== valueerror500DataELB[j].Timestamp) {
-                    valueerror500.push(valueerror500Data[j].Sum);
-                    inside = true;
-                    break;
-                  }
-                  else if (typeof valueerror500Data[i] !== 'undefined' && valuetotalData[i].Timestamp === valueerror500Data[j].Timestamp
-                    && valuetotalData[i].Timestamp === valueerror500DataELB[j].Timestamp) {
-                    valueerror500.push(valueerror500Data[j].Sum + valueerror500DataELB[j].Sum);
+                }
+                for(j=0;j<valueerror500Data.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror500Data[j].Timestamp)
+                  {
+                    if (typeof valueerror500[i] === 'undefined') {
+                      valueerror500.push(valueerror500Data[j].Sum);
+                    }
+                    else {
+                      valueerror500[i] = valueerror500[i] + valueerror500Data[j].Sum;
+                    }
                     inside = true;
                     break;
                   }
@@ -964,22 +968,22 @@
                   label: 'Error Response (3XX)',
                   data: valueerror300,
                   borderColor: "#ff9400",
-                  fill: false
+                  fill: origin
                 },{
                   label: 'Error Response (4XX)',
                   data: valueerror400,
                   borderColor: "#fffa00",
-                  fill: false
+                  fill: origin
                 },{
                   label: 'Error Response (5XX)',
                   data: valueerror500,
                   borderColor: "#ff0500",
-                  fill: false
+                  fill: origin
                 },{
                   label: 'Total Responses',
                   data: valuetotalresponses,
                   borderColor: "grey",
-                  fill: false
+                  fill: origin
                 }]
               },
               options: {
