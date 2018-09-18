@@ -627,8 +627,18 @@
             var valuetotalData = data.totalRequestCount.Datapoints;
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
             var valueerror500DataELB = data.HTTPCode5XXCountELB.Datapoints;
-            var valuetotalresponses = [];
+            var valueerror300Data = data.HTTPCode3XXCount.Datapoints;
+            var valueerror400Data = data.HTTPCode4XXCount.Datapoints;
+            var valueerror400ELBData = data.HTTPCode4XXCountELB.Datapoints;
+            var valueerror300 = [];
+            var valueerror400 = [];
             var valueerror500 = [];
+            var valuetotalresponses = [];
+
+            valueerror300Data.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
 
             valueerror500DataELB.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -640,10 +650,22 @@
               return (aD) - (bD);
             });
 
+            valueerror400Data.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valueerror400ELBData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
             for(i=0;i<desiredInstancesDataArr.length; i++) {
               if (typeof valuetotalData[i] === 'undefined') {
                 valuetotalresponses.push(0);
                 valueerror500.push(0);
+                valueerror400.push(0);
+                valueerror300.push(0);
               }
               else {
                 var inside = false;
@@ -677,55 +699,52 @@
                 if (!inside) {
                   valueerror500.push(0);
                 }
+                inside = false;
+                for(j=0;j<valueerror300Data.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror300Data[j].Timestamp)
+                  {
+                    if (typeof valueerror300[i] === 'undefined') {
+                      valueerror300.push(valueerror300Data[j].Sum);
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                if (!inside) {
+                  valueerror300.push(0);
+                }
+                inside = false;
+                for(j=0;j<valueerror400DataELB.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror400DataELB[j].Timestamp)
+                  {
+                    if (typeof valueerror400[i] === 'undefined') {
+                      valueerror400.push(valueerror400DataELB[j].Sum);
+                    }
+                    else {
+                      valueerror400[i] = valueerror400[i] + valueerror400DataELB[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                for(j=0;j<valueerror400Data.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror400Data[j].Timestamp)
+                  {
+                    if (typeof valueerror500[i] === 'undefined') {
+                      valueerror400.push(valueerror400Data[j].Sum);
+                    }
+                    else {
+                      valueerror400[i] = valueerror400[i] + valueerror400Data[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                if (!inside) {
+                  valueerror400.push(0);
+                }
               }
             }
-
-            var valueerror300Data = data.HTTPCode3XXCount.Datapoints;
-            var valueerror300 = [];
-
-            valueerror300Data.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
-
-            for(i=0;i<desiredInstancesDataArr.length; i++) {
-              if (typeof valueerror300Data[i] === 'undefined') {
-                valueerror300.push(0);
-              }
-              else {
-                valueerror300.push(valueerror300Data[i].Sum);
-              }
-            }
-
-            var valueerror400Data = data.HTTPCode4XXCount.Datapoints;
-            var valueerror400ELBData = data.HTTPCode4XXCountELB.Datapoints;
-            var valueerror400 = [];
-
-            valueerror400Data.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
-
-            valueerror400ELBData.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
-
-            for(i=0;i<desiredInstancesDataArr.length; i++) {
-              if (typeof valueerror400Data[i] !== 'undefined') {
-                valueerror400.push(valueerror400Data[i].Sum);
-              }
-              else if (typeof valueerror400ELBData[i] !== 'undefined') {
-                valueerror400.push(valueerror400ELBData[i].Sum);
-              }
-              else if (typeof valueerror400ELBData[i] === 'undefined' && typeof valueerror400Data[i] === 'undefined') {
-                valueerror400.push(0);
-              }
-              else {
-                valueerror400.push(valueerror400Data[i].Sum + valueerror400ELBData[i].Sum);
-              }
-            }
-            //{ Timestamp: 2018-09-17T14:34:00.000Z, Sum: 1, Unit: 'Count' }
 
             var valueresponsetime = [];
             var valuelatency = [];
