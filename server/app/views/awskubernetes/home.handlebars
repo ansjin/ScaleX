@@ -700,16 +700,6 @@
               }
             }
             //{ Timestamp: 2018-09-17T14:34:00.000Z, Sum: 1, Unit: 'Count' }
-            var valueerror500ELBData = data.HTTPCode5XXCountELB.Datapoints;
-
-            for (i=0;i<desiredInstancesDataArr.length; i++) {
-              valueerror500Data.push(valueerror500Data.Sum);
-            }
-
-            valueerror500ELBData.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
 
             var valueresponsetime = [];
             var valuelatency = [];
