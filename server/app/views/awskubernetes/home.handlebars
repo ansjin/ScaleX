@@ -625,7 +625,14 @@
             }
 
             var valuetotalData = data.totalRequestCount.Datapoints;
+            var valueerror500DataELB = data.HTTPCode5XXCountELB.Datapoints;
             var valuetotalresponses = [];
+            var valueerror500 = [];
+
+            valueerror500DataELB.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
 
             valuetotalData.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -638,6 +645,13 @@
               }
               else {
                 valuetotalresponses.push(valuetotalData[i].Sum);
+              }
+
+              for(j=0;j<valueerror500DataELB.length; j++) {
+                if (valuetotalData[i].Timestamp === valueerror500DataELB[i].Timestamp)
+                {
+                  valueerror500.push(valueerror500DataELB[i].Sum);
+                }
               }
             }
 
@@ -687,57 +701,16 @@
               }
             }
             //{ Timestamp: 2018-09-17T14:34:00.000Z, Sum: 1, Unit: 'Count' }
-            var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
             var valueerror500ELBData = data.HTTPCode5XXCountELB.Datapoints;
 
             for (i=0;i<desiredInstancesDataArr.length; i++) {
               valueerror500Data.push(valueerror500Data.Sum);
             }
-            var instancesDataArrStore = valueerror500ELBData;
-
-            for (i=0; i<instancesDataArr.length; i++) {
-              for (j=0; j<valueerror500ELBData.Datapoints.length; j++) {
-                if (typeof instancesDataArrStore[j] !== 'undefined' && instancesDataArr[i].Timestamp === valueerror500ELBData.Datapoints[j].Timestamp) {
-                  break;
-                }
-                else {
-                  valueerror500ELBData.Datapoints.push({"Timestamp": instancesDataArr[i].Timestamp, "Sum": 0, "Unit": "Count"})
-                }
-              }
-            }
-
-            var valueerror500 = [];
-
-            valueerror500Data.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
 
             valueerror500ELBData.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
               return (aD) - (bD);
             });
-
-            for(i=0;i<desiredInstancesDataArr.length; i++) {
-              valueerror500.push(valueerror500ELBData[i].Sum);
-              /*if (valueerror500ELBData[i].Timestamp === desiredInstancesDataArr[i].Timestamp) {
-                valueerror500.push(valueerror500ELBData[i].Sum);
-              }
-              if ((typeof valueerror500ELBData[i] === 'undefined' || valueerror500ELBData[i].Sum === 0) && (typeof valueerror500Data[i] === 'undefined' || valueerror500Data[i].Sum === 0)) {
-                valueerror500.push(NaN);
-              }
-              else {
-                if ((typeof valueerror500ELBData[i] !== 'undefined' || valueerror500ELBData[i].Sum === 0) && (typeof valueerror500Data[i] !== 'undefined' || valueerror500Data[i].Sum === 0)) {
-                  valueerror500.push(valueerror500Data[i].Sum + valueerror500ELBData[i].Sum);
-                }
-                else if ((typeof valueerror500ELBData[i] !== 'undefined' || valueerror500ELBData[i].Sum === 0)) {
-                  valueerror500.push(valueerror500ELBData[i].Sum);
-                }
-                else if (typeof valueerror500Data[i] !== 'undefined' || valueerror500Data[i].Sum === 0) {
-                  valueerror500.push(valueerror500Data[i].Sum);
-                }
-              }*/
-            }
 
             var valueresponsetime = [];
             var valuelatency = [];
