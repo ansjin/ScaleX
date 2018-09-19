@@ -593,3 +593,17 @@ exports.addAutoscalingData = function (username,testName,data) {
   });
   return deferred.promise;
 };
+exports.addGenericTestData = function (username, data) {
+  var deferred = Q.defer();
+  MongoClient.connect(mongodbUrlAwsKubeAutoScaleTestData, function (err, db) {
+    var collectionNameRequestData = 'genericTestData'+username;
+    console.log(collectionNameRequestData);
+    var collection = db.collection(collectionNameRequestData);
+    collection.insert(data)
+      .then(function () {
+        db.close();
+        deferred.resolve(true);
+      });
+  });
+  return deferred.promise;
+};

@@ -616,7 +616,7 @@
             totalcosts = Math.max(totalcosts, 0.01);
 
             document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
-            document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType})`;
+            document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType} ${instancecost}/hour)`;
 
             var valuetotalData = data.totalRequestCount.Datapoints;
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
@@ -764,6 +764,42 @@
 
             var valueresponsetime = [];
             var valuelatency = [];
+
+            var canvastmp = document.getElementById('autoscaleInstances');
+            var tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('linecpuUtilization');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('provisioning');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('boundaryscale');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('operatingexpense');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('averagerespond');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('averagelatency');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('responsecount');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
+
+            canvastmp = document.getElementById('errorresponsecount');
+            tmp = canvastmp.getContext('2d');
+            tmp.clearRect(0, 0, tmp.width, tmp.height);
 
             var ctx = document.getElementById('autoscaleInstances').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -972,7 +1008,7 @@
               data: {
                 labels: timestamparr,
                 datasets: [{
-                  label: 'Successful Response (2XX)',
+                  label: 'Successful Response (2XX/3XX)',
                   data: valuesuccessful,
                   borderColor: "green",
                   fill: false
