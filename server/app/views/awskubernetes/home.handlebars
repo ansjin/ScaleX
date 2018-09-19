@@ -765,41 +765,7 @@
             var valueresponsetime = [];
             var valuelatency = [];
 
-            var canvastmp = document.getElementById('autoscaleInstances');
-            var tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('linecpuUtilization');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('provisioning');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('boundaryscale');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('operatingexpense');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('averagerespond');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('averagelatency');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('responsecount');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
-
-            canvastmp = document.getElementById('errorresponsecount');
-            tmp = canvastmp.getContext('2d');
-            tmp.clearRect(0, 0, tmp.width, tmp.height);
+            if (typeof myChart === "undefined") {
 
             var ctx = document.getElementById('autoscaleInstances').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -1066,6 +1032,12 @@
               }
             });
             $("#overlayerrorresponsecount").hide("slow");
+            }
+            else
+            {
+              myChart.update();
+              myChartLatency.update();
+            }
           });
       }
       callUpdate();
