@@ -991,18 +991,18 @@
                   label: 'Average Response Time',
                   data: valueresponsetime,
                   borderColor: "blue",
-                  fill: false
+                  fill: false,
+                  steppedLine: true,
+                  lineTension: 0
                 }],
-                options: {
-                  scales: {
-                    yAxes: [{
-                      stacked: false,
-                      ticks: {
-                        //suggestedMax: 100,
-                        beginAtZero: true
-                      }
-                    }]
-                  }
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
                 }
               }
             });
@@ -1016,19 +1016,18 @@
                   label: 'Average Latency',
                   data: valuelatency,
                   borderColor: "blue",
-                  fill: false
-                }
-                ],
-                options: {
-                  scales: {
-                    yAxes: [{
-                      stacked: false,
-                      ticks: {
-                        //suggestedMax: 100,
-                        beginAtZero: true
-                      }
-                    }]
-                  }
+                  fill: false,
+                  steppedLine: true,
+                  lineTension: 0
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
                 }
               }
             });
@@ -1049,15 +1048,14 @@
                   borderColor: "grey",
                   fill: false
                 }],
-                options: {
-                  scales: {
-                    yAxes: [{
-                      ticks: {
-                        //suggestedMax: 100,
-                        beginAtZero: true
-                      }
-                    }]
-                  }
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
                 }
               }
             });
@@ -1089,7 +1087,6 @@
                   yAxes: [{
                     stacked: false,
                     ticks: {
-                      //suggestedMax: 100,
                       beginAtZero: true
                     }
                   }]
