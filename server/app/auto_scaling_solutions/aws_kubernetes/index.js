@@ -926,6 +926,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                                                     dataAll.HTTPCode5XXCountELB = data;
                                                     awsAutoscaleKubernetesMongoFunctions.getLatencyData(username)
                                                       .then(function (latencyarray) {
+                                                        console.log(latencyarray)
                                                         if (latencyarray) {
                                                           dataAll.latency = latencyarray;
                                                           awsAutoscaleKubernetesMongoFunctions.getResponseTimeData(username)
