@@ -181,6 +181,56 @@ exports.getAwsAutoScaleInfo = function(username) {
 
   return deferred.promise;
 }
+exports.getLatencyData = function(username) {
+  var deferred = Q.defer();
+  var latencyarray = {};
+  MongoClient.connect('mongodb://'+ config.mongodb.host + ':'+config.mongodb.port+'/dbPerfData', function (err, db) {
+    var collection = db.collection('usersPerfData');
+
+    //check if username is already assigned in our database
+    collection.findOne({"username": username}, {"LatencyDatapoints": []})
+      .then(function (result) {
+        if (null != result)
+        {
+          latencyarray = result["LatencyDatapoints"];
+          deferred.resolve(latencyarray); // username exists
+        }
+        else
+        {
+          console.log("Error", username);
+          deferred.resolve(latencyarray); // username not exists
+        }
+      });
+  });
+
+  return deferred.promise;
+}
+
+exports.getResponseTimeData = function(username) {
+  var deferred = Q.defer();
+  var resptimearray = {};
+  MongoClient.connect('mongodb://'+ config.mongodb.host + ':'+config.mongodb.port+'/dbPerfData', function (err, db) {
+    var collection = db.collection('usersPerfData');
+
+    //check if username is already assigned in our database
+    collection.findOne({"username": username}, {"getResponseTimeData": []})
+      .then(function (result) {
+        if (null != result)
+        {
+          resptimearray = result["getResponseTimeData"];
+          deferred.resolve(resptimearray); // username exists
+        }
+        else
+        {
+          console.log("Error", username);
+          deferred.resolve(resptimearray); // username not exists
+        }
+      });
+  });
+
+  return deferred.promise;
+}
+
 exports.getServiceURL = function(username) {
   var deferred = Q.defer();
 

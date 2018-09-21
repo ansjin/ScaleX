@@ -616,7 +616,7 @@
             totalcosts = Math.max(totalcosts, 0.01);
 
             document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
-            document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType} ${instancecost}/hour)`;
+            document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType} ${instancecost}\$/hour)`;
 
             var valuetotalData = data.totalRequestCount.Datapoints;
             var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
@@ -764,8 +764,6 @@
 
             var valueresponsetime = [];
             var valuelatency = [];
-
-            if (typeof myChart === "undefined") {
 
             var ctx = document.getElementById('autoscaleInstances').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -1032,12 +1030,6 @@
               }
             });
             $("#overlayerrorresponsecount").hide("slow");
-            }
-            else
-            {
-              myChart.update();
-              myChartLatency.update();
-            }
           });
       }
       callUpdate();

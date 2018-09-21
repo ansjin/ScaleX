@@ -679,7 +679,9 @@ exports.getCurrentData = function(awsData,username,req,res) {
               "HTTPCode3XXCount": '',
               "HTTPCode4XXCount": '',
               "HTTPCode5XXCount": '',
-              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.launchConfig.InstanceType
+              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.launchConfig.InstanceType,
+              "latency": '',
+              "responseTime": ''
             };
             var params = {
               EndTime: new Date, /* required */
@@ -922,12 +924,23 @@ exports.getCurrentData = function(awsData,username,req,res) {
                                                   if (err) console.log(err, err.stack); // an error occurred
                                                   else {
                                                     dataAll.HTTPCode5XXCountELB = data;
-                                                    // successful response
-                                                    awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
-                                                    res.send(dataAll);
-                                                    console.log("data sent for matrics_write");
-                                                    console.log(dataAll);
-                                                    console.log(dataAll.HTTPCode5XXCountELB.Datapoints[0]);
+                                                    awsAutoscaleKubernetesMongoFunctions.getLatencyData(username)
+                                                      .then(function (latencyarray) {
+                                                        if (latencyarray) {
+                                                          dataAll.latency = latencyarray;
+                                                          awsAutoscaleKubernetesMongoFunctions.getResponseTimeData(username)
+                                                            .then(function (resptimearray) {
+                                                              if (resptimearray) {
+                                                                dataAll.responseTime = resptimearray;
+                                                                // successful response
+                                                                awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
+                                                                res.send(dataAll);
+                                                                console.log("data sent for matrics_write");
+                                                                console.log(dataAll);
+                                                              }
+                                                            });
+                                                        }
+                                                      });
                                                   }
                                                 });
                                               }
