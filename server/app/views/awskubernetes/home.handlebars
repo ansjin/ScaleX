@@ -771,9 +771,7 @@
             });
 
             for(i=0;i<valueresponsetimeData.length; i++) {
-              var t = new Date(valueresponsetimeData[i].Timestamp * 1000);
-              var formatted = t.format("yyyy.mm.dd hh:MM:ss");
-              timestampresponsetime.push(formatted);
+              timestampresponsetime.push(new Date(valueresponsetimeData[i].Timestamp * 1000).toISOString());
               valueresponsetime.push(valueresponsetimeData[i].Average);
             }
 
@@ -786,9 +784,7 @@
             });
 
             for(i=0;i<valuelatencyData.length; i++) {
-              var t = new Date(valuelatencyData[i].Timestamp * 1000);
-              var formatted = t.format("yyyy.mm.dd hh:MM:ss");
-              timestamplatency.push(formatted);
+              timestamplatency.push(new Date(valuelatencyData[i].Timestamp * 1000).toISOString());
               valuelatency.push(valuelatencyData[i].Average);
             }
 
