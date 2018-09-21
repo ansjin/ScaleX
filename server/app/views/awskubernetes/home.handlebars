@@ -498,10 +498,32 @@
       );
 
     $(function() {
+      var myChart;
+      var myChartLatency;
+      var myChartProvisioning;
+      var myChartBoundaryscale;
+      var myChartOperatingexpense;
+      var myChartAveragerespond;
+      var myChartAveragelatency;
+      var myChartResponsecount;
+      var myChartErrorResponsecount;
       function callUpdate(){
         $.get(
           "/awskubernetes/getcurrentData",
           function(data) {
+            // Clear previous
+            if (myChart)
+            {
+              myChart.destroy();
+              myChartLatency.destroy();
+              myChartProvisioning.destroy();
+              myChartBoundaryscale.destroy();
+              myChartOperatingexpense.destroy();
+              myChartAveragerespond.destroy();
+              myChartAveragelatency.destroy();
+              myChartResponsecount.destroy();
+              myChartErrorResponsecount.destroy();
+            }
             //data=JSON.parse(data);
             var instancesDataArr = data.instances.Datapoints;
             instancesDataArr.sort(function(a, b) {
@@ -789,7 +811,7 @@
             }
 
             var ctx = document.getElementById('autoscaleInstances').getContext('2d');
-            var myChart = new Chart(ctx, {
+            myChart = new Chart(ctx, {
               type: 'line',
               data: {
                 labels: timestamparr,
@@ -815,7 +837,7 @@
             });
             $("#overlayautoscaleInstances").hide("slow");
             var ctxLatency = document.getElementById('linecpuUtilization').getContext('2d');
-            var myChartLatency = new Chart(ctxLatency, {
+            myChartLatency = new Chart(ctxLatency, {
               type: 'line',
               data: {
                 labels: timestamparrCPUUti,
@@ -841,7 +863,7 @@
             });
             $("#overlaylinecpuUtilization").hide("slow");
             var ctxProvisioning = document.getElementById('provisioning').getContext('2d');
-            var myChartProvisioning = new Chart(ctxProvisioning, {
+            myChartProvisioning = new Chart(ctxProvisioning, {
               type: 'line',
               data: {
                 labels: timestamparr,
@@ -902,7 +924,7 @@
             });
             $("#overlayprovisioning").hide("slow");
             var ctxBoundaryscale = document.getElementById('boundaryscale').getContext('2d');
-            var myChartBoundaryscale = new Chart(ctxBoundaryscale, {
+            myChartBoundaryscale = new Chart(ctxBoundaryscale, {
               type: 'bar',
               data: {
                   labels: ['Resource Allocation Bounds'],
@@ -939,7 +961,7 @@
             });
             $("#overlayboundaryscale").hide("slow");
             var ctxOperatingexpense = document.getElementById('operatingexpense').getContext('2d');
-            var myChartOperatingexpense = new Chart(ctxOperatingexpense, {
+            myChartOperatingexpense = new Chart(ctxOperatingexpense, {
               type: 'doughnut',
               data: {
                 labels: [
@@ -961,7 +983,7 @@
             });
             $("#overlayoperatingexpense").hide("slow");
             var ctxAveragerespond = document.getElementById('averagerespond').getContext('2d');
-            var myChartAveragerespond = new Chart(ctxAveragerespond, {
+            myChartAveragerespond = new Chart(ctxAveragerespond, {
               type: 'line',
               data: {
                 labels: timestampresponsetime,
@@ -986,7 +1008,7 @@
             });
             $("#overlayaveragerespond").hide("slow");
             var ctxAveragelatency = document.getElementById('averagelatency').getContext('2d');
-            var myChartAveragelatency = new Chart(ctxAveragelatency, {
+            myChartAveragelatency = new Chart(ctxAveragelatency, {
               type: 'line',
               data: {
                 labels: timestamplatency,
@@ -1012,7 +1034,7 @@
             });
             $("#overlayaveragelatency").hide("slow");
             var ctxResponsecount = document.getElementById('responsecount').getContext('2d');
-            var myChartResponsecount = new Chart(ctxResponsecount, {
+            myChartResponsecount = new Chart(ctxResponsecount, {
               type: 'line',
               data: {
                 labels: timestamparr,
@@ -1041,7 +1063,7 @@
             });
             $("#overlayresponsecount").hide("slow");
             var ctxErrorResponsecount = document.getElementById('errorresponsecount').getContext('2d');
-            var myChartErrorResponsecount = new Chart(ctxErrorResponsecount, {
+            myChartErrorResponsecount = new Chart(ctxErrorResponsecount, {
               type: 'line',
               data: {
                 labels: timestamparr,
