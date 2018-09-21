@@ -931,6 +931,7 @@ exports.getCurrentData = function(awsData,username,req,res) {
                                                           dataAll.latency = latencyarray;
                                                           awsAutoscaleKubernetesMongoFunctions.getResponseTimeData(username)
                                                             .then(function (resptimearray) {
+                                                              console.log(resptimearray)
                                                               if (resptimearray) {
                                                                 dataAll.responseTime = resptimearray;
                                                                 // successful response
