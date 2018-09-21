@@ -771,7 +771,7 @@
             });
 
             for(i=0;i<valueresponsetimeData.length; i++) {
-              timestampresponsetime.push(new Date(valueresponsetimeData[i].Timestamp).getTime().toString());
+              timestampresponsetime.push(new Date(valueresponsetimeData[i].Timestamp * 1000));
               valueresponsetime.push(valueresponsetimeData[i].Average);
             }
 
@@ -784,7 +784,7 @@
             });
 
             for(i=0;i<valuelatencyData.length; i++) {
-              timestamplatency.push(new Date(valuelatencyData[i].Timestamp).getTime().toString());
+              timestamplatency.push(new Date(valuelatencyData[i].Timestamp * 1000));
               valuelatency.push(valuelatencyData[i].Average);
             }
 
