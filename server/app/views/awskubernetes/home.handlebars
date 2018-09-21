@@ -522,6 +522,13 @@
       var timestampresponsetime = [];
       var valuelatency = [];
       var timestamplatency = [];
+      var instancecost = 0.0116;
+      var max = 0;
+      var min = 100;
+      var costs = 0;
+      var overprovisiongCosts = 0;
+      var underprovisiongCosts = 0;
+
       var ctx = document.getElementById('autoscaleInstances').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'line',
@@ -827,7 +834,7 @@
               return (aD) - (bD);
             });
 
-            var instancecost = 0.0116;
+            instancecost = 0.0116;
 
             if (data.instanceType === "t2.micro") {
               instancecost = 0.0116;
@@ -839,11 +846,11 @@
               instancecost = 0.0464;
             }
 
-            var max = 0;
-            var min = 100;
-            var costs = 0;
-            var overprovisiongCosts = 0;
-            var underprovisiongCosts = 0;
+            max = 0;
+            min = 100;
+            costs = 0;
+            overprovisiongCosts = 0;
+            underprovisiongCosts = 0;
 
             for(i=0;i<instancesDataArr.length; i++) {
               if (instancesDataArr[i].Average > max) {
