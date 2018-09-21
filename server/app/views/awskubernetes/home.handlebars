@@ -763,7 +763,21 @@
             }
 
             var valueresponsetime = [];
+
+
             var valuelatency = [];
+            var timestamplatency = [];
+            var valuelatencyData = data.latency;
+            valuelatencyData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+
+            for(i=0;i<valuelatencyData.length; i++) {
+              timestamplatency.push(instancesDataArr[i].Timestamp);
+              valuelatency.push(valuelatencyData[i].Average);
+            }
 
             var ctx = document.getElementById('autoscaleInstances').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -955,7 +969,7 @@
             var myChartAveragelatency = new Chart(ctxAveragelatency, {
               type: 'line',
               data: {
-                labels: timestamparr,
+                labels: timestamplatency,
                 datasets: [{
                   label: 'Average Latency',
                   data: valuelatency,
