@@ -213,11 +213,11 @@ exports.getResponseTimeData = function(username) {
     var collection = db.collection('usersPerfData');
 
     //check if username is already assigned in our database
-    collection.findOne({"username": username}, {"getResponseTimeData": []})
+    collection.findOne({"username": username}, {"ResponseTimeDatapoints": []})
       .then(function (result) {
         if (null != result)
         {
-          resptimearray = result["getResponseTimeData"];
+          resptimearray = result["ResponseTimeDatapoints"];
           deferred.resolve(resptimearray); // username exists
         }
         else
