@@ -498,335 +498,10 @@
       );
 
     $(function() {
-      function removeData(chart) {
-        chart.data.labels.pop();
-        chart.data.datasets.forEach((dataset) => {
-          dataset.data.pop();
-        });
-        chart.update();
-      }
-
-      var timestamparr = [];
-      var valuearr = [];
-      var timestamparrCPUUti = [];
-      var valuearrCPUUTI = [];
-      var valueoverprovisioning = [];
-      var valueunderprovisioning = [];
-      var valueinService = [];
-      var valuedesired = [];
-      var valuesuccessful = [];
-      var valueerror400 = [];
-      var valueerror500 = [];
-      var valuetotalresponses = [];
-      var valueresponsetime = [];
-      var timestampresponsetime = [];
-      var valuelatency = [];
-      var timestamplatency = [];
-      var instancecost = 0.0116;
-      var max = 0;
-      var min = 100;
-      var costs = 0;
-      var overprovisiongCosts = 0;
-      var underprovisiongCosts = 0;
-
-      var ctx = document.getElementById('autoscaleInstances').getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: timestamparr,
-          datasets: [{
-            label: 'Auto Scale Instances',
-            data: valuearr,
-            backgroundColor: "red",
-            fill: false,
-            steppedLine: true,
-            lineTension: 0
-          }],
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                suggestedMax: (max + 2),
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-      $("#overlayautoscaleInstances").hide("slow");
-      var ctxLatency = document.getElementById('linecpuUtilization').getContext('2d');
-      var myChartLatency = new Chart(ctxLatency, {
-        type: 'line',
-        data: {
-          labels: timestamparrCPUUti,
-          datasets: [{
-            label: 'CPU-Utilization',
-            data: valuearrCPUUTI,
-            backgroundColor: "blue",
-            fill: false,
-            steppedLine: true,
-            lineTension: 0
-          }],
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                suggestedMax: 100,
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-      $("#overlaylinecpuUtilization").hide("slow");
-      var ctxProvisioning = document.getElementById('provisioning').getContext('2d');
-      var myChartProvisioning = new Chart(ctxProvisioning, {
-        type: 'line',
-        data: {
-          labels: timestamparr,
-          datasets: [{
-            label: 'Under-Provisioned',
-            data: valueunderprovisioning,
-            borderColor: "#36A2EB",
-            fill: origin,
-            steppedLine: true,
-            spanGaps: true,
-            lineTension: 0
-          },{
-            label: 'Over-Provisioned',
-            data: valueoverprovisioning,
-            borderColor: "#FF6384",
-            fill: origin,
-            steppedLine: true,
-            spanGaps: true,
-            lineTension: 0
-          }, {
-            label: 'In-Service Instances',
-            data: valueinService,
-            backgroundColor: "grey",
-            borderColor: "green",
-            steppedLine: true,
-            fill: false,
-            lineTension: 0,
-            borderDash: [5, 5]
-          },{
-            label: 'AutoScale Instances',
-            data: valuearr,
-            backgroundColor: "grey",
-            borderColor: "#06eba1",
-            steppedLine: true,
-            fill: false,
-            lineTension: 0
-          }, {
-            label: 'Desired Instances',
-            data: valuedesired,
-            backgroundColor: "grey",
-            borderColor: "green",
-            steppedLine: true,
-            fill: false,
-            lineTension: 0
-          }
-          ]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                suggestedMax: (max + 2),
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-      $("#overlayprovisioning").hide("slow");
-      var ctxBoundaryscale = document.getElementById('boundaryscale').getContext('2d');
-      var myChartBoundaryscale = new Chart(ctxBoundaryscale, {
-        type: 'bar',
-        data: {
-          labels: ['Resource Allocation Bounds'],
-          datasets: [{
-            label: 'Lower Bound',
-            backgroundColor: "#36A2EB",
-            borderColor: "#295deb",
-            borderWidth: 1,
-            data: [min]
-          }, {
-            label: 'Upper Bound',
-            backgroundColor: "#06eba1",
-            borderColor: "#00eb3d",
-            borderWidth: 1,
-            data: [max]
-          }, {
-            label: 'Boundary Scale',
-            backgroundColor: "#FF6384",
-            borderColor: "#ff0008",
-            borderWidth: 1,
-            data: [Math.abs(max-min)]
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                suggestedMax: (max + 2),
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-      $("#overlayboundaryscale").hide("slow");
-      var ctxOperatingexpense = document.getElementById('operatingexpense').getContext('2d');
-      var myChartOperatingexpense = new Chart(ctxOperatingexpense, {
-        type: 'doughnut',
-        data: {
-          labels: [
-            'CPU-Minutes',
-            'Over-Provisioned CPU-Minutes',
-            'Under-Provisioned CPU-Minutes'
-          ],
-          datasets: [{
-            data: [costs, overprovisiongCosts, underprovisiongCosts],
-            backgroundColor: [
-              "#06eba1",
-              "#FF6384",
-              "#36A2EB"
-            ],
-            borderColor: "grey",
-            fill: true
-          }]
-        }
-      });
-      $("#overlayoperatingexpense").hide("slow");
-      var ctxAveragerespond = document.getElementById('averagerespond').getContext('2d');
-      var myChartAveragerespond = new Chart(ctxAveragerespond, {
-        type: 'line',
-        data: {
-          labels: timestampresponsetime,
-          datasets: [{
-            label: 'Average Response Time',
-            data: valueresponsetime,
-            borderColor: "blue",
-            fill: false
-          }],
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  //suggestedMax: 100,
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
-        }
-      });
-      $("#overlayaveragerespond").hide("slow");
-      var ctxAveragelatency = document.getElementById('averagelatency').getContext('2d');
-      var myChartAveragelatency = new Chart(ctxAveragelatency, {
-        type: 'line',
-        data: {
-          labels: timestamplatency,
-          datasets: [{
-            label: 'Average Latency',
-            data: valuelatency,
-            borderColor: "blue",
-            fill: false
-          }
-          ],
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  //suggestedMax: 100,
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
-        }
-      });
-      $("#overlayaveragelatency").hide("slow");
-      var ctxResponsecount = document.getElementById('responsecount').getContext('2d');
-      var myChartResponsecount = new Chart(ctxResponsecount, {
-        type: 'line',
-        data: {
-          labels: timestamparr,
-          datasets: [{
-            label: 'Successful Response (2XX/3XX)',
-            data: valuesuccessful,
-            borderColor: "green",
-            fill: false
-          },{
-            label: 'Total Responses',
-            data: valuetotalresponses,
-            borderColor: "grey",
-            fill: false
-          }],
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  //suggestedMax: 100,
-                  beginAtZero: true
-                }
-              }]
-            }
-          }
-        }
-      });
-      $("#overlayresponsecount").hide("slow");
-      var ctxErrorResponsecount = document.getElementById('errorresponsecount').getContext('2d');
-      var myChartErrorResponsecount = new Chart(ctxErrorResponsecount, {
-        type: 'line',
-        data: {
-          labels: timestamparr,
-          datasets: [{
-            label: 'Error Response (4XX)',
-            data: valueerror400,
-            borderColor: "#fffa00",
-            fill: false
-          },{
-            label: 'Error Response (5XX)',
-            data: valueerror500,
-            borderColor: "#ff0500",
-            fill: false
-          },{
-            label: 'Total Responses',
-            data: valuetotalresponses,
-            borderColor: "grey",
-            fill: false
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              stacked: false,
-              ticks: {
-                //suggestedMax: 100,
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-      $("#overlayerrorresponsecount").hide("slow");
       function callUpdate(){
         $.get(
           "/awskubernetes/getcurrentData",
           function(data) {
-            removeData(myChart);
-            removeData(myChartLatency);
-            removeData(myChartProvisioning);
-            removeData(myChartBoundaryscale);
-            removeData(myChartOperatingexpense);
-            removeData(myChartAveragerespond);
-            removeData(myChartAveragelatency);
-            removeData(myChartResponsecount);
-            removeData(myChartErrorResponsecount);
             //data=JSON.parse(data);
             var instancesDataArr = data.instances.Datapoints;
             instancesDataArr.sort(function(a, b) {
@@ -834,7 +509,7 @@
               return (aD) - (bD);
             });
 
-            instancecost = 0.0116;
+            var instancecost = 0.0116;
 
             if (data.instanceType === "t2.micro") {
               instancecost = 0.0116;
@@ -846,12 +521,14 @@
               instancecost = 0.0464;
             }
 
-            max = 0;
-            min = 100;
-            costs = 0;
-            overprovisiongCosts = 0;
-            underprovisiongCosts = 0;
+            var max = 0;
+            var min = 100;
+            var costs = 0;
+            var overprovisiongCosts = 0;
+            var underprovisiongCosts = 0;
 
+            var timestamparr = [];
+            var valuearr = [];
             for(i=0;i<instancesDataArr.length; i++) {
               if (instancesDataArr[i].Average > max) {
                 max = instancesDataArr[i].Average;
@@ -867,7 +544,8 @@
             min = Math.min(max, min);
 
             var cpuUtilizationDataArr = data.cpuUtilization.Datapoints;
-
+            var timestamparrCPUUti = [];
+            var valuearrCPUUTI = [];
             cpuUtilizationDataArr.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
               return (aD) - (bD);
@@ -879,6 +557,10 @@
 
             var desiredInstancesDataArr = data.desiredInstances.Datapoints;
             var inServiceInstancesDataArr = data.inserviceInstances.Datapoints;
+            var valueoverprovisioning = [];
+            var valueunderprovisioning = [];
+            var valueinService = [];
+            var valuedesired = [];
 
             desiredInstancesDataArr.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -943,6 +625,10 @@
             var valueerror300Data = data.HTTPCode3XXCount.Datapoints;
             var valueerror400Data = data.HTTPCode4XXCount.Datapoints;
             var valueerror400DataELB = data.HTTPCode4XXCountELB.Datapoints;
+            var valuesuccessful = [];
+            var valueerror400 = [];
+            var valueerror500 = [];
+            var valuetotalresponses = [];
 
             valuesuccessfulData.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -1076,6 +762,8 @@
               }
             }
 
+            var valueresponsetime = [];
+            var timestampresponsetime = [];
             var valueresponsetimeData = data.responseTime;
             valueresponsetimeData.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -1087,6 +775,7 @@
               valueresponsetime.push(valueresponsetimeData[i].Average);
             }
 
+
             var valuelatencyData = data.latency;
             valuelatencyData.sort(function(a, b) {
               var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
@@ -1097,6 +786,294 @@
               timestamplatency.push(new Date(valuelatencyData[i].Timestamp * 1000).toISOString());
               valuelatency.push(valuelatencyData[i].Average);
             }
+
+            var ctx = document.getElementById('autoscaleInstances').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Auto Scale Instances',
+                  data: valuearr,
+                  backgroundColor: "red",
+                  fill: false,
+                  steppedLine: true,
+                  lineTension: 0
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: (max + 2),
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayautoscaleInstances").hide("slow");
+            var ctxLatency = document.getElementById('linecpuUtilization').getContext('2d');
+            var myChartLatency = new Chart(ctxLatency, {
+              type: 'line',
+              data: {
+                labels: timestamparrCPUUti,
+                datasets: [{
+                  label: 'CPU-Utilization',
+                  data: valuearrCPUUTI,
+                  backgroundColor: "blue",
+                  fill: false,
+                  steppedLine: true,
+                  lineTension: 0
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: 100,
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlaylinecpuUtilization").hide("slow");
+            var ctxProvisioning = document.getElementById('provisioning').getContext('2d');
+            var myChartProvisioning = new Chart(ctxProvisioning, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Under-Provisioned',
+                  data: valueunderprovisioning,
+                  borderColor: "#36A2EB",
+                  fill: origin,
+                  steppedLine: true,
+                  spanGaps: true,
+                  lineTension: 0
+                },{
+                  label: 'Over-Provisioned',
+                  data: valueoverprovisioning,
+                  borderColor: "#FF6384",
+                  fill: origin,
+                  steppedLine: true,
+                  spanGaps: true,
+                  lineTension: 0
+                }, {
+                  label: 'In-Service Instances',
+                  data: valueinService,
+                  backgroundColor: "grey",
+                  borderColor: "green",
+                  steppedLine: true,
+                  fill: false,
+                  lineTension: 0,
+                  borderDash: [5, 5]
+                },{
+                  label: 'AutoScale Instances',
+                  data: valuearr,
+                  backgroundColor: "grey",
+                  borderColor: "#06eba1",
+                  steppedLine: true,
+                  fill: false,
+                  lineTension: 0
+                }, {
+                  label: 'Desired Instances',
+                  data: valuedesired,
+                  backgroundColor: "grey",
+                  borderColor: "green",
+                  steppedLine: true,
+                  fill: false,
+                  lineTension: 0
+                }
+                ]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: (max + 2),
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayprovisioning").hide("slow");
+            var ctxBoundaryscale = document.getElementById('boundaryscale').getContext('2d');
+            var myChartBoundaryscale = new Chart(ctxBoundaryscale, {
+              type: 'bar',
+              data: {
+                  labels: ['Resource Allocation Bounds'],
+                  datasets: [{
+                    label: 'Lower Bound',
+                    backgroundColor: "#36A2EB",
+                    borderColor: "#295deb",
+                    borderWidth: 1,
+                    data: [min]
+                  }, {
+                    label: 'Upper Bound',
+                    backgroundColor: "#06eba1",
+                    borderColor: "#00eb3d",
+                    borderWidth: 1,
+                    data: [max]
+                  }, {
+                    label: 'Boundary Scale',
+                    backgroundColor: "#FF6384",
+                    borderColor: "#ff0008",
+                    borderWidth: 1,
+                    data: [Math.abs(max-min)]
+                  }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: (max + 2),
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayboundaryscale").hide("slow");
+            var ctxOperatingexpense = document.getElementById('operatingexpense').getContext('2d');
+            var myChartOperatingexpense = new Chart(ctxOperatingexpense, {
+              type: 'doughnut',
+              data: {
+                labels: [
+                  'CPU-Minutes',
+                  'Over-Provisioned CPU-Minutes',
+                  'Under-Provisioned CPU-Minutes'
+                ],
+                datasets: [{
+                  data: [costs, overprovisiongCosts, underprovisiongCosts],
+                  backgroundColor: [
+                    "#06eba1",
+                    "#FF6384",
+                    "#36A2EB"
+                  ],
+                  borderColor: "grey",
+                  fill: true
+                }]
+              }
+            });
+            $("#overlayoperatingexpense").hide("slow");
+            var ctxAveragerespond = document.getElementById('averagerespond').getContext('2d');
+            var myChartAveragerespond = new Chart(ctxAveragerespond, {
+              type: 'line',
+              data: {
+                labels: timestampresponsetime,
+                datasets: [{
+                  label: 'Average Response Time',
+                  data: valueresponsetime,
+                  borderColor: "blue",
+                  fill: false
+                }],
+                options: {
+                  scales: {
+                    yAxes: [{
+                      stacked: false,
+                      ticks: {
+                        //suggestedMax: 100,
+                        beginAtZero: true
+                      }
+                    }]
+                  }
+                }
+              }
+            });
+            $("#overlayaveragerespond").hide("slow");
+            var ctxAveragelatency = document.getElementById('averagelatency').getContext('2d');
+            var myChartAveragelatency = new Chart(ctxAveragelatency, {
+              type: 'line',
+              data: {
+                labels: timestamplatency,
+                datasets: [{
+                  label: 'Average Latency',
+                  data: valuelatency,
+                  borderColor: "blue",
+                  fill: false
+                }
+                ],
+                options: {
+                  scales: {
+                    yAxes: [{
+                      stacked: false,
+                      ticks: {
+                        //suggestedMax: 100,
+                        beginAtZero: true
+                      }
+                    }]
+                  }
+                }
+              }
+            });
+            $("#overlayaveragelatency").hide("slow");
+            var ctxResponsecount = document.getElementById('responsecount').getContext('2d');
+            var myChartResponsecount = new Chart(ctxResponsecount, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Successful Response (2XX/3XX)',
+                  data: valuesuccessful,
+                  borderColor: "green",
+                  fill: false
+                },{
+                  label: 'Total Responses',
+                  data: valuetotalresponses,
+                  borderColor: "grey",
+                  fill: false
+                }],
+                options: {
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        //suggestedMax: 100,
+                        beginAtZero: true
+                      }
+                    }]
+                  }
+                }
+              }
+            });
+            $("#overlayresponsecount").hide("slow");
+            var ctxErrorResponsecount = document.getElementById('errorresponsecount').getContext('2d');
+            var myChartErrorResponsecount = new Chart(ctxErrorResponsecount, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Error Response (4XX)',
+                  data: valueerror400,
+                  borderColor: "#fffa00",
+                  fill: false
+                },{
+                  label: 'Error Response (5XX)',
+                  data: valueerror500,
+                  borderColor: "#ff0500",
+                  fill: false
+                },{
+                  label: 'Total Responses',
+                  data: valuetotalresponses,
+                  borderColor: "grey",
+                  fill: false
+                }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    stacked: false,
+                    ticks: {
+                      //suggestedMax: 100,
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayerrorresponsecount").hide("slow");
           });
       }
       callUpdate();
