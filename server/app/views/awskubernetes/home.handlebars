@@ -594,7 +594,6 @@
               return (aD) - (bD);
             });
 
-
             for(i=0;i<desiredInstancesDataArr.length; i++) {
               // How many machines do we have vs how many do we need?
               var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
@@ -635,7 +634,8 @@
             }
 
             var totalcosts = (costs*(instancecost/60)).toFixed(2);
-            totalcosts = Math.max(totalcosts, 0.01);
+            // Subtract overprovisiongCosts for displaying purposes
+            costs = costs - overprovisiongCosts;
 
             document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
             document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType} ${instancecost}\$/hour)`;
@@ -768,7 +768,7 @@
                 for(j=0;j<valueerror400Data.length; j++) {
                   if (valuetotalData[i].Timestamp === valueerror400Data[j].Timestamp)
                   {
-                    if (typeof valueerror500[i] === 'undefined') {
+                    if (typeof valueerror400[i] === 'undefined') {
                       valueerror400.push(valueerror400Data[j].Sum);
                     }
                     else {
