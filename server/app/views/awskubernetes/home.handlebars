@@ -787,14 +787,17 @@
             var valueresponsetime = [];
             var timestampresponsetime = [];
             var valueresponsetimeData = data.responseTime;
-            valueresponsetimeData.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
+            if(valueresponsetimeData){
 
-            for(i=0;i<valueresponsetimeData.length; i++) {
-              timestampresponsetime.push(new Date(valueresponsetimeData[i].Timestamp * 1000).toISOString());
-              valueresponsetime.push(valueresponsetimeData[i].Average);
+              valueresponsetimeData.sort(function(a, b) {
+                var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+                return (aD) - (bD);
+              });
+
+              for(i=0;i<valueresponsetimeData.length; i++) {
+                timestampresponsetime.push(new Date(valueresponsetimeData[i].Timestamp * 1000).toISOString());
+                valueresponsetime.push(valueresponsetimeData[i].Average);
+              }
             }
 
             var valuelatency = [];
