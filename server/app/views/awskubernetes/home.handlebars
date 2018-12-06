@@ -803,10 +803,12 @@
             var valuelatency = [];
             var timestamplatency = [];
             var valuelatencyData = data.latency;
-            valuelatencyData.sort(function(a, b) {
-              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-              return (aD) - (bD);
-            });
+            if(valuelatencyData.length > 0){
+              valuelatencyData.sort(function(a, b) {
+                var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+                return (aD) - (bD);
+              });
+            }
 
             for(i=0;i<valuelatencyData.length; i++) {
               timestamplatency.push(new Date(valuelatencyData[i].Timestamp * 1000).toISOString());
