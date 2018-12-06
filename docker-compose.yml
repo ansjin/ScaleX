@@ -13,3 +13,7 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+    volumes:
+      - ./db:/data/db
