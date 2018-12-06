@@ -228,7 +228,6 @@
                           <i class="fa fa-refresh fa-spin"></i>
                         </div>
                       </div>
-
                       <div class="col-lg-6">
                         <section class="panel">
                           <header class="panel-heading">
@@ -246,110 +245,230 @@
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
+                  <h3 class="box-title">Operation-Oriented Metrics</h3>
+                  <!-- Wrong-Provisioning Timeshare & Operating Expense -->
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Wrong-Provisioning Timeshare
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="provisioning" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayprovisioning">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            <span id='operatingexpensetitle'>Instance Operating Expenses</span>
+                          </header>
+                          <div class="panel-body text-center">
+                            <div style="width: 400px; height: 400px; float: left; position: relative;">
+                              <div style="width: 100%; height: 40px; position: absolute; top: 49%; left: 0; margin-top: -20px; line-height:19px; text-align: center; z-index: 999999999999999">
+                                <p style="font-size:18px"><b><span id="lbloperatingexpense">0.00$</span></b></p>
+                              </div>
+                            <canvas id="operatingexpense" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayoperatingexpense">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <!-- Resource Scale -->
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Resource Allocation Bounds
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="boundaryscale" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayboundaryscale">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <h3 class="box-title">User-Oriented Metrics</h3>
+                  <!-- Average Response Time & Average Latency -->
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Average Response Time
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="averagerespond" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayaveragerespond">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            Average Latency
+                          </header>
+                          <div class="panel-body text-center">
+                            <canvas id="averagelatency" height="400" width="500"></canvas>
+                          </div>
+                        </section>
+                        <div class="overlay" id = "overlayaveragelatency">
+                          <i class="fa fa-refresh fa-spin"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <!-- Successful Response Count -->
+                  <div class="row">
+                    <section class="panel">
+                      <header class="panel-heading">
+                        Successful Response Count
+                      </header>
+                      <div class="panel-body text-center">
+                        <canvas id="responsecount" height="400" width="1000"></canvas>
+                      </div>
+                    </section>
+                    <div class="overlay" id = "overlayresponsecount">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <div class="row">
+                    <section class="panel">
+                      <header class="panel-heading">
+                        Error Response Count
+                      </header>
+                      <div class="panel-body text-center">
+                        <canvas id="errorresponsecount" height="400" width="1000"></canvas>
+                      </div>
+                    </section>
+                    <div class="overlay" id = "overlayerrorresponsecount">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
                 </div>
-                <!-- /.box-body -->
               </div>
+              <!-- /.box-body -->
             </div>
           </div>
-
         </section>
         <!-- /.content -->
     </div>
     <!-- page script -->
     <script>
 
-      function updateGraph(loadTestName)
-      {
-          alert(loadTestName);
-        $.post(
-          "/awskubernetes/getLoadTestData",{
-            testName: loadTestName
-          },
-          function(data) {
-            allData = data;
+    function updateGraph(loadTestName)
+    {
+        alert(loadTestName);
+      $.post(
+        "/awskubernetes/getLoadTestData",{
+          testName: loadTestName
+        },
+        function(data) {
+          allData = data;
 
-            console.log(allData);
-            console.log(allData);
-            var ctx = document.getElementById('line').getContext('2d');
-            var myChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: allData.requestIndex,
-                datasets: [{
-                  label: 'Request Elapsed Sec',
-                  data: allData.datarequestElapsed,
-                  backgroundColor: "rgba(255,153,0,0.6)"
-                }]
-              }
-            });
+          var ctx = document.getElementById('line').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Request Elapsed Sec',
+                data: allData.datarequestElapsed,
+                backgroundColor: "rgba(255,153,0,0.6)"
+              }]
+            }
+          });
 
-            var ctxLatency = document.getElementById('lineLatency').getContext('2d');
+          var ctxLatency = document.getElementById('lineLatency').getContext('2d');
 
-            var myChartLatency = new Chart(ctxLatency, {
-              type: 'line',
-              data: {
-                labels: allData.requestIndex,
-                datasets: [{
-                  label: 'Max Latency',
-                  data: allData.maxLatency,
-                  borderColor: "rgba(255,153,0,0.6)",
-                  fill: false,
-                }, {
-                  label: 'Min Latency',
-                  data: allData.minLatency,
-                  borderColor: "red",
-                  fill: false,
-                },{
-                  label: 'Mean Latency',
-                  data: allData.meanLatency,
-                  borderColor: "#54D",
-                  fill: false,
-                }
-                ]
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'line',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Max Latency',
+                data: allData.maxLatency,
+                borderColor: "rgba(255,153,0,0.6)",
+                fill: false,
+              }, {
+                label: 'Min Latency',
+                data: allData.minLatency,
+                borderColor: "red",
+                fill: false,
+              },{
+                label: 'Mean Latency',
+                data: allData.meanLatency,
+                borderColor: "#54D",
+                fill: false,
               }
-            });
+              ]
+            }
+          });
 
-            var ctxLatency = document.getElementById('barRPS').getContext('2d');
-            var myChartLatency = new Chart(ctxLatency, {
-              type: 'bar',
-              data: {
-                labels: allData.requestIndex,
-                datasets: [{
-                  label: 'Requests Per Second',
-                  data: allData.barRPS,
-                  backgroundColor: "54D"
-                }
-                ]
+          var ctxLatency = document.getElementById('barRPS').getContext('2d');
+          var myChartLatency = new Chart(ctxLatency, {
+            type: 'bar',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Requests Per Second',
+                data: allData.barRPS,
+                backgroundColor: "54D"
               }
-            });
-            var ctxlatencyTotal = document.getElementById('lineLatencyTotal').getContext('2d');
-            var myChartLatencyTotal = new Chart(ctxlatencyTotal, {
-              type: 'line',
-              data: {
-                labels: allData.requestIndex,
-                datasets: [{
-                  label: 'Total Latency Time (in Sec)',
-                  data: allData.totalTimeSeconds,
-                  backgroundColor: "#54F5B7"
-                }]
+              ]
+            }
+          });
+          var ctxlatencyTotal = document.getElementById('lineLatencyTotal').getContext('2d');
+          var myChartLatencyTotal = new Chart(ctxlatencyTotal, {
+            type: 'line',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Total Latency Time (in Sec)',
+                data: allData.totalTimeSeconds,
+                backgroundColor: "#54F5B7"
+              }]
+            }
+          });
+          var ctxErrors = document.getElementById('barErrors').getContext('2d');
+          var myChartErrors = new Chart(ctxErrors, {
+            type: 'bar',
+            data: {
+              labels: allData.requestIndex,
+              datasets: [{
+                label: 'Errors',
+                data: allData.errors,
+                backgroundColor: "#F5C454"
               }
-            });
-            var ctxErrors = document.getElementById('barErrors').getContext('2d');
-            var myChartErrors = new Chart(ctxErrors, {
-              type: 'bar',
-              data: {
-                labels: allData.requestIndex,
-                datasets: [{
-                  label: 'Errors',
-                  data: allData.errors,
-                  backgroundColor: "#F5C454"
-                }
-                ]
-              }
-            });
-          }
-        );
-      }
+              ]
+            }
+          });
+        }
+      );
+    }
+
     $.get(
       "/awskubernetes/describeEc2Instances",
       function(data) {
@@ -377,66 +496,609 @@
 
         }
       );
-      $.get(
-        "/awskubernetes/getcurrentData",
-        function(data) {
-          //data=JSON.parse(data);
-          var instancesDataArr = data.instances.Datapoints;
-          instancesDataArr.sort(function(a, b) {
-            var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-            return (aD) - (bD);
-          });
 
-          var timestamparr = [];
-          var valuearr = [];
-          for(i=0;i<instancesDataArr.length; i++) {
+    $(function() {
+      var myChart;
+      var myChartLatency;
+      var myChartProvisioning;
+      var myChartBoundaryscale;
+      var myChartOperatingexpense;
+      var myChartAveragerespond;
+      var myChartAveragelatency;
+      var myChartResponsecount;
+      var myChartErrorResponsecount;
+      function callUpdate(){
+        $.get(
+          "/awskubernetes/getcurrentData",
+          function(data) {
+            // Clear previous
+            if (myChart)
+            {
+              myChart.destroy();
+              myChartLatency.destroy();
+              myChartProvisioning.destroy();
+              myChartBoundaryscale.destroy();
+              myChartOperatingexpense.destroy();
+              myChartAveragerespond.destroy();
+              myChartAveragelatency.destroy();
+              myChartResponsecount.destroy();
+              myChartErrorResponsecount.destroy();
+            }
+            //data=JSON.parse(data);
+            var instancesDataArr = data.instances.Datapoints;
+            instancesDataArr.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            var instancecost = 0.0116;
+
+            if (data.instanceType === "t2.micro") {
+              instancecost = 0.0116;
+            }
+            else if (data.instanceType === "t2.small") {
+              instancecost = 0.0232;
+            }
+            else if (data.instanceType === "t2.medium") {
+              instancecost = 0.0464;
+            }
+
+            var max = 0;
+            var min = 100;
+            var costs = 0;
+            var overprovisiongCosts = 0;
+            var underprovisiongCosts = 0;
+
+            var timestamparr = [];
+            var valuearr = [];
+            for(i=0;i<instancesDataArr.length; i++) {
+              if (instancesDataArr[i].Average > max) {
+                max = instancesDataArr[i].Average;
+              }
+              if (instancesDataArr[i].Average < min) {
+                min = instancesDataArr[i].Average;
+              }
               timestamparr.push(instancesDataArr[i].Timestamp);
               valuearr.push(instancesDataArr[i].Average);
-          }
-
-          var cpuUtilizationDataArr = data.cpuUtilization.Datapoints;
-          var timestamparrCPUUti = [];
-          var valuearrCPUUTI = [];
-          cpuUtilizationDataArr.sort(function(a, b) {
-            var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
-            return (aD) - (bD);
-          });
-          for(i=0;i<cpuUtilizationDataArr.length; i++) {
-            timestamparrCPUUti.push(cpuUtilizationDataArr[i].Timestamp);
-            valuearrCPUUTI.push(cpuUtilizationDataArr[i].Average);
-          }
-          var ctx = document.getElementById('autoscaleInstances').getContext('2d');
-          var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: timestamparr,
-              datasets: [{
-                label: 'Auto Scale Instances',
-                data: valuearr,
-                backgroundColor: "red",
-                fill: false
-              }]
+              costs = costs + instancesDataArr[i].Average;
             }
-          });
-          $("#overlayautoscaleInstances").hide("slow");
-          var ctxLatency = document.getElementById('linecpuUtilization').getContext('2d');
-          var myChartLatency = new Chart(ctxLatency, {
-            type: 'line',
-            data: {
-              labels: timestamparrCPUUti,
-              datasets: [{
-                label: 'CPU-Utilization',
-                data: valuearrCPUUTI,
-                borderColor: "blue",
-                fill: false
+
+            min = Math.min(max, min);
+
+            var cpuUtilizationDataArr = data.cpuUtilization.Datapoints;
+            var timestamparrCPUUti = [];
+            var valuearrCPUUTI = [];
+            cpuUtilizationDataArr.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+            for(i=0;i<cpuUtilizationDataArr.length; i++) {
+              timestamparrCPUUti.push(cpuUtilizationDataArr[i].Timestamp);
+              valuearrCPUUTI.push(cpuUtilizationDataArr[i].Average);
+            }
+
+            var desiredInstancesDataArr = data.desiredInstances.Datapoints;
+            var inServiceInstancesDataArr = data.inserviceInstances.Datapoints;
+            var valueoverprovisioning = [];
+            var valueunderprovisioning = [];
+            var valueinService = [];
+            var valuedesired = [];
+
+            desiredInstancesDataArr.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            inServiceInstancesDataArr.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<desiredInstancesDataArr.length; i++) {
+              // How many machines do we have vs how many do we need?
+              var diff = desiredInstancesDataArr[i].Average - inServiceInstancesDataArr[i].Minimum;
+              var diff_over = desiredInstancesDataArr[i].Average - instancesDataArr[i].Average;
+              if (diff > 0) {
+                valueunderprovisioning.push(Math.abs(inServiceInstancesDataArr[i].Minimum + diff)); // Too few
+                underprovisiongCosts = underprovisiongCosts + 1;
+                if (i > 0 && isNaN(valueunderprovisioning[i-1])) {
+                  valueunderprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
+                }
+                valueoverprovisioning.push(NaN);
               }
-              ]
+              else if (diff_over < 0) {
+                valueoverprovisioning.push(instancesDataArr[i].Average); // Too many
+                overprovisiongCosts = overprovisiongCosts + 1;
+                if (i > 0 && isNaN(valueoverprovisioning[i-1])) {
+                  valueoverprovisioning[i-1] = inServiceInstancesDataArr[i-1].Minimum;
+                }
+                valueunderprovisioning.push(NaN);
+              }
+              else {
+                // Neither
+                if (i > 0 && (desiredInstancesDataArr[i-1].Average - inServiceInstancesDataArr[i-1].Minimum) > 0) {
+                  valueunderprovisioning[i] = inServiceInstancesDataArr[i].Minimum;
+                }
+                else {
+                  valueunderprovisioning.push(NaN);
+                }
+                if (i > 0 && (desiredInstancesDataArr[i-1].Average - instancesDataArr[i-1].Average) < 0) {
+                  valueoverprovisioning[i] = instancesDataArr[i].Average;
+                }
+                else {
+                  valueoverprovisioning.push(NaN);
+                }
+              }
+              valueinService.push(inServiceInstancesDataArr[i].Minimum);
+              valuedesired.push(desiredInstancesDataArr[i].Average);
             }
+
+            var totalcosts = (costs*(instancecost/60)).toFixed(2);
+            // Subtract overprovisiongCosts for displaying purposes
+            costs = costs - overprovisiongCosts;
+
+            document.getElementById("lbloperatingexpense").textContent = `${totalcosts}\$`;
+            document.getElementById("operatingexpensetitle").textContent = `Instance Operating Expenses (${data.instanceType} ${instancecost}\$/hour)`;
+
+            var valuetotalData = data.totalRequestCount.Datapoints;
+            var valueerror500Data = data.HTTPCode5XXCount.Datapoints;
+            var valueerror500DataELB = data.HTTPCode5XXCountELB.Datapoints;
+            var valuesuccessfulData = data.HTTPCode2XXCount.Datapoints;
+            var valueerror300Data = data.HTTPCode3XXCount.Datapoints;
+            var valueerror400Data = data.HTTPCode4XXCount.Datapoints;
+            var valueerror400DataELB = data.HTTPCode4XXCountELB.Datapoints;
+            var valuesuccessful = [];
+            var valueerror400 = [];
+            var valueerror500 = [];
+            var valuetotalresponses = [];
+
+            valuesuccessfulData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valuetotalData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valueerror300Data.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valueerror500DataELB.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valueerror400Data.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            valueerror400DataELB.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<desiredInstancesDataArr.length; i++) {
+              if (typeof valuetotalData[i] === 'undefined') {
+                valuetotalresponses.push(0);
+                valueerror500.push(0);
+                valueerror400.push(0);
+                valuesuccessful.push(0);
+              }
+              else {
+                var inside = false;
+                valuetotalresponses.push(valuetotalData[i].Sum);
+                for(j=0;j<valueerror500DataELB.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror500DataELB[j].Timestamp)
+                  {
+                    if (typeof valueerror500[i] === 'undefined') {
+                      valueerror500.push(valueerror500DataELB[j].Sum);
+                    }
+                    else {
+                      valueerror500[i] = valueerror500[i] + valueerror500DataELB[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                for(j=0;j<valueerror500Data.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror500Data[j].Timestamp)
+                  {
+                    if (typeof valueerror500[i] === 'undefined') {
+                      valueerror500.push(valueerror500Data[j].Sum);
+                    }
+                    else {
+                      valueerror500[i] = valueerror500[i] + valueerror500Data[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                if (!inside) {
+                  valueerror500.push(0);
+                }
+                inside = false;
+                for(j=0;j<valueerror300Data.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror300Data[j].Timestamp)
+                  {
+                    if (typeof valuesuccessful[i] === 'undefined') {
+                      valuesuccessful.push(valueerror300Data[j].Sum);
+                    }
+                    else {
+                      valuesuccessful[i] = valuesuccessful[i] + valueerror300Data[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                for(j=0;j<valuesuccessfulData.length; j++) {
+                  if (valuetotalData[i].Timestamp === valuesuccessfulData[j].Timestamp)
+                  {
+                    if (typeof valuesuccessful[i] === 'undefined') {
+                      valuesuccessful.push(valuesuccessfulData[j].Sum);
+                    }
+                    else {
+                      valuesuccessful[i] = valuesuccessful[i] + valuesuccessfulData[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                if (!inside) {
+                  valuesuccessful.push(0);
+                }
+                inside = false;
+                for(j=0;j<valueerror400DataELB.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror400DataELB[j].Timestamp)
+                  {
+                    if (typeof valueerror400[i] === 'undefined') {
+                      valueerror400.push(valueerror400DataELB[j].Sum);
+                    }
+                    else {
+                      valueerror400[i] = valueerror400[i] + valueerror400DataELB[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                for(j=0;j<valueerror400Data.length; j++) {
+                  if (valuetotalData[i].Timestamp === valueerror400Data[j].Timestamp)
+                  {
+                    if (typeof valueerror400[i] === 'undefined') {
+                      valueerror400.push(valueerror400Data[j].Sum);
+                    }
+                    else {
+                      valueerror400[i] = valueerror400[i] + valueerror400Data[j].Sum;
+                    }
+                    inside = true;
+                    break;
+                  }
+                }
+                if (!inside) {
+                  valueerror400.push(0);
+                }
+              }
+            }
+
+            var valueresponsetime = [];
+            var timestampresponsetime = [];
+            var valueresponsetimeData = data.responseTime;
+            valueresponsetimeData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<valueresponsetimeData.length; i++) {
+              timestampresponsetime.push(new Date(valueresponsetimeData[i].Timestamp * 1000).toISOString());
+              valueresponsetime.push(valueresponsetimeData[i].Average);
+            }
+
+            var valuelatency = [];
+            var timestamplatency = [];
+            var valuelatencyData = data.latency;
+            valuelatencyData.sort(function(a, b) {
+              var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
+              return (aD) - (bD);
+            });
+
+            for(i=0;i<valuelatencyData.length; i++) {
+              timestamplatency.push(new Date(valuelatencyData[i].Timestamp * 1000).toISOString());
+              valuelatency.push(valuelatencyData[i].Average);
+            }
+
+            var ctx = document.getElementById('autoscaleInstances').getContext('2d');
+            myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Auto Scale Instances',
+                  data: valuearr,
+                  backgroundColor: "red",
+                  fill: false,
+                  steppedLine: true,
+                  lineTension: 0
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: (max + 2),
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayautoscaleInstances").hide("slow");
+            var ctxLatency = document.getElementById('linecpuUtilization').getContext('2d');
+            myChartLatency = new Chart(ctxLatency, {
+              type: 'line',
+              data: {
+                labels: timestamparrCPUUti,
+                datasets: [{
+                  label: 'CPU-Utilization',
+                  data: valuearrCPUUTI,
+                  backgroundColor: "blue",
+                  fill: false,
+                  steppedLine: true,
+                  lineTension: 0
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: 100,
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlaylinecpuUtilization").hide("slow");
+            var ctxProvisioning = document.getElementById('provisioning').getContext('2d');
+            myChartProvisioning = new Chart(ctxProvisioning, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Under-Provisioned',
+                  data: valueunderprovisioning,
+                  borderColor: "#36A2EB",
+                  fill: origin,
+                  steppedLine: true,
+                  spanGaps: true,
+                  lineTension: 0
+                },{
+                  label: 'Over-Provisioned',
+                  data: valueoverprovisioning,
+                  borderColor: "#FF6384",
+                  fill: origin,
+                  steppedLine: true,
+                  spanGaps: true,
+                  lineTension: 0
+                }, {
+                  label: 'In-Service Instances',
+                  data: valueinService,
+                  backgroundColor: "grey",
+                  borderColor: "green",
+                  steppedLine: true,
+                  fill: false,
+                  lineTension: 0,
+                  borderDash: [5, 5]
+                },{
+                  label: 'AutoScale Instances',
+                  data: valuearr,
+                  backgroundColor: "grey",
+                  borderColor: "#06eba1",
+                  steppedLine: true,
+                  fill: false,
+                  lineTension: 0
+                }, {
+                  label: 'Desired Instances',
+                  data: valuedesired,
+                  backgroundColor: "grey",
+                  borderColor: "green",
+                  steppedLine: true,
+                  fill: false,
+                  lineTension: 0
+                }
+                ]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: (max + 2),
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayprovisioning").hide("slow");
+            var ctxBoundaryscale = document.getElementById('boundaryscale').getContext('2d');
+            myChartBoundaryscale = new Chart(ctxBoundaryscale, {
+              type: 'bar',
+              data: {
+                  labels: ['Resource Allocation Bounds'],
+                  datasets: [{
+                    label: 'Lower Bound',
+                    backgroundColor: "#36A2EB",
+                    borderColor: "#295deb",
+                    borderWidth: 1,
+                    data: [min]
+                  }, {
+                    label: 'Upper Bound',
+                    backgroundColor: "#06eba1",
+                    borderColor: "#00eb3d",
+                    borderWidth: 1,
+                    data: [max]
+                  }, {
+                    label: 'Boundary Scale',
+                    backgroundColor: "#FF6384",
+                    borderColor: "#ff0008",
+                    borderWidth: 1,
+                    data: [Math.abs(max-min)]
+                  }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      suggestedMax: (max + 2),
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayboundaryscale").hide("slow");
+            var ctxOperatingexpense = document.getElementById('operatingexpense').getContext('2d');
+            myChartOperatingexpense = new Chart(ctxOperatingexpense, {
+              type: 'doughnut',
+              data: {
+                labels: [
+                  'CPU-Minutes',
+                  'Over-Provisioned CPU-Minutes',
+                  'Under-Provisioned CPU-Minutes'
+                ],
+                datasets: [{
+                  data: [costs, overprovisiongCosts, underprovisiongCosts],
+                  backgroundColor: [
+                    "#06eba1",
+                    "#FF6384",
+                    "#36A2EB"
+                  ],
+                  borderColor: "grey",
+                  fill: true
+                }]
+              }
+            });
+            $("#overlayoperatingexpense").hide("slow");
+            var ctxAveragerespond = document.getElementById('averagerespond').getContext('2d');
+            myChartAveragerespond = new Chart(ctxAveragerespond, {
+              type: 'line',
+              data: {
+                labels: timestampresponsetime,
+                datasets: [{
+                  label: 'Average Response Time',
+                  data: valueresponsetime,
+                  borderColor: "blue",
+                  fill: true,
+                  steppedLine: true,
+                  lineTension: 0
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayaveragerespond").hide("slow");
+            var ctxAveragelatency = document.getElementById('averagelatency').getContext('2d');
+            myChartAveragelatency = new Chart(ctxAveragelatency, {
+              type: 'line',
+              data: {
+                labels: timestamplatency,
+                datasets: [{
+                  label: 'Average Latency',
+                  data: valuelatency,
+                  borderColor: "blue",
+                  fill: true,
+                  steppedLine: true,
+                  lineTension: 0
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayaveragelatency").hide("slow");
+            var ctxResponsecount = document.getElementById('responsecount').getContext('2d');
+            myChartResponsecount = new Chart(ctxResponsecount, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Successful Response (2XX/3XX)',
+                  data: valuesuccessful,
+                  borderColor: "green",
+                  fill: false
+                },{
+                  label: 'Total Responses',
+                  data: valuetotalresponses,
+                  borderColor: "grey",
+                  fill: false
+                }],
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayresponsecount").hide("slow");
+            var ctxErrorResponsecount = document.getElementById('errorresponsecount').getContext('2d');
+            myChartErrorResponsecount = new Chart(ctxErrorResponsecount, {
+              type: 'line',
+              data: {
+                labels: timestamparr,
+                datasets: [{
+                  label: 'Error Response (4XX)',
+                  data: valueerror400,
+                  borderColor: "#fffa00",
+                  fill: false
+                },{
+                  label: 'Error Response (5XX)',
+                  data: valueerror500,
+                  borderColor: "#ff0500",
+                  fill: false
+                },{
+                  label: 'Total Responses',
+                  data: valuetotalresponses,
+                  borderColor: "grey",
+                  fill: false
+                }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    stacked: false,
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            $("#overlayerrorresponsecount").hide("slow");
           });
-          $("#overlaylinecpuUtilization").hide("slow");
-        });
-
-
+      }
+      callUpdate();
+      setInterval(callUpdate, 60000);
+    });
     </script>
 
 {{else}}

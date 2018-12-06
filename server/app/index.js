@@ -80,7 +80,7 @@ app.use(session({
   secret: 'you do not know me',
   resave: true,
   saveUninitialized: true,
-  cookie: { maxAge: 600000 }
+  cookie: { maxAge: 90000000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());

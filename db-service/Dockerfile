@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y gnupg gnupg2 ca-certificates && \
 # Create the MongoDB data directory
 RUN mkdir -p /data/db
 
+# Create Volume for database
 VOLUME /data/db
 
 # Expose port 27017 from the container to the host

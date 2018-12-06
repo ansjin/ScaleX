@@ -293,6 +293,7 @@ exports.deployAutoscaler = function(username, awsDeployData,kubeData, awsData,re
                                 var retry = (function () {
                                   var count = 0;
                                   return function (next) {
+                                    console.log(urlService);
                                     request({
                                       url: urlService,
                                       method: "GET",
@@ -662,14 +663,26 @@ exports.getCurrentData = function(awsData,username,req,res) {
             ]
            // Unit: 'Count'
           };
-          console.log(params);
+          //console.log(params);
         cloudwatch.getMetricStatistics(params, function (err, data) {
           if (err) console.log(err, err.stack); // an error occurred
           else {
             var dataAll = {
               "instances": data,
-              "cpuUtilization": ''
-            }
+              "cpuUtilization": '',
+              "desiredInstances": '',
+              "inserviceInstances": '',
+              "totalRequestCount": '',
+              "HTTPCode5XXCountELB": '',
+              "HTTPCode4XXCountELB": '',
+              "HTTPCode2XXCount": '',
+              "HTTPCode3XXCount": '',
+              "HTTPCode4XXCount": '',
+              "HTTPCode5XXCount": '',
+              "instanceType": awsDeployInfo.awsKubeAutoScaleConfig.launchConfig.InstanceType,
+              "latency": '',
+              "responseTime": ''
+            };
             var params = {
               EndTime: new Date, /* required */
               MetricName: 'CPUUtilization', /* required */
@@ -689,19 +702,268 @@ exports.getCurrentData = function(awsData,username,req,res) {
               ]
               // Unit: 'Count'
             };
+            //console.log(params);
             cloudwatch.getMetricStatistics(params, function (err, data) {
               if (err) console.log(err, err.stack); // an error occurred
               else {
                 // successful response
                 dataAll.cpuUtilization = data;
-                awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username,dataAll );
-                res.send(dataAll);
-                console.log("data sent for matrics_write");
+                var params = {
+                  EndTime: new Date, /* required */
+                  MetricName: 'GroupDesiredCapacity', /* required */
+                  Namespace: 'AWS/AutoScaling', /* required */
+                  Period: 60, /* required */
+                  StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                  Dimensions: [
+                    {
+                      Name: 'AutoScalingGroupName', /* required */
+                      Value: awsDeployInfo.awsKubeAutoScaleConfig.scaling.AutoScalingGroupName/* required */
+                    },
+                    /* more items */
+                  ],
+                  Statistics: [
+                    "Average"
+                    /* more items */
+                  ]
+                  // Unit: 'Count'
+                };
+                //console.log(params);
+                cloudwatch.getMetricStatistics(params, function (err, data) {
+                  if (err) console.log(err, err.stack); // an error occurred
+                  else {
+                    // successful response
+                    dataAll.desiredInstances = data;
+                    var params = {
+                      EndTime: new Date, /* required */
+                      MetricName: 'GroupInServiceInstances', /* required */
+                      Namespace: 'AWS/AutoScaling', /* required */
+                      Period: 60, /* required */
+                      StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                      Dimensions: [
+                        {
+                          Name: 'AutoScalingGroupName', /* required */
+                          Value: awsDeployInfo.awsKubeAutoScaleConfig.scaling.AutoScalingGroupName/* required */
+                        },
+                        /* more items */
+                      ],
+                      Statistics: [
+                        "Minimum"
+                        /* more items */
+                      ]
+                      // Unit: 'Count'
+                    };
+                    cloudwatch.getMetricStatistics(params, function (err, data) {
+                      if (err) console.log(err, err.stack); // an error occurred
+                      else {
+                        // successful response
+                        dataAll.inserviceInstances = data;
+                        // Isolate load balancer name from ARN
+                        lbarn = awsDeployInfo.awsKubeAutoScaleConfig.listener.LoadBalancerArn;
+                        lbtmp = lbarn.split("loadbalancer/").slice(1);
+                        lbname = lbtmp.join("loadbalancer/");
+                        var params = {
+                          EndTime: new Date, /* required */
+                          MetricName: 'HTTPCode_Target_2XX_Count', /* required */
+                          Namespace: 'AWS/ApplicationELB', /* required */
+                          Period: 60, /* required */
+                          StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                          Dimensions: [
+                            {
+                              Name: 'LoadBalancer', /* required */
+                              Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                            },
+                            /* more items */
+                          ],
+                          Statistics: [
+                            "Sum"
+                            /* more items */
+                          ]
+                          // Unit: 'Count'
+                        };
+                        cloudwatch.getMetricStatistics(params, function (err, data) {
+                          if (err) console.log(err, err.stack); // an error occurred
+                          else {
+                            // successful response
+                            dataAll.HTTPCode2XXCount = data;
+                            var params = {
+                              EndTime: new Date, /* required */
+                              MetricName: 'RequestCount', /* required */
+                              Namespace: 'AWS/ApplicationELB', /* required */
+                              Period: 60, /* required */
+                              StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                              Dimensions: [
+                                {
+                                  Name: 'LoadBalancer', /* required */
+                                  Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                                },
+                                /* more items */
+                              ],
+                              Statistics: [
+                                "Sum"
+                                /* more items */
+                              ]
+                              // Unit: 'Count'
+                            };
+                            cloudwatch.getMetricStatistics(params, function (err, data) {
+                              if (err) console.log(err, err.stack); // an error occurred
+                              else {
+                                // successful response
+                                dataAll.totalRequestCount = data;
+                                var params = {
+                                  EndTime: new Date, /* required */
+                                  MetricName: 'HTTPCode_Target_3XX_Count', /* required */
+                                  Namespace: 'AWS/ApplicationELB', /* required */
+                                  Period: 60, /* required */
+                                  StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                                  Dimensions: [
+                                    {
+                                      Name: 'LoadBalancer', /* required */
+                                      Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                                    },
+                                    /* more items */
+                                  ],
+                                  Statistics: [
+                                    "Sum"
+                                    /* more items */
+                                  ]
+                                  // Unit: 'Count'
+                                };
+                                cloudwatch.getMetricStatistics(params, function (err, data) {
+                                  if (err) console.log(err, err.stack); // an error occurred
+                                  else {
+                                    dataAll.HTTPCode3XXCount = data;
+                                    var params = {
+                                      EndTime: new Date, /* required */
+                                      MetricName: 'HTTPCode_Target_4XX_Count', /* required */
+                                      Namespace: 'AWS/ApplicationELB', /* required */
+                                      Period: 60, /* required */
+                                      StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                                      Dimensions: [
+                                        {
+                                          Name: 'LoadBalancer', /* required */
+                                          Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                                        },
+                                        /* more items */
+                                      ],
+                                      Statistics: [
+                                        "Sum"
+                                        /* more items */
+                                      ]
+                                      // Unit: 'Count'
+                                    };
+                                    cloudwatch.getMetricStatistics(params, function (err, data) {
+                                      if (err) console.log(err, err.stack); // an error occurred
+                                      else {
+                                        dataAll.HTTPCode4XXCount = data;
+                                        var params = {
+                                          EndTime: new Date, /* required */
+                                          MetricName: 'HTTPCode_Target_5XX_Count', /* required */
+                                          Namespace: 'AWS/ApplicationELB', /* required */
+                                          Period: 60, /* required */
+                                          StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                                          Dimensions: [
+                                            {
+                                              Name: 'LoadBalancer', /* required */
+                                              Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                                            },
+                                            /* more items */
+                                          ],
+                                          Statistics: [
+                                            "Sum"
+                                            /* more items */
+                                          ]
+                                          // Unit: 'Count'
+                                        };
+                                        cloudwatch.getMetricStatistics(params, function (err, data) {
+                                          if (err) console.log(err, err.stack); // an error occurred
+                                          else {
+                                            dataAll.HTTPCode5XXCount = data;
+                                            var params = {
+                                              EndTime: new Date, /* required */
+                                              MetricName: 'HTTPCode_ELB_4XX_Count', /* required */
+                                              Namespace: 'AWS/ApplicationELB', /* required */
+                                              Period: 60, /* required */
+                                              StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                                              Dimensions: [
+                                                {
+                                                  Name: 'LoadBalancer', /* required */
+                                                  Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                                                },
+                                                /* more items */
+                                              ],
+                                              Statistics: [
+                                                "Sum"
+                                                /* more items */
+                                              ]
+                                              // Unit: 'Count'
+                                            };
+                                            cloudwatch.getMetricStatistics(params, function (err, data) {
+                                              if (err) console.log(err, err.stack); // an error occurred
+                                              else {
+                                                dataAll.HTTPCode4XXCountELB = data;
+                                                var params = {
+                                                  EndTime: new Date, /* required */
+                                                  MetricName: 'HTTPCode_ELB_5XX_Count', /* required */
+                                                  Namespace: 'AWS/ApplicationELB', /* required */
+                                                  Period: 60, /* required */
+                                                  StartTime: new Date(d.getTime() - 60 * MS_PER_MINUTE), /* required */
+                                                  Dimensions: [
+                                                    {
+                                                      Name: 'LoadBalancer', /* required */
+                                                      Value: lbname //'app/awsloadbal/0f546c0424c9ffc5' /* required */
+                                                    },
+                                                    /* more items */
+                                                  ],
+                                                  Statistics: [
+                                                    "Sum"
+                                                    /* more items */
+                                                  ]
+                                                  // Unit: 'Count'
+                                                };
+                                                cloudwatch.getMetricStatistics(params, function (err, data) {
+                                                  if (err) console.log(err, err.stack); // an error occurred
+                                                  else {
+                                                    dataAll.HTTPCode5XXCountELB = data;
+                                                    awsAutoscaleKubernetesMongoFunctions.getLatencyData(username)
+                                                      .then(function (latencyarray) {
+                                                        //console.log(latencyarray)
+                                                        if (latencyarray) {
+                                                          dataAll.latency = latencyarray;
+                                                          awsAutoscaleKubernetesMongoFunctions.getResponseTimeData(username)
+                                                            .then(function (resptimearray) {
+                                                              //console.log(resptimearray)
+                                                              if (resptimearray) {
+                                                                dataAll.responseTime = resptimearray;
+                                                                // successful response
+                                                                awsAutoscaleKubernetesMongoFunctions.addCurrentRecordedData(username, dataAll);
+                                                                res.send(dataAll);
+                                                                console.log("data sent for matrics_write");
+                                                                console.log(dataAll);
+                                                              }
+                                                            });
+                                                        }
+                                                      });
+                                                  }
+                                                });
+                                              }
+                                            });
+                                          }
+                                        });
+                                      }
+                                    });
+                                  }
+                                });
+                              }
+                            });
+                          }
+                        });
+                      }
+                    });
+                  }
+                });
               }
-
             });
           }
-
         });
       }
     });

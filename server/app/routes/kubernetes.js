@@ -168,7 +168,7 @@ router.get('/getReplicationControllers', function(req, res) {
       }
     });
 });
-router.get('/geNodesData', function(req, res) {
+router.get('/getNodesData', function(req, res) {
   kubeMongoFunctions.getMasterIp(req.user.username)
     .then(function (ip) {
       if (ip) {

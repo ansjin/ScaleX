@@ -181,6 +181,56 @@ exports.getAwsAutoScaleInfo = function(username) {
 
   return deferred.promise;
 }
+exports.getLatencyData = function(username) {
+  var deferred = Q.defer();
+  var latencyarray = {};
+  MongoClient.connect('mongodb://'+ config.mongodb.host + ':'+config.mongodb.port+'/dbPerfData', function (err, db) {
+    var collection = db.collection('usersPerfData');
+
+    //check if username is already assigned in our database
+    collection.findOne({"username": username}, {"LatencyDatapoints": []})
+      .then(function (result) {
+        if (null != result)
+        {
+          latencyarray = result["LatencyDatapoints"];
+          deferred.resolve(latencyarray); // username exists
+        }
+        else
+        {
+          console.log("Error", username);
+          deferred.resolve(latencyarray); // username not exists
+        }
+      });
+  });
+
+  return deferred.promise;
+}
+
+exports.getResponseTimeData = function(username) {
+  var deferred = Q.defer();
+  var resptimearray = {};
+  MongoClient.connect('mongodb://'+ config.mongodb.host + ':'+config.mongodb.port+'/dbPerfData', function (err, db) {
+    var collection = db.collection('usersPerfData');
+
+    //check if username is already assigned in our database
+    collection.findOne({"username": username}, {"ResponseTimeDatapoints": []})
+      .then(function (result) {
+        if (null != result)
+        {
+          resptimearray = result["ResponseTimeDatapoints"];
+          deferred.resolve(resptimearray); // username exists
+        }
+        else
+        {
+          console.log("Error", username);
+          deferred.resolve(resptimearray); // username not exists
+        }
+      });
+  });
+
+  return deferred.promise;
+}
+
 exports.getServiceURL = function(username) {
   var deferred = Q.defer();
 
@@ -583,6 +633,20 @@ exports.addAutoscalingData = function (username,testName,data) {
   var deferred = Q.defer();
   MongoClient.connect(mongodbUrlAwsKubeAutoScaleTestData, function (err, db) {
     var collectionNameRequestData = testName+'autoscaleData'+username;
+    console.log(collectionNameRequestData);
+    var collection = db.collection(collectionNameRequestData);
+    collection.insert(data)
+      .then(function () {
+        db.close();
+        deferred.resolve(true);
+      });
+  });
+  return deferred.promise;
+};
+exports.addGenericTestData = function (username, data) {
+  var deferred = Q.defer();
+  MongoClient.connect(mongodbUrlAwsKubeAutoScaleTestData, function (err, db) {
+    var collectionNameRequestData = 'genericTestData'+username;
     console.log(collectionNameRequestData);
     var collection = db.collection(collectionNameRequestData);
     collection.insert(data)
