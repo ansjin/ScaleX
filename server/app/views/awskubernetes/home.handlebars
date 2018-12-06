@@ -45,7 +45,7 @@
 
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                             </div>
-                        </div>
+                        </div>valueresponsetimeData
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
@@ -787,7 +787,7 @@
             var valueresponsetime = [];
             var timestampresponsetime = [];
             var valueresponsetimeData = data.responseTime;
-            if(valueresponsetimeData){
+            if(valueresponsetimeData.length > 0){
 
               valueresponsetimeData.sort(function(a, b) {
                 var aD = new Date(a.Timestamp).getTime(), bD = new Date(b.Timestamp).getTime();
