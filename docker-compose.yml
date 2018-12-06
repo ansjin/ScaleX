@@ -1,9 +1,11 @@
-version: "2.0"
+version: "3.0"
 services:
   server-service:
     build: server
     ports:
-    - "8080:8080"
+      - "8080:8080"
+    depends_on:
+      - mongodbinst
     links:
       - mongodbinst
     restart: always

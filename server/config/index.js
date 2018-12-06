@@ -3,7 +3,7 @@
 // Do not add it to your Git repository.
 module.exports = {
   'mongodb': {
-    'host': 'localhost',
+    'host': 'mongodbinst',
     'port': '27017',
     'dbUsersData': {
       "name": "dbUsersData",
