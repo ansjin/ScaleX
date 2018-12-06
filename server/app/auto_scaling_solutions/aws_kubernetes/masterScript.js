@@ -8,8 +8,10 @@ exports.getMasterScript= function(kubeData, awsData) {
     'deb http://apt.kubernetes.io/ kubernetes-xenial main\n' +
     'EOF\n' +
     'apt-get update\n' +
-    'apt-get install -y docker-engine \n' +
-    'apt-get install -y docker.io \n' +
+    'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \n' +
+    'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \n' +
+    'apt-get update\n' +
+    'apt-get install -y docker-ce\n' +
     'systemctl enable docker.service \n' +
     'systemctl start docker.service \n' +
     'apt-get install -y kubelet kubeadm kubernetes-cni \n' +
@@ -29,7 +31,7 @@ exports.getMasterScript= function(kubeData, awsData) {
     'export KUBECONFIG=$HOME/admin.conf \n' +
     'else \n' +
     'kubeadm token generate  > tokenawskube.txt \n' +
-    '/sbin/ifconfig eth0 | grep \'inet addr\' | cut -d: -f2 | awk \'{print $1}\' > ipawskube.txt \n' +
+    '/sbin/ifconfig eth0 | grep \'inet\' | cut -d: -f2 | awk \'{print $2}\' > ipawskube.txt \n' +
     's3cmd rb s3://' + awsData.s3BucketName + ' --region=' + awsData.region + ' \n' +
     's3cmd mb s3://' + awsData.s3BucketName + ' --region=' + awsData.region + ' \n' +
     's3cmd -P put tokenawskube.txt  s3://' + awsData.s3BucketName + ' --region=' + awsData.region + ' \n' +
