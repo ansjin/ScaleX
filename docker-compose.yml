@@ -10,9 +10,6 @@ services:
       - mongodbinst
     restart: always
   mongodbinst:
-    build: db-service
-    environment:
-        - MONGO_INITDB_ROOT_USERNAME=admin!User
-        - MONGO_INITDB_ROOT_PASSWORD=NotTobeKnown
+    image: mongo:latest
     ports:
       - "27017:27017"
