@@ -10,6 +10,8 @@ exports.getMasterScript= function(kubeData, awsData) {
     'apt-get update\n' +
     'apt-get install -y docker-engine \n' +
     'apt-get install -y docker.io \n' +
+    'systemctl enable docker.service \n' +
+    'systemctl start docker.service \n' +
     'apt-get install -y kubelet kubeadm kubernetes-cni \n' +
     'apt-get install -y s3cmd \n' +
     'echo -e "access_key=' + awsData.accessKeyId + '\nsecret_key=' + awsData.secretAccessKey + '" > /root/.s3cfg \n' +
