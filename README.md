@@ -15,6 +15,12 @@ This tool will automatically estimate and analyze the different configurations o
     chmod +x deploy_app.sh
     sudo sh deploy_app.sh
  4. Then use the web browser to visit http://VM_IP:8080 
+ 
+ Ref. Commands: 
+sudo mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
  ```
  ### Docker
  APMT unified into one container:
