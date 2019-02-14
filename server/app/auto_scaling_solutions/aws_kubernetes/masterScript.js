@@ -24,7 +24,7 @@ exports.getMasterScript= function(kubeData, awsData) {
     'wget -O discoverytoken.txt http://s3.'+ awsData.region +'.amazonaws.com/' + awsData.s3BucketName + '/discoverytoken.txt \n' +
     'sudo rm -r /var/lib/kubelet \n' +
     'rm -r /var/lib/kubelet \n' +
-    'kubeadm join --token "$(< tokenawskube.txt)" "$(< ipawskube.txt)":6443 --discovery-token-ca-cert-hash sha256:"$(< discoverytoken.txt)" --skip-preflight-checks \n' +
+    'kubeadm join --token "$(< tokenawskube.txt)" "$(< ipawskube.txt)":6443 --discovery-token-ca-cert-hash sha256:"$(< discoverytoken.txt)" \n' +
     'su ubuntu \n' +
     'sudo cp /etc/kubernetes/admin.conf $HOME/ \n' +
     'sudo chown $(id -u):$(id -g) $HOME/admin.conf \n' +
