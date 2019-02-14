@@ -60,8 +60,8 @@ exports.getMasterScript= function(kubeData, awsData) {
     'kubectl create -f heapster.yaml \n' +
     'kubectl create -f influxdb.yaml \n' +
     'kubectl create -f web-deployment.yaml \n' +
-    'kubectl autoscale rc movie-deployment --min=' + kubeData.scalingParams.numMinPods + ' --max=' + kubeData.scalingParams.numMaxPods + ' --cpu-percent=' + kubeData.scalingParams.cpuPercent + ' \n' +
-    'kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml \n' +
+    'kubectl autoscale rc movieapp-deployment --min=' + kubeData.scalingParams.numMinPods + ' --max=' + kubeData.scalingParams.numMaxPods + ' --cpu-percent=' + kubeData.scalingParams.cpuPercent + ' \n' +
+    'kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml \n' +
     'sudo fuser -n tcp -k 8001 \n' +
     'kubectl proxy --address=\'0.0.0.0\' --port=8001 --accept-hosts=\'^*$\'& \n' +
     'fi';
